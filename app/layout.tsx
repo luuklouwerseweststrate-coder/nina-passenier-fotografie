@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="nl" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="font-sans">
         <Navigation />
-        <main className="pt-16">{children}</main>
+        <main className="pt-20 lg:pt-24">{children}</main>
         <Footer />
       </body>
     </html>
