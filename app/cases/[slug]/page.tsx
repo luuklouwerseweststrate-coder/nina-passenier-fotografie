@@ -10,7 +10,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const c = cases.find((x) => x.slug === params.slug);
-  return { title: c ? `${c.client} — Nina Passenier` : "Case" };
+  return { title: c ? `${c.client} &mdash; Nina Passenier` : "Case" };
 }
 
 export default function CasePage({ params }: { params: { slug: string } }) {
@@ -18,15 +18,16 @@ export default function CasePage({ params }: { params: { slug: string } }) {
   if (!c) notFound();
 
   const next = cases[(cases.indexOf(c) + 1) % cases.length];
+  const accent = c.type === "bedrijf" ? "oranje" : "groen";
 
   return (
     <>
       <section className="relative aspect-[16/10] lg:aspect-[21/9]">
         <Image src={c.cover} alt={c.client} fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-nina-ink/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-nina-ink/80 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-16 text-nina-cream">
-          <p className="text-xs uppercase tracking-[0.3em] mb-3 text-nina-cream/70">
-            {c.type === "bedrijf" ? "Bedrijfsfotografie" : "Vrij werk"} · {c.year}
+          <p className={`text-xs uppercase tracking-[0.3em] mb-3 ${c.type === "bedrijf" ? "text-nina-oranje" : "text-nina-groen"}`}>
+            {c.type === "bedrijf" ? "Bedrijfsfotografie" : "Vrij werk"} &middot; {c.year}
           </p>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-display leading-tight max-w-4xl">
             {c.client}
@@ -48,12 +49,12 @@ export default function CasePage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28">
-        <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-4">Aanpak</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-nina-petrol mb-4">Aanpak</p>
         <p className="font-serif text-2xl md:text-3xl leading-relaxed tracking-display">{c.approach}</p>
         {c.quote && (
-          <blockquote className="mt-16 border-l border-nina-ink/30 pl-6">
-            <p className="font-serif text-2xl md:text-3xl leading-relaxed">&ldquo;{c.quote.text}&rdquo;</p>
-            <cite className="block mt-4 text-sm text-nina-ink/60 not-italic">— {c.quote.author}</cite>
+          <blockquote className={`mt-16 border-l-4 pl-6 ${c.type === "bedrijf" ? "border-nina-oranje" : "border-nina-groen"}`}>
+            <p className="font-serif italic text-2xl md:text-3xl leading-relaxed">&ldquo;{c.quote.text}&rdquo;</p>
+            <cite className="block mt-4 text-sm text-nina-ink/60 not-italic">&mdash; {c.quote.author}</cite>
           </blockquote>
         )}
       </section>

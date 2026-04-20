@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/Button";
 import PhotoCard from "@/components/PhotoCard";
+import ColorBlob from "@/components/ColorBlob";
 import { artPhotos } from "@/lib/photos";
 
 export const metadata = { title: "Vrij werk — Nina Passenier" };
@@ -29,11 +30,14 @@ const series = [
 export default function VrijWerkPage() {
   return (
     <>
-      <section className="bg-nina-cream">
-        <div className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
-          <p className="text-nina-ink/50 text-xs uppercase tracking-[0.3em] mb-6">Vrij werk</p>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
-            Onderzoek in beeld.
+      <section className="relative overflow-hidden bg-nina-cream">
+        <ColorBlob color="#8FA368" className="w-[55vw] h-[55vw] -top-20 -left-20" />
+        <ColorBlob color="#C9A988" className="w-[40vw] h-[40vw] top-40 -right-20" delay={0.3} />
+
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
+          <p className="text-nina-groen text-xs uppercase tracking-[0.3em] mb-6">Vrij werk</p>
+          <h1 className="font-serif italic text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
+            Onderzoek <br className="hidden md:block" />in beeld.
           </h1>
           <p className="mt-8 text-lg md:text-xl text-nina-ink/70 max-w-2xl leading-relaxed">
             Naast opdrachten werk ik aan eigen series. Langzaam, zonder deadline, zonder vooraf bedacht eindresultaat.
@@ -43,22 +47,24 @@ export default function VrijWerkPage() {
       </section>
 
       {/* Expositie */}
-      <section className="border-t border-nina-ink/10">
-        <div className="mx-auto max-w-7xl px-5 lg:px-10 py-20 lg:py-28">
-          <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-6">Nu te zien</p>
+      <section className="relative overflow-hidden">
+        <ColorBlob color="#E8B544" className="w-[45vw] h-[45vw] -top-20 -right-20" delay={0.2} />
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
+          <p className="text-nina-groen text-xs uppercase tracking-[0.3em] mb-6">Nu te zien</p>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="lg:col-span-7">
-              <h2 className="font-serif text-3xl md:text-5xl tracking-display leading-tight">
-                Expo Nina Passenier — Polderhuis Westkapelle
+              <h2 className="font-serif italic text-3xl md:text-5xl tracking-display leading-tight">
+                Expo Nina Passenier <br className="hidden md:block" />
+                <span className="text-nina-groen">Polderhuis Westkapelle</span>
               </h2>
               <p className="mt-6 text-lg text-nina-ink/70 leading-relaxed max-w-2xl">
                 Een solo-expositie met recent vrij werk in Museum Polderhuis Westkapelle. Een selectie uit lopende series,
                 gepresenteerd in de ruimtes van het museum.
               </p>
               <dl className="mt-8 grid grid-cols-2 gap-y-3 max-w-md text-sm">
-                <dt className="text-nina-ink/50 uppercase tracking-widest text-xs">Locatie</dt>
+                <dt className="text-nina-petrol uppercase tracking-widest text-xs">Locatie</dt>
                 <dd className="text-nina-ink">Museum Polderhuis, Westkapelle</dd>
-                <dt className="text-nina-ink/50 uppercase tracking-widest text-xs">Type</dt>
+                <dt className="text-nina-petrol uppercase tracking-widest text-xs">Type</dt>
                 <dd className="text-nina-ink">Solo-expositie</dd>
               </dl>
               <div className="mt-10">
@@ -66,10 +72,10 @@ export default function VrijWerkPage() {
                   href="https://www.polderhuiswestkapelle.nl/nl/exposities-museum/1663-expo-nina-passenier"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border-b border-nina-ink pb-1 text-sm tracking-wide hover:text-nina-ink/60 hover:border-nina-ink/60 transition-colors"
+                  className="inline-flex items-center gap-2 text-nina-groen hover:text-nina-ink transition-colors border-b border-nina-groen hover:border-nina-ink pb-1 text-sm tracking-wide"
                 >
                   Bekijk expositie op polderhuiswestkapelle.nl
-                  <span aria-hidden>→</span>
+                  <span aria-hidden>&rarr;</span>
                 </a>
               </div>
             </div>
@@ -82,6 +88,7 @@ export default function VrijWerkPage() {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover"
                 />
+                <div className="absolute -bottom-4 -right-4 bg-nina-groen w-24 h-24 -z-0" />
               </div>
             </div>
           </div>
@@ -89,7 +96,7 @@ export default function VrijWerkPage() {
       </section>
 
       {/* Series */}
-      <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32 space-y-24 lg:space-y-32 border-t border-nina-ink/10">
+      <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32 space-y-32 lg:space-y-40">
         {series.map((s, i) => (
           <div
             key={s.title}
@@ -105,22 +112,22 @@ export default function VrijWerkPage() {
               />
             </div>
             <div>
-              <p className="text-nina-ink/50 text-sm tracking-widest">{s.year}</p>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mt-3 tracking-display leading-tight">
+              <p className="text-nina-groen text-sm tracking-widest">{s.year}</p>
+              <h2 className="font-serif italic text-4xl md:text-5xl lg:text-6xl mt-3 tracking-display leading-tight">
                 {s.title}
               </h2>
               <p className="mt-6 text-lg text-nina-ink/70 leading-relaxed">{s.text}</p>
-              <p className="mt-8 text-sm text-nina-ink/50">Serie · analoge fotografie</p>
+              <p className="mt-8 text-sm text-nina-petrol">Serie &middot; analoge fotografie</p>
             </div>
           </div>
         ))}
       </section>
 
       {/* Losse beelden */}
-      <section className="py-24 lg:py-32 border-t border-nina-ink/10">
+      <section className="bg-nina-beige/20 py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-5 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-4">Fragmenten</p>
-          <h2 className="font-serif text-4xl md:text-5xl tracking-display">Losse beelden, tussen series in.</h2>
+          <p className="text-xs uppercase tracking-[0.3em] text-nina-groen mb-4">Fragmenten</p>
+          <h2 className="font-serif text-4xl md:text-5xl tracking-display italic">Losse beelden, tussen series in.</h2>
           <div className="mt-16 columns-1 md:columns-2 lg:columns-3 gap-6 lg:gap-8 space-y-6 lg:space-y-8">
             {artPhotos.concat(artPhotos.slice(0, 3)).map((p, i) => (
               <div key={i} className="break-inside-avoid">
@@ -128,6 +135,7 @@ export default function VrijWerkPage() {
                   src={p.src}
                   alt={p.alt}
                   ratio={i % 3 === 0 ? "portrait" : i % 3 === 1 ? "landscape" : "square"}
+                  accent="groen"
                 />
               </div>
             ))}
@@ -135,15 +143,15 @@ export default function VrijWerkPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-32 text-center border-t border-nina-ink/10">
-        <h2 className="font-serif text-4xl md:text-5xl tracking-display">
+      <section className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-32 text-center">
+        <h2 className="font-serif italic text-4xl md:text-5xl tracking-display">
           Tentoonstellingen, prints of samenwerkingen?
         </h2>
         <p className="mt-6 text-nina-ink/70 text-lg max-w-xl mx-auto">
           Mijn vrije werk is op aanvraag als print beschikbaar. Voor exposities of publicaties sta ik altijd open voor een gesprek.
         </p>
         <div className="mt-10">
-          <Button href="/contact" variant="ink">Neem contact op</Button>
+          <Button href="/contact" variant="groen">Neem contact op</Button>
         </div>
       </section>
     </>

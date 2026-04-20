@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import SectionHeader from "@/components/SectionHeader";
 
-export const metadata = { title: "Werkwijze — Nina Passenier" };
+export const metadata = { title: "Werkwijze &mdash; Nina Passenier" };
 
 const stappen = [
   {
@@ -44,6 +44,7 @@ export default function WerkwijzePage() {
           eyebrow="Werkwijze"
           title="Rustig, voorbereid, en met ruimte voor wat gebeurt."
           lead="Een shoot met mij is geen assemblagelijn. Maar ook geen chaos. Dit is hoe een project meestal loopt."
+          accent="petrol"
         />
       </section>
 
@@ -57,7 +58,7 @@ export default function WerkwijzePage() {
               }`}
             >
               <div className="md:col-span-2">
-                <p className="font-serif text-5xl md:text-6xl text-nina-ink/30">{s.nr}</p>
+                <p className="font-serif text-5xl md:text-6xl text-nina-oranje">{s.nr}</p>
               </div>
               <div className="md:col-span-10">
                 <h3 className="font-serif text-2xl md:text-3xl tracking-display">{s.titel}</h3>
@@ -77,7 +78,7 @@ export default function WerkwijzePage() {
             Geen inschatting nodig vooraf. Eerst een gesprek, dan pas cijfers.
           </p>
           <div className="mt-10">
-            <Button href="/contact" variant="cream">Plan een kennismaking</Button>
+            <Button href="/contact" variant="oranje">Plan een kennismaking</Button>
           </div>
         </div>
       </section>

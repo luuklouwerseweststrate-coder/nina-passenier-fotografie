@@ -57,7 +57,7 @@ export const cases: Case[] = [
     client: "Eigen werk",
     year: "2024",
     type: "kunst",
-    title: "Wachtkamer — een serie over verstilde ruimtes",
+    title: "Wachtkamer &mdash; een serie over verstilde ruimtes",
     intro:
       "Een langlopend project over plekken waar mensen even niet weten wat ze met zichzelf aan moeten. Wachtkamers, stationshallen, gangen.",
     cover: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=2000&q=85",

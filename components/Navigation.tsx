@@ -19,7 +19,7 @@ export default function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Achtergrond-balk (sticky header blijft smal) */}
-      <div className="absolute inset-x-0 top-0 h-20 lg:h-24 bg-nina-cream/85 backdrop-blur-md border-b border-nina-ink/10" />
+      <div className="absolute inset-x-0 top-0 h-20 lg:h-24 bg-nina-cream/85 backdrop-blur-md border-b border-nina-beige/30" />
 
       <nav className="relative mx-auto max-w-7xl px-5 lg:px-10 h-20 lg:h-24 flex items-center justify-between">
         {/* Logo hangt over de balk heen (veel groter dan de header zelf) */}
@@ -33,7 +33,7 @@ export default function Navigation() {
         <ul className="hidden lg:flex items-center gap-8 text-sm text-nina-ink">
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="hover:text-nina-ink/60 transition-colors">
+              <Link href={l.href} className="hover:text-nina-oranje transition-colors">
                 {l.label}
               </Link>
             </li>
@@ -54,14 +54,14 @@ export default function Navigation() {
       </nav>
 
       {open && (
-        <div className="lg:hidden relative border-t border-nina-ink/10 bg-nina-cream">
+        <div className="lg:hidden relative border-t border-nina-beige/30 bg-nina-cream">
           <ul className="px-5 py-6 flex flex-col gap-5">
             {links.map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-serif text-nina-ink hover:text-nina-ink/60"
+                  className="text-2xl font-serif text-nina-ink hover:text-nina-oranje"
                 >
                   {l.label}
                 </Link>

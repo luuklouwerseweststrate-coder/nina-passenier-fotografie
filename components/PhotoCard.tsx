@@ -8,6 +8,7 @@ type Props = {
   meta?: string;
   href?: string;
   ratio?: "portrait" | "landscape" | "square";
+  accent?: "oranje" | "groen" | "geel" | "petrol";
 };
 
 const ratioClasses = {
@@ -16,14 +17,21 @@ const ratioClasses = {
   square: "aspect-square"
 };
 
-export default function PhotoCard({ src, alt, title, meta, href, ratio = "portrait" }: Props) {
+const accentBar = {
+  oranje: "bg-nina-oranje",
+  groen: "bg-nina-groen",
+  geel: "bg-nina-geel",
+  petrol: "bg-nina-petrol"
+};
+
+export default function PhotoCard({ src, alt, title, meta, href, ratio = "portrait", accent }: Props) {
   const Wrapper = href ? Link : "div";
   const wrapperProps = href ? { href } : {};
 
   return (
     // @ts-expect-error polymorphic element
     <Wrapper {...wrapperProps} className="group block">
-      <div className={`relative overflow-hidden bg-nina-ink/5 ${ratioClasses[ratio]}`}>
+      <div className={`relative overflow-hidden bg-nina-beige/20 ${ratioClasses[ratio]}`}>
         <Image
           src={src}
           alt={alt}
@@ -31,6 +39,9 @@ export default function PhotoCard({ src, alt, title, meta, href, ratio = "portra
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        {accent && (
+          <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${accentBar[accent]}`} />
+        )}
       </div>
       {(title || meta) && (
         <div className="mt-3">

@@ -1,39 +1,44 @@
 import Image from "next/image";
 import Button from "@/components/Button";
+import ColorBlob from "@/components/ColorBlob";
 import { ninaPortret, heroStrip } from "@/lib/photos";
 
-export const metadata = { title: "Over Nina — Nina Passenier Fotografie" };
+export const metadata = { title: "Over Nina &mdash; Nina Passenier Fotografie" };
 
 export default function OverPage() {
   return (
     <>
-      <section>
-        <div className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="relative overflow-hidden">
+        <ColorBlob color="#E8913A" className="w-[50vw] h-[50vw] -top-20 -right-20" />
+        <ColorBlob color="#8FA368" className="w-[40vw] h-[40vw] top-60 -left-20" delay={0.3} />
+
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-6">Over Nina</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-nina-petrol mb-6">Over Nina</p>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display">
-              Kijken is kiezen.
+              Kijken is <em className="text-nina-oranje">kiezen</em>.
             </h1>
           </div>
           <div className="lg:col-span-5">
             <div className="relative aspect-[3/4]">
               <Image src={ninaPortret} alt="Nina Passenier" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" priority />
+              <div className="absolute -bottom-4 -right-4 bg-nina-geel w-24 h-24 -z-0" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Verhaal */}
-      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 space-y-8 text-lg leading-relaxed text-nina-ink/80 border-t border-nina-ink/10">
+      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 space-y-8 text-lg leading-relaxed text-nina-ink/80">
         <p>
           Ik ben Nina Passenier, fotograaf in Rotterdam. Ik studeerde fotografie aan de <strong className="text-nina-ink">Willem de Kooning</strong>{" "}
-          en vervolg mijn weg nu op de kunstacademie. Die twee werelden — het commerciële en het autonome — versterken elkaar in mijn werk.
+          en vervolg mijn weg nu op de kunstacademie. Die twee werelden &mdash; het commercieele en het autonome &mdash; versterken elkaar in mijn werk.
         </p>
         <p>
           Voor bedrijven maak ik beeld dat klopt: portretten die iets zeggen, campagnes met karakter, branding die verder gaat dan een productfoto.
           Daarnaast werk ik aan eigen series, waarin ik onderzoek wat beeld kan zijn als je het niet hoeft te verkopen.
         </p>
-        <p className="font-serif text-2xl md:text-3xl text-nina-ink leading-snug">
+        <p className="font-serif italic text-2xl md:text-3xl text-nina-ink leading-snug">
           Wat beide verbindt: een manier van kijken die rustig is, geduldig en net iets scheef.
         </p>
         <p>
@@ -47,14 +52,14 @@ export default function OverPage() {
       </section>
 
       {/* Opleiding & CV */}
-      <section className="border-t border-nina-ink/10 py-20 lg:py-28">
+      <section className="bg-nina-beige/20 py-20 lg:py-28">
         <div className="mx-auto max-w-4xl px-5 lg:px-10 grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-5">Opleiding</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-nina-oranje mb-5">Opleiding</p>
             <ul className="space-y-4 text-sm">
               <li>
                 <p className="font-medium text-nina-ink">Kunstacademie</p>
-                <p className="text-nina-ink/60">Lopend · autonome fotografie</p>
+                <p className="text-nina-ink/60">Lopend &middot; autonome fotografie</p>
               </li>
               <li>
                 <p className="font-medium text-nina-ink">Willem de Kooning, Rotterdam</p>
@@ -63,23 +68,23 @@ export default function OverPage() {
             </ul>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-ink/50 mb-5">Exposities & publicaties</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-nina-groen mb-5">Exposities & publicaties</p>
             <ul className="space-y-4 text-sm">
               <li>
-                <p className="font-medium text-nina-ink">Expo Nina Passenier — Polderhuis Westkapelle</p>
+                <p className="font-medium text-nina-ink">Expo Nina Passenier &mdash; Polderhuis Westkapelle</p>
                 <p className="text-nina-ink/60">
                   <a
                     href="https://www.polderhuiswestkapelle.nl/nl/exposities-museum/1663-expo-nina-passenier"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-nina-ink underline underline-offset-4"
+                    className="hover:text-nina-groen underline underline-offset-4"
                   >
                     Museum Polderhuis Westkapelle
                   </a>
                 </p>
               </li>
               <li>
-                <p className="font-medium text-nina-ink">Wachtkamer — groepsexpositie</p>
+                <p className="font-medium text-nina-ink">Wachtkamer &mdash; groepsexpositie</p>
                 <p className="text-nina-ink/60">Rotterdam, 2025</p>
               </li>
               <li>
@@ -92,7 +97,7 @@ export default function OverPage() {
       </section>
 
       {/* Beeldenstrip */}
-      <section className="py-20 lg:py-28 border-t border-nina-ink/10">
+      <section className="py-20 lg:py-28">
         <div className="scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 lg:px-10 snap-x snap-mandatory">
           {heroStrip.map((p, i) => (
             <div key={i} className="relative shrink-0 w-[70vw] sm:w-[40vw] lg:w-[22vw] aspect-[3/4] snap-start">
@@ -102,7 +107,7 @@ export default function OverPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 text-center border-t border-nina-ink/10">
+      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 text-center">
         <h2 className="font-serif text-4xl md:text-5xl tracking-display leading-tight">
           Benieuwd hoe ik werk?
         </h2>
