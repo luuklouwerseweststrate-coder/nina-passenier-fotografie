@@ -32,7 +32,7 @@ export default function HomePage() {
             Beeld dat <span className="text-nina-geel italic">blijft</span> hangen.
           </h1>
           <p className="text-nina-cream/80 text-lg md:text-xl mt-6 max-w-xl leading-relaxed">
-            Ik maak fotografie voor merken die willen opvallen, en vrije series voor mezelf. Beide uit dezelfde manier van kijken.
+            Ik maak fotografie voor merken die willen opvallen, en kunstfotografie voor projecten en exposities. Beide vanuit dezelfde manier van kijken.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
             <Button href="/bedrijfsfotografie" variant="oranje">Voor bedrijven</Button>
