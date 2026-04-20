@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Nina Passenier Fotografie &mdash; Bedrijfs- en kunstfotografie",
+  title: "Nina Passenier Fotografie — Bedrijfsfotografie en vrij werk",
   description:
-    "Nina Passenier is fotograaf in Rotterdam. Beeld voor merken, portretten, campagnes en autonome kunstfotografie. Studie Willem de Kooning, nu kunstacademie.",
+    "Nina Passenier is fotograaf in Rotterdam. Beeld voor merken, portretten, campagnes en vrij werk. Studie Willem de Kooning, nu kunstacademie.",
   metadataBase: new URL("https://ninapassenier.nl"),
   openGraph: {
     title: "Nina Passenier Fotografie",
-    description: "Bedrijfsfotografie en kunstfotografie uit Rotterdam",
+    description: "Bedrijfsfotografie en vrij werk uit Rotterdam",
     type: "website",
     locale: "nl_NL"
   }

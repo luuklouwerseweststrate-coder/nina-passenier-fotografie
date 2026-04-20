@@ -14,27 +14,27 @@ export default function Footer() {
         <div>
           <p className="text-xs uppercase tracking-widest opacity-60 mb-4">Navigatie</p>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/bedrijfsfotografie" className="hover:text-nina-oranje">Bedrijfsfotografie</Link></li>
-            <li><Link href="/kunstfotografie" className="hover:text-nina-groen">Kunstfotografie</Link></li>
-            <li><Link href="/cases" className="hover:text-nina-geel">Cases</Link></li>
-            <li><Link href="/over" className="hover:text-nina-beige">Over Nina</Link></li>
-            <li><Link href="/contact" className="hover:text-nina-oranje">Contact</Link></li>
+            <li><Link href="/bedrijfsfotografie" className="hover:opacity-70">Bedrijfsfotografie</Link></li>
+            <li><Link href="/vrij-werk" className="hover:opacity-70">Vrij werk</Link></li>
+            <li><Link href="/cases" className="hover:opacity-70">Cases</Link></li>
+            <li><Link href="/over" className="hover:opacity-70">Over Nina</Link></li>
+            <li><Link href="/contact" className="hover:opacity-70">Contact</Link></li>
           </ul>
         </div>
 
         <div>
           <p className="text-xs uppercase tracking-widest opacity-60 mb-4">Contact</p>
           <ul className="space-y-2 text-sm">
-            <li><a href="mailto:hallo@ninapassenier.nl" className="hover:text-nina-oranje">hallo@ninapassenier.nl</a></li>
-            <li><a href="https://instagram.com" className="hover:text-nina-oranje">Instagram</a></li>
+            <li><a href="mailto:hallo@ninapassenier.nl" className="hover:opacity-70">hallo@ninapassenier.nl</a></li>
+            <li><a href="https://instagram.com" className="hover:opacity-70">Instagram</a></li>
             <li className="opacity-70">Rotterdam, NL</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-5 lg:px-10 py-6 text-xs opacity-50 flex flex-col md:flex-row justify-between gap-2">
-          <span>&copy; {new Date().getFullYear()} Nina Passenier Fotografie</span>
-          <span>KvK &middot; BTW &middot; Algemene voorwaarden</span>
+          <span>© {new Date().getFullYear()} Nina Passenier Fotografie</span>
+          <span>KvK · BTW · Algemene voorwaarden</span>
         </div>
       </div>
     </footer>

@@ -2,22 +2,13 @@ type Props = {
   eyebrow?: string;
   title: string;
   lead?: string;
-  accent?: "oranje" | "groen" | "geel" | "petrol" | "beige";
 };
 
-const accentColor = {
-  oranje: "text-nina-oranje",
-  groen: "text-nina-groen",
-  geel: "text-nina-geel",
-  petrol: "text-nina-petrol",
-  beige: "text-nina-beige"
-};
-
-export default function SectionHeader({ eyebrow, title, lead, accent = "oranje" }: Props) {
+export default function SectionHeader({ eyebrow, title, lead }: Props) {
   return (
     <div className="max-w-3xl">
       {eyebrow && (
-        <p className={`text-xs uppercase tracking-[0.3em] mb-4 ${accentColor[accent]}`}>
+        <p className="text-xs uppercase tracking-[0.3em] mb-4 text-nina-ink/50">
           {eyebrow}
         </p>
       )}

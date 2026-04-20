@@ -19,26 +19,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Selectie kleur uit logo-palet */
 ::selection {
-  background: #E8913A;
+  background: #1A1A1A;
   color: #FAF7F2;
-}
-
-/* Custom scrollbar, subtiel */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #FAF7F2;
-}
-::-webkit-scrollbar-thumb {
-  background: #C9A988;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3E6773;
 }
 
 /* Horizontale scroll-strip zonder zichtbare scrollbar op mobiel */
