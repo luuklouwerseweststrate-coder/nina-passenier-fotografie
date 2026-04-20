@@ -44,7 +44,7 @@ export default function HomePage() {
       {/* Intro */}
       <section className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-32 text-center">
         <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-display">
-          Ik ben Nina. Ik fotografeer <span className="text-nina-oranje">merken</span> en maak <span className="text-nina-groen">kunstfotografie</span>.
+          Ik ben Nina. Ik fotografeer <span className="text-nina-oranje">bedrijven</span> en maak <span className="text-nina-groen">kunstfotografie</span>.
           Die twee werelden versterken elkaar in alles wat ik doe.
         </p>
       </section>
