@@ -25,9 +25,9 @@ export default function Navigation() {
         {/* Logo hangt over de balk heen (veel groter dan de header zelf) */}
         <Link href="/" aria-label="Home" className="block relative">
           <Logo
-            priority
-            className="h-24 md:h-32 lg:h-40 xl:h-48 w-auto drop-shadow-sm"
-          />
+  priority
+  className="h-16 md:h-20 lg:h-24 xl:h-28 w-auto drop-shadow-sm"
+/>
         </Link>
 
         <ul className="hidden lg:flex items-center gap-8 text-sm text-nina-ink">
