@@ -4,7 +4,9 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "source.unsplash.com" },
-      { protocol: "https", hostname: "www.polderhuiswestkapelle.nl" }
+      { protocol: "https", hostname: "www.polderhuiswestkapelle.nl" },
+      // Sanity afbeelding CDN
+      { protocol: "https", hostname: "cdn.sanity.io" }
     ]
   }
 };

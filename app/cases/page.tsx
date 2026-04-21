@@ -1,11 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
-import { cases } from "@/lib/cases";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { casesQuery } from "@/sanity/lib/queries";
+import { cases as fallbackCases } from "@/lib/cases";
 
 export const metadata = { title: "Cases &mdash; Nina Passenier" };
+export const revalidate = 3600;
 
-export default function CasesPage() {
+export default async function CasesPage() {
+  const sanityCases = await client.fetch(casesQuery).catch(() => []);
+
+  const cases =
+    sanityCases.length > 0
+      ? sanityCases.map((c: any) => ({
+          slug: c.slug?.current,
+          client: c.client,
+          year: c.year,
+          type: c.type,
+          title: c.title,
+          cover: urlFor(c.cover).width(2000).quality(85).url(),
+        }))
+      : fallbackCases.map((c) => ({
+          slug: c.slug,
+          client: c.client,
+          year: c.year,
+          type: c.type,
+          title: c.title,
+          cover: c.cover,
+        }));
+
   return (
     <>
       <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">

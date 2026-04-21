@@ -5,9 +5,13 @@ import SectionHeader from "@/components/SectionHeader";
 import ColorBlob from "@/components/ColorBlob";
 import FadeIn from "@/components/FadeIn";
 import SectionLabel from "@/components/SectionLabel";
-import { businessPhotos } from "@/lib/photos";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { businessPhotosQuery } from "@/sanity/lib/queries";
+import { businessPhotos as fallbackBusinessPhotos } from "@/lib/photos";
 
 export const metadata = { title: "Bedrijfsfotografie &mdash; Nina Passenier" };
+export const revalidate = 3600;
 
 const diensten = [
   { title: "Brand portretten", desc: "Portretten voor teams, oprichters en makers. Geen stockbeeld, wel persoonlijkheid." },
@@ -18,7 +22,21 @@ const diensten = [
   { title: "Producten in context", desc: "Productfotografie die laat zien hoe iets wordt gebruikt, niet alleen hoe het eruitziet." }
 ];
 
-export default function BedrijfsfotografiePage() {
+export default async function BedrijfsfotografiePage() {
+  const sanityPhotos = await client.fetch(businessPhotosQuery).catch(() => []);
+
+  const businessPhotos =
+    sanityPhotos.length > 0
+      ? sanityPhotos.map((p: any) => ({
+          src: urlFor(p.image).width(1600).quality(80).url(),
+          alt: p.alt,
+          title: p.title,
+          meta: p.meta,
+        }))
+      : fallbackBusinessPhotos;
+
+  const horecaPhoto = businessPhotos[1]?.src ?? businessPhotos[0].src;
+
   return (
     <>
       <section className="relative overflow-hidden bg-nina-cream">
@@ -83,7 +101,7 @@ export default function BedrijfsfotografiePage() {
             <FadeIn delay={0.2}>
               <div className="relative aspect-[4/5]">
                 <Image
-                  src={businessPhotos[1]?.src ?? businessPhotos[0].src}
+                  src={horecaPhoto}
                   alt="Horecafotografie Nina Passenier"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
