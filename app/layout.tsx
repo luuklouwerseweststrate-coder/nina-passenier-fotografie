@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Nina Passenier Fotografie &mdash; Bedrijfsfotografie en vrij werk",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="nl" className={`${dmSans.variable} ${dmSerif.variable}`}>
       <body className="font-sans">
         <Navigation />
         <main className="pt-20 lg:pt-24">{children}</main>

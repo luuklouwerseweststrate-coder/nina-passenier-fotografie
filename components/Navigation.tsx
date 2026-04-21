@@ -33,7 +33,7 @@ export default function Navigation() {
         <ul className="hidden lg:flex items-center gap-8 text-sm text-nina-ink">
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="hover:text-nina-oranje transition-colors">
+              <Link href={l.href} className="relative text-nina-ink/70 hover:text-nina-ink transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-nina-oranje after:transition-[width] after:duration-300 hover:after:w-full">
                 {l.label}
               </Link>
             </li>
