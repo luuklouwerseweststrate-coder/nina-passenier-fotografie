@@ -94,8 +94,10 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden overflow-hidden border-t border-nina-beige/40 bg-nina-cream shadow-xl"
+            className="lg:hidden overflow-hidden border-t border-nina-beige/30 shadow-2xl"
           >
+            {/* Aparte achtergrond div zodat backdrop-blur werkt ook met overflow-hidden parent */}
+            <div className="absolute inset-0 bg-nina-cream/80 backdrop-blur-xl -z-10" />
             <ul className="px-5 py-8 flex flex-col gap-1">
               {links.map((l, i) => {
                 const active = pathname === l.href;
