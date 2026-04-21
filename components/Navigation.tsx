@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo";
 
 const links = [
-  { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie", sub: "Zakelijk" },
-  { href: "/vrij-werk",          label: "Vrij werk",          sub: "Autonoom" },
-  { href: "/cases",              label: "Cases",               sub: "Portfolio" },
-  { href: "/over",               label: "Over Nina",           sub: "" },
-  { href: "/werkwijze",          label: "Werkwijze",           sub: "" },
-  { href: "/contact",            label: "Contact",             sub: "" },
+  { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
+  { href: "/vrij-werk",          label: "Vrij werk" },
+  { href: "/cases",              label: "Cases" },
+  { href: "/over",               label: "Over Nina" },
+  { href: "/werkwijze",          label: "Werkwijze" },
+  { href: "/contact",            label: "Contact" },
 ];
 
 export default function Navigation() {
@@ -25,47 +25,53 @@ export default function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    if (pathname === "/" && !open) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    if (open) setOpen(false);
-  };
-
   return (
     <>
-      {/* Smalle topbar — altijd zichtbaar */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-[#f5f4f1] border-b border-black/8 flex items-center px-5 lg:px-8 justify-between">
-        <Link href="/" onClick={handleLogoClick} className="block">
-          <Logo priority className={`h-9 w-auto transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`} />
-        </Link>
+      {/* Topbar: hamburger links — logo midden — contact rechts */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-[#f5f4f1]/95 backdrop-blur-sm border-b border-black/8 grid grid-cols-3 items-center px-5 lg:px-8">
 
-        {/* Hamburger — altijd, ook op desktop */}
+        {/* Links: hamburger */}
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? "Sluiten" : "Menu"}
-          className="z-50 relative flex flex-col gap-[5px] items-end justify-center w-8 h-8"
+          className="flex flex-col gap-[5px] justify-center w-8 h-8 z-50 relative"
         >
           <motion.span
-            animate={open ? { rotate: 45, y: 7, width: "28px", backgroundColor: "#fff" } : { rotate: 0, y: 0, width: "28px", backgroundColor: "#1a1a1a" }}
+            animate={open ? { rotate: 45, y: 6.5, backgroundColor: "#fff" } : { rotate: 0, y: 0, backgroundColor: "#1a1a1a" }}
             transition={{ duration: 0.22 }}
-            className="block h-[1.5px] origin-center rounded-full"
+            className="block h-[1.5px] w-6 origin-center rounded-full"
           />
           <motion.span
-            animate={open ? { opacity: 0, width: "0px" } : { opacity: 1, width: "20px", backgroundColor: "#1a1a1a" }}
+            animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1, backgroundColor: "#1a1a1a" }}
             transition={{ duration: 0.18 }}
-            className="block h-[1.5px] rounded-full"
+            className="block h-[1.5px] w-4 rounded-full"
           />
           <motion.span
-            animate={open ? { rotate: -45, y: -7, width: "28px", backgroundColor: "#fff" } : { rotate: 0, y: 0, width: "28px", backgroundColor: "#1a1a1a" }}
+            animate={open ? { rotate: -45, y: -6.5, backgroundColor: "#fff" } : { rotate: 0, y: 0, backgroundColor: "#1a1a1a" }}
             transition={{ duration: 0.22 }}
-            className="block h-[1.5px] origin-center rounded-full"
+            className="block h-[1.5px] w-6 origin-center rounded-full"
           />
         </button>
+
+        {/* Midden: logo */}
+        <div className="flex justify-center">
+          <Link href="/" aria-label="Home">
+            <Logo priority className={`h-8 w-auto transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`} />
+          </Link>
+        </div>
+
+        {/* Rechts: contact link (desktop) */}
+        <div className="flex justify-end">
+          <Link
+            href="/contact"
+            className="hidden sm:block text-[10px] uppercase tracking-[0.3em] text-black/35 hover:text-black transition-colors"
+          >
+            Contact
+          </Link>
+        </div>
       </header>
 
-      {/* Full-screen overlay */}
+      {/* Full-screen overlay menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -76,41 +82,31 @@ export default function Navigation() {
             className="fixed inset-0 z-40 bg-[#1a1a1a] flex flex-col"
           >
             <nav className="flex flex-col justify-center flex-1 px-8 lg:px-16 pt-14">
-              {links.map((l, i) => {
-                const active = pathname === l.href;
-                return (
-                  <motion.div
-                    key={l.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="border-b border-white/10"
+              {links.map((l, i) => (
+                <motion.div
+                  key={l.href}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-white/10"
+                >
+                  <Link
+                    href={l.href}
+                    className={`block py-5 lg:py-6 font-serif italic text-3xl lg:text-5xl transition-colors ${pathname === l.href ? "text-white" : "text-white/45 hover:text-white"}`}
                   >
-                    <Link
-                      href={l.href}
-                      className={`flex items-baseline justify-between py-5 lg:py-6 group transition-colors ${active ? "text-white" : "text-white/50 hover:text-white"}`}
-                    >
-                      <span className="font-serif italic text-3xl lg:text-5xl leading-none">{l.label}</span>
-                      {l.sub && (
-                        <span className="text-[10px] uppercase tracking-[0.3em] text-white/25 group-hover:text-white/50 transition-colors">
-                          {l.sub}
-                        </span>
-                      )}
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                    {l.label}
+                  </Link>
+                </motion.div>
+              ))}
             </nav>
-
-            <motion.div
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.3 }}
-              className="px-8 lg:px-16 pb-8 flex justify-between items-end text-[10px] uppercase tracking-[0.3em] text-white/20"
+              transition={{ delay: 0.35 }}
+              className="px-8 lg:px-16 pb-8 text-[10px] uppercase tracking-[0.3em] text-white/20"
             >
-              <span>Rotterdam</span>
-              <span>Nina Passenier Fotografie</span>
-            </motion.div>
+              Rotterdam — Nina Passenier Fotografie
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
