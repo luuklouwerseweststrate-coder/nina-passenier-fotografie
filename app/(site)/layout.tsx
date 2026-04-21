@@ -7,7 +7,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <ScrollProgress />
       <Navigation />
-      <main className="pt-20 lg:pt-24">{children}</main>
+      <main>{children}</main>
       <Footer />
     </>
   );

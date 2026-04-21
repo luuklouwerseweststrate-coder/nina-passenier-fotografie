@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background: var(--nina-cream);
-  color: var(--nina-ink);
+  background: #f5f4f1;
+  color: #1a1a1a;
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
