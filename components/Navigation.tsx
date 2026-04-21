@@ -38,10 +38,9 @@ export default function Navigation() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${scrolled ? "shadow-sm" : ""}`}>
-      <div className={`absolute inset-x-0 top-0 h-20 lg:h-24 transition-colors duration-300 border-b border-nina-beige/30 ${scrolled ? "bg-nina-cream/95 backdrop-blur-md" : "bg-nina-cream/85 backdrop-blur-md"}`} />
+    <header className={`fixed top-0 left-0 right-0 z-50 h-20 lg:h-24 border-b border-nina-beige/30 backdrop-blur-md transition-all duration-300 ${scrolled ? "bg-nina-cream/95 shadow-sm" : "bg-nina-cream/85"}`}>
 
-      <nav className="relative mx-auto max-w-7xl px-5 lg:px-10 h-20 lg:h-24 flex items-center justify-between">
+      <nav className="mx-auto max-w-7xl px-5 lg:px-10 h-full flex items-center justify-between">
         <Link href="/" onClick={handleLogoClick} aria-label="Home – scroll naar boven" className="block relative">
           <Logo priority className="h-14 md:h-16 lg:h-16 w-auto drop-shadow-sm" />
         </Link>
