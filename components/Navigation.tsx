@@ -94,7 +94,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden overflow-hidden border-t border-nina-beige/40 bg-nina-cream/92 backdrop-blur-xl shadow-xl"
+            className="lg:hidden overflow-hidden border-t border-nina-beige/40 bg-nina-cream shadow-xl"
           >
             <ul className="px-5 py-8 flex flex-col gap-1">
               {links.map((l, i) => {
