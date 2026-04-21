@@ -61,6 +61,24 @@ export default defineType({
       group: "afbeeldingen",
     }),
 
+    // ── HERO BADGE ────────────────────────────────────
+    defineField({
+      name: "beschikbaar",
+      title: "Homepage — beschikbaarheidsbadge tonen",
+      type: "boolean",
+      description: "📍 Homepage · Toont de groene 'Beschikbaar voor opdrachten' badge op de hero. Zet uit als je volgeboekt bent.",
+      initialValue: true,
+      group: "homepage",
+    }),
+    defineField({
+      name: "beschikbaarTekst",
+      title: "Homepage — badge tekst",
+      type: "string",
+      placeholder: "Rotterdam · Beschikbaar voor opdrachten",
+      description: "📍 Homepage · Tekst in de groene badge bovenaan",
+      group: "homepage",
+    }),
+
     // ── UITGELICHT PROJECT ────────────────────────────
     defineField({
       name: "featuredCase",
@@ -157,6 +175,36 @@ export default defineType({
       rows: 3,
       placeholder: "Ik fotografeer voor bedrijven, merken…",
       description: "📍 Bedrijfsfotografie · De tekst onder de grote titel",
+      group: "bedrijf",
+    }),
+    defineField({
+      name: "diensten",
+      title: "Bedrijfsfotografie — diensten (6 kaartjes)",
+      type: "array",
+      description: "📍 Bedrijfsfotografie · De 6 diensten-kaartjes in het midden van de pagina",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "title", title: "Naam dienst", type: "string", validation: r => r.required() }),
+          defineField({ name: "desc", title: "Omschrijving", type: "text", rows: 2 }),
+        ],
+        preview: { select: { title: "title", subtitle: "desc" } },
+      }],
+      group: "bedrijf",
+    }),
+    defineField({
+      name: "werkwijzeStappen",
+      title: "Werkwijze — stappen",
+      type: "array",
+      description: "📍 Werkwijze · De genummerde stappen op de werkwijze-pagina",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "titel", title: "Stap naam", type: "string", validation: r => r.required() }),
+          defineField({ name: "tekst", title: "Omschrijving", type: "text", rows: 3 }),
+        ],
+        preview: { select: { title: "titel", subtitle: "tekst" } },
+      }],
       group: "bedrijf",
     }),
 

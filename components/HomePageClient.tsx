@@ -21,6 +21,8 @@ type Props = {
   heroTagline?: string;
   heroSubtitel?: string;
   introTekst?: string;
+  beschikbaar?: boolean;
+  beschikbaarTekst?: string;
 };
 
 export default function HomePageClient({
@@ -33,20 +35,24 @@ export default function HomePageClient({
   heroTagline,
   heroSubtitel,
   introTekst,
+  beschikbaar = true,
+  beschikbaarTekst,
 }: Props) {
   return (
     <>
       {/* Hero met parallax */}
       <ParallaxHero src={heroImage} alt="Nina Passenier aan het werk">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-nina-cream/80 text-xs tracking-wide mb-5"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-nina-groen animate-pulse shrink-0" />
-          Rotterdam &middot; Beschikbaar voor opdrachten
-        </motion.div>
+        {beschikbaar !== false && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-nina-cream/80 text-xs tracking-wide mb-5"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-nina-groen animate-pulse shrink-0" />
+            {beschikbaarTekst || "Rotterdam · Beschikbaar voor opdrachten"}
+          </motion.div>
+        )}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

@@ -80,6 +80,8 @@ export default async function HomePage() {
       heroTagline={settings?.heroTagline}
       heroSubtitel={settings?.heroSubtitel}
       introTekst={settings?.introTekst}
+      beschikbaar={settings?.beschikbaar}
+      beschikbaarTekst={settings?.beschikbaarTekst}
     />
   );
 }

@@ -13,7 +13,7 @@ import { businessPhotos as fallbackBusinessPhotos } from "@/lib/photos";
 export const metadata = { title: "Bedrijfsfotografie &mdash; Nina Passenier" };
 export const revalidate = 3600;
 
-const diensten = [
+const fallbackDiensten = [
   { title: "Brand portretten", desc: "Portretten voor teams, oprichters en makers. Geen stockbeeld, wel persoonlijkheid." },
   { title: "Campagne shoots", desc: "Seizoenscampagnes voor kleding, lifestyle en design merken. On-location of in studio." },
   { title: "Branding & sfeer", desc: "Beeld dat een merk in zijn geheel vertelt: product, mensen, proces, werkruimte." },
@@ -39,6 +39,8 @@ export default async function BedrijfsfotografiePage() {
           meta: p.meta,
         }))
       : fallbackBusinessPhotos;
+
+  const diensten = settings?.diensten?.length > 0 ? settings.diensten : fallbackDiensten;
 
   const horecaPhoto = settings?.horecaPhoto
     ? urlFor(settings.horecaPhoto).width(1200).quality(85).url()

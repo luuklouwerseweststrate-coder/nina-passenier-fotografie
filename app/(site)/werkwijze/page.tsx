@@ -1,42 +1,24 @@
 import Button from "@/components/Button";
 import SectionHeader from "@/components/SectionHeader";
+import { client } from "@/sanity/lib/client";
+import { settingsQuery } from "@/sanity/lib/queries";
 
-export const metadata = { title: "Werkwijze &mdash; Nina Passenier" };
+export const metadata = { title: "Werkwijze — Nina Passenier" };
+export const revalidate = 3600;
 
-const stappen = [
-  {
-    nr: "01",
-    titel: "Kennismaking",
-    tekst: "We drinken koffie, je vertelt wat je wilt maken en voor wie. Geen shot list, nog geen datum. Ik luister vooral."
-  },
-  {
-    nr: "02",
-    titel: "Voorstel & moodboard",
-    tekst: "Op basis van het gesprek maak ik een voorstel met richting, locatie-ideeen, planning en prijs. Meestal korter dan je verwacht."
-  },
-  {
-    nr: "03",
-    titel: "Voorbereiding",
-    tekst: "Locatie scouten, styling afstemmen, planning rond. Ik regel wat ik kan, jij houdt tijd over voor wat jij moet doen."
-  },
-  {
-    nr: "04",
-    titel: "De shoot zelf",
-    tekst: "Op de dag zelf werk ik het liefst rustig en geduldig. Ik laat ruimte voor toeval. De beste frames zijn bijna nooit gepland."
-  },
-  {
-    nr: "05",
-    titel: "Selectie & bewerking",
-    tekst: "Binnen een week ontvang je een eerste selectie. Na jouw feedback bewerk ik de definitieve beelden, in jouw merkstijl."
-  },
-  {
-    nr: "06",
-    titel: "Oplevering",
-    tekst: "Digitale oplevering in alle benodigde formaten. Web, social, print, waar je het maar voor nodig hebt."
-  }
+const fallbackStappen = [
+  { titel: "Kennismaking", tekst: "We drinken koffie, je vertelt wat je wilt maken en voor wie. Geen shot list, nog geen datum. Ik luister vooral." },
+  { titel: "Voorstel & moodboard", tekst: "Op basis van het gesprek maak ik een voorstel met richting, locatie-ideeen, planning en prijs. Meestal korter dan je verwacht." },
+  { titel: "Voorbereiding", tekst: "Locatie scouten, styling afstemmen, planning rond. Ik regel wat ik kan, jij houdt tijd over voor wat jij moet doen." },
+  { titel: "De shoot zelf", tekst: "Op de dag zelf werk ik het liefst rustig en geduldig. Ik laat ruimte voor toeval. De beste frames zijn bijna nooit gepland." },
+  { titel: "Selectie & bewerking", tekst: "Binnen een week ontvang je een eerste selectie. Na jouw feedback bewerk ik de definitieve beelden, in jouw merkstijl." },
+  { titel: "Oplevering", tekst: "Digitale oplevering in alle benodigde formaten. Web, social, print, waar je het maar voor nodig hebt." },
 ];
 
-export default function WerkwijzePage() {
+export default async function WerkwijzePage() {
+  const settings = await client.fetch(settingsQuery).catch(() => null);
+  const stappen = settings?.werkwijzeStappen?.length > 0 ? settings.werkwijzeStappen : fallbackStappen;
+
   return (
     <>
       <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
@@ -50,15 +32,17 @@ export default function WerkwijzePage() {
 
       <section className="mx-auto max-w-5xl px-5 lg:px-10 pb-24 lg:pb-32">
         <div className="space-y-0">
-          {stappen.map((s, i) => (
+          {stappen.map((s: { titel: string; tekst: string }, i: number) => (
             <div
-              key={s.nr}
+              key={i}
               className={`grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 lg:py-14 border-t border-nina-ink/10 ${
                 i === stappen.length - 1 ? "border-b" : ""
               }`}
             >
               <div className="md:col-span-2">
-                <p className="font-serif text-5xl md:text-6xl text-nina-oranje">{s.nr}</p>
+                <p className="font-serif text-5xl md:text-6xl text-nina-oranje">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
               </div>
               <div className="md:col-span-10">
                 <h3 className="font-serif text-2xl md:text-3xl tracking-display">{s.titel}</h3>
