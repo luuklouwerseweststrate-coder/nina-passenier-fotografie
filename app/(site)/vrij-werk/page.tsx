@@ -68,7 +68,6 @@ export default async function VrijWerkPage() {
     client.fetch(settingsQuery).catch(() => null),
   ]);
 
-  // Foto's voor de fragmenten-sectie
   const artPhotos =
     sanityArtPhotos.length > 0
       ? sanityArtPhotos.map((p: any) => ({
@@ -77,7 +76,6 @@ export default async function VrijWerkPage() {
         }))
       : fallbackArtPhotos.map((p) => ({ src: p.src, alt: p.alt }));
 
-  // Series
   const series =
     sanitySeries.length > 0
       ? sanitySeries.map((s: any) => ({
@@ -88,7 +86,6 @@ export default async function VrijWerkPage() {
         }))
       : fallbackSeries;
 
-  // Expositie
   const expo = sanityExhibition
     ? {
         ...sanityExhibition,
@@ -96,7 +93,6 @@ export default async function VrijWerkPage() {
       }
     : fallbackExhibition;
 
-  // Pers
   const press = sanityPress.length > 0 ? sanityPress : fallbackPress;
 
   return (
