@@ -1,11 +1,24 @@
 import Image from "next/image";
 import Button from "@/components/Button";
 import ColorBlob from "@/components/ColorBlob";
-import { ninaPortret, heroStrip } from "@/lib/photos";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { settingsQuery } from "@/sanity/lib/queries";
+import { ninaPortret as fallbackPortret, heroStrip as fallbackStrip } from "@/lib/photos";
 
 export const metadata = { title: "Over Nina &mdash; Nina Passenier Fotografie" };
+export const revalidate = 3600;
 
-export default function OverPage() {
+export default async function OverPage() {
+  const settings = await client.fetch(settingsQuery).catch(() => null);
+
+  const ninaPortret = settings?.ninaPortret
+    ? urlFor(settings.ninaPortret).width(1200).quality(85).url()
+    : fallbackPortret;
+
+  const heroStrip = settings?.heroStrip?.length > 0
+    ? settings.heroStrip.map((img: any) => ({ src: urlFor(img).width(1200).quality(80).url(), alt: img.alt || "Foto Nina Passenier" }))
+    : fallbackStrip;
   return (
     <>
       <section className="relative overflow-hidden">
