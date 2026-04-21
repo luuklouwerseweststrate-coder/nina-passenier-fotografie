@@ -22,10 +22,12 @@ const diensten = [
   { title: "Producten in context", desc: "Productfotografie die laat zien hoe iets wordt gebruikt, niet alleen hoe het eruitziet." }
 ];
 
+type PhotoItem = { src: string; alt: string; title?: string; meta?: string };
+
 export default async function BedrijfsfotografiePage() {
   const sanityPhotos = await client.fetch(businessPhotosQuery).catch(() => []);
 
-  const businessPhotos =
+  const businessPhotos: PhotoItem[] =
     sanityPhotos.length > 0
       ? sanityPhotos.map((p: any) => ({
           src: urlFor(p.image).width(1600).quality(80).url(),
