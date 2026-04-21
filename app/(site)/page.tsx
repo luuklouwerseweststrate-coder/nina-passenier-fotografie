@@ -82,6 +82,8 @@ export default async function HomePage() {
       introTekst={settings?.introTekst}
       beschikbaar={settings?.beschikbaar}
       beschikbaarTekst={settings?.beschikbaarTekst}
+      igFeedBedrijf={process.env.NEXT_PUBLIC_IG_FEED_BEDRIJF}
+      igFeedVrijwerk={process.env.NEXT_PUBLIC_IG_FEED_VRIJWERK}
     />
   );
 }

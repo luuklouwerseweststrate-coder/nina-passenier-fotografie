@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import FadeIn from "@/components/FadeIn";
 import SectionLabel from "@/components/SectionLabel";
 import ParallaxHero from "@/components/ParallaxHero";
+import InstagramFeed from "@/components/InstagramFeed";
 
 type StripPhoto = { src: string; alt: string };
 type FeaturedCase = { cover: string; client: string; intro: string; slug: string };
@@ -23,6 +24,8 @@ type Props = {
   introTekst?: string;
   beschikbaar?: boolean;
   beschikbaarTekst?: string;
+  igFeedBedrijf?: string;
+  igFeedVrijwerk?: string;
 };
 
 export default function HomePageClient({
@@ -37,6 +40,8 @@ export default function HomePageClient({
   introTekst,
   beschikbaar = true,
   beschikbaarTekst,
+  igFeedBedrijf,
+  igFeedVrijwerk,
 }: Props) {
   return (
     <>
@@ -219,21 +224,65 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Beeldenstrip */}
-      <section className="py-24 lg:py-36">
+      {/* Foto collage — desktop scattered, mobiel horizontale strip */}
+      <section className="py-24 lg:py-36 overflow-hidden">
         <FadeIn className="mx-auto max-w-7xl px-5 lg:px-10 mb-10">
           <SectionLabel nr="04" label="Recent werk" />
           <h2 className="font-serif text-4xl md:text-5xl tracking-display">Een greep uit beide werelden</h2>
         </FadeIn>
+
+        {/* Desktop: collage */}
+        <div className="hidden lg:block relative mx-auto max-w-7xl px-10" style={{ height: "90vh" }}>
+          {heroStrip.slice(0, 7).map((p, i) => {
+            const positions = [
+              { top: "2%",  left: "0%",   w: "26%", rotate: "-2.5deg", aspect: "3/4" },
+              { top: "5%",  left: "22%",  w: "32%", rotate: "1deg",    aspect: "4/3" },
+              { top: "0%",  left: "56%",  w: "20%", rotate: "-1deg",   aspect: "3/4" },
+              { top: "42%", left: "62%",  w: "28%", rotate: "2deg",    aspect: "3/4" },
+              { top: "38%", left: "22%",  w: "24%", rotate: "-1.5deg", aspect: "4/3" },
+              { top: "48%", left: "0%",   w: "20%", rotate: "1.5deg",  aspect: "3/4" },
+              { top: "10%", left: "76%",  w: "22%", rotate: "-0.5deg", aspect: "3/2" },
+            ];
+            const pos = positions[i];
+            if (!pos) return null;
+            const [aw, ah] = pos.aspect.split("/").map(Number);
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  position: "absolute",
+                  top: pos.top,
+                  left: pos.left,
+                  width: pos.w,
+                  aspectRatio: `${aw}/${ah}`,
+                  rotate: pos.rotate,
+                }}
+                whileHover={{ scale: 1.03, zIndex: 10 }}
+                className="overflow-hidden shadow-lg cursor-pointer"
+              >
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  fill
+                  sizes="30vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Mobiel: horizontale strip */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.07 } }
-          }}
-          className="scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 lg:px-10 snap-x snap-mandatory"
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
+          className="lg:hidden scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 snap-x snap-mandatory"
         >
           {heroStrip.map((p, i) => (
             <motion.div
@@ -242,23 +291,45 @@ export default function HomePageClient({
                 hidden: { opacity: 0, y: 24 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
               }}
-              className="relative shrink-0 w-[75vw] sm:w-[45vw] lg:w-[28vw] aspect-[3/4] snap-start overflow-hidden group"
+              className="relative shrink-0 w-[75vw] sm:w-[45vw] aspect-[3/4] snap-start overflow-hidden"
             >
               <Image
                 src={p.src}
                 alt={p.alt}
                 fill
-                sizes="(max-width: 640px) 75vw, (max-width: 1024px) 45vw, 28vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                sizes="75vw"
+                className="object-cover"
               />
             </motion.div>
           ))}
         </motion.div>
       </section>
 
+      {/* Instagram feeds */}
+      {(igFeedBedrijf || igFeedVrijwerk) && (
+        <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
+          <FadeIn>
+            <SectionLabel nr="05" label="Instagram" />
+            <h2 className="font-serif text-4xl md:text-5xl tracking-display mb-16">Volg het werk</h2>
+          </FadeIn>
+          <div className={`grid gap-16 ${igFeedBedrijf && igFeedVrijwerk ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+            {igFeedBedrijf && (
+              <FadeIn>
+                <InstagramFeed feedId={igFeedBedrijf} handle="nina.bedrijfsfotografie" label="Bedrijfsfotografie" />
+              </FadeIn>
+            )}
+            {igFeedVrijwerk && (
+              <FadeIn delay={0.1}>
+                <InstagramFeed feedId={igFeedVrijwerk} handle="ninapassenierfotografie" label="Vrij werk" />
+              </FadeIn>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Contact CTA */}
       <FadeIn as="section" className="mx-auto max-w-5xl px-5 lg:px-10 py-24 lg:py-36 text-center">
-        <SectionLabel nr="05" label="Contact" className="justify-center" />
+        <SectionLabel nr="06" label="Contact" className="justify-center" />
         <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-display leading-[1.05]">
           Zullen we <em className="text-nina-oranje">koffie</em> drinken?
         </h2>

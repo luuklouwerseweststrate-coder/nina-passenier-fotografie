@@ -20,15 +20,19 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Sluit menu bij routewijziging
   useEffect(() => { setOpen(false); }, [pathname]);
 
-  // Header wordt iets donkerder na scrollen
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  // Vergrendel body scroll als menu open is
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
   const handleLogoClick = (e: React.MouseEvent) => {
     if (pathname === "/") {
@@ -38,91 +42,101 @@ export default function Navigation() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-20 lg:h-24 border-b border-nina-beige/30 backdrop-blur-md transition-all duration-300 ${scrolled ? "bg-nina-cream/95 shadow-sm" : "bg-nina-cream/85"}`}>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 h-20 lg:h-24 border-b border-nina-beige/30 backdrop-blur-md transition-all duration-300 ${scrolled ? "bg-nina-cream/95 shadow-sm" : "bg-nina-cream/85"}`}>
+        <nav className="mx-auto max-w-7xl px-5 lg:px-10 h-full flex items-center justify-between">
+          <Link href="/" onClick={handleLogoClick} aria-label="Home" className="block relative z-50">
+            <Logo priority className={`h-14 md:h-16 lg:h-16 w-auto drop-shadow-sm transition-opacity duration-300 ${open ? "opacity-0 lg:opacity-100" : "opacity-100"}`} />
+          </Link>
 
-      <nav className="mx-auto max-w-7xl px-5 lg:px-10 h-full flex items-center justify-between">
-        <Link href="/" onClick={handleLogoClick} aria-label="Home – scroll naar boven" className="block relative">
-          <Logo priority className="h-14 md:h-16 lg:h-16 w-auto drop-shadow-sm" />
-        </Link>
+          {/* Desktop nav */}
+          <ul className="hidden lg:flex items-center gap-8 text-sm text-nina-ink">
+            {links.map((l) => {
+              const active = pathname === l.href;
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className={`relative pb-1 tracking-wide transition-colors duration-300 ${active ? `${l.color} font-medium` : "text-nina-ink/70 hover:text-nina-ink"} after:absolute after:bottom-0 after:left-0 after:h-px after:bg-nina-oranje after:transition-[width] after:duration-300 ${active ? "after:w-full" : "after:w-0 hover:after:w-full"}`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
 
-        {/* Desktop nav */}
-        <ul className="hidden lg:flex items-center gap-8 text-sm text-nina-ink">
-          {links.map((l) => {
-            const active = pathname === l.href;
-            return (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className={`relative pb-1 transition-colors duration-300 ${active ? `${l.color} font-medium` : "text-nina-ink/70 hover:text-nina-ink"} after:absolute after:bottom-0 after:left-0 after:h-px after:bg-nina-oranje after:transition-[width] after:duration-300 ${active ? "after:w-full" : "after:w-0 hover:after:w-full"}`}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+          {/* Hamburger — altijd zichtbaar op z-50 ook als overlay open */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden p-2 -mr-2 flex flex-col gap-1.5 w-10 h-10 items-center justify-center z-50 relative"
+            aria-label={open ? "Menu sluiten" : "Menu openen"}
+          >
+            <motion.span
+              animate={open ? { rotate: 45, y: 8, backgroundColor: "#FAF7F2" } : { rotate: 0, y: 0, backgroundColor: "#1A1A1A" }}
+              transition={{ duration: 0.25 }}
+              className="h-0.5 w-7 block origin-center"
+            />
+            <motion.span
+              animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.2 }}
+              className="h-0.5 w-7 bg-nina-ink block"
+            />
+            <motion.span
+              animate={open ? { rotate: -45, y: -8, backgroundColor: "#FAF7F2" } : { rotate: 0, y: 0, backgroundColor: "#1A1A1A" }}
+              transition={{ duration: 0.25 }}
+              className="h-0.5 w-7 block origin-center"
+            />
+          </button>
+        </nav>
+      </header>
 
-        {/* Hamburger */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 -mr-2 flex flex-col gap-1.5 w-10 h-10 items-center justify-center"
-          aria-label={open ? "Menu sluiten" : "Menu openen"}
-        >
-          <motion.span
-            animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.25 }}
-            className="h-0.5 w-7 bg-nina-ink block origin-center"
-          />
-          <motion.span
-            animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.2 }}
-            className="h-0.5 w-7 bg-nina-ink block"
-          />
-          <motion.span
-            animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.25 }}
-            className="h-0.5 w-7 bg-nina-ink block origin-center"
-          />
-        </button>
-      </nav>
-
-      {/* Mobile menu */}
+      {/* Full-screen mobile overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden overflow-hidden border-t border-nina-beige/30 shadow-2xl bg-nina-cream"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 bg-nina-ink lg:hidden flex flex-col"
           >
-            <ul className="px-5 py-8 flex flex-col gap-1">
+            {/* Navigatielinks — verticaal gecentreerd */}
+            <nav className="flex flex-col justify-center flex-1 px-8 pt-20">
               {links.map((l, i) => {
                 const active = pathname === l.href;
                 return (
-                  <motion.li
+                  <motion.div
                     key={l.href}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <Link
                       href={l.href}
-                      className={`flex items-center justify-between py-3 border-b border-nina-ink/5 font-serif text-2xl transition-colors ${active ? l.color : "text-nina-ink hover:text-nina-oranje"}`}
+                      className={`flex items-center justify-between py-5 border-b border-white/10 font-serif text-4xl italic leading-tight transition-colors ${active ? l.color : "text-nina-cream hover:text-nina-oranje"}`}
                     >
                       {l.label}
-                      {active && <span className="w-2 h-2 rounded-full bg-nina-oranje" />}
+                      {active && <span className="w-2 h-2 rounded-full bg-nina-oranje shrink-0" />}
                     </Link>
-                  </motion.li>
+                  </motion.div>
                 );
               })}
-            </ul>
+            </nav>
 
-            {/* Oranje gloed onderaan menu */}
-            <div className="h-1 bg-gradient-to-r from-nina-oranje/40 via-nina-groen/30 to-transparent" />
+            {/* Footer in overlay: locatie + instagram */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.4 }}
+              className="px-8 pb-10 flex items-center justify-between text-xs text-nina-cream/40 tracking-widest uppercase"
+            >
+              <span>Rotterdam</span>
+              <span>© Nina Passenier</span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
