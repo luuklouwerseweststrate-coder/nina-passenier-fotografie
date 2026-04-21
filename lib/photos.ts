@@ -37,5 +37,6 @@ export const heroStrip: Photo[] = [
   { src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1200&q=80", alt: "Werk 4" }
 ];
 
-export const heroImage = "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=2000&q=85";
+// Placeholder — vervang door Nina's eigen werk (bijv. Zeeland kust of Rotterdam haven)
+export const heroImage = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=2000&q=85";
 export const ninaPortret = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1200&q=85";

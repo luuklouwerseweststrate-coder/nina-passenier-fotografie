@@ -37,7 +37,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="text-nina-cream/75 text-lg md:text-xl mt-6 max-w-xl leading-relaxed"
+          className="hidden sm:block text-nina-cream/75 text-lg md:text-xl mt-6 max-w-xl leading-relaxed"
         >
           Fotografie voor merken die willen opvallen, en vrije series voor mezelf. Beide uit dezelfde manier van kijken.
         </motion.p>
