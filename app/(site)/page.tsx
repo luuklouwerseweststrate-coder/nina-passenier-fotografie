@@ -44,17 +44,33 @@ export default async function HomePage() {
         }))
       : fallbackHeroStrip.map((p) => ({ src: p.src, alt: p.alt }));
 
-  // Bedrijfsfoto (pijler card)
+  // Bedrijfsfoto's (eerste voor split-screen hero, meerdere voor kolom)
   const businessPhoto =
     sanityBusinessPhotos.length > 0
       ? urlFor(sanityBusinessPhotos[0].image).width(1600).quality(80).url()
       : fallbackBusinessPhotos[0].src;
 
-  // Kunstfoto (pijler card)
+  const businessPhotos: { src: string; alt: string }[] =
+    sanityBusinessPhotos.length > 0
+      ? sanityBusinessPhotos.slice(0, 5).map((p: any) => ({
+          src: urlFor(p.image).width(900).quality(80).url(),
+          alt: p.alt || "Bedrijfsfotografie Nina Passenier",
+        }))
+      : fallbackBusinessPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
+
+  // Kunstfoto's (eerste voor split-screen hero, meerdere voor kolom)
   const artPhoto =
     sanityArtPhotos.length > 0
       ? urlFor(sanityArtPhotos[0].image).width(1600).quality(80).url()
       : fallbackArtPhotos[0].src;
+
+  const artPhotos: { src: string; alt: string }[] =
+    sanityArtPhotos.length > 0
+      ? sanityArtPhotos.slice(0, 5).map((p: any) => ({
+          src: urlFor(p.image).width(900).quality(80).url(),
+          alt: p.alt || "Vrij werk Nina Passenier",
+        }))
+      : fallbackArtPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
 
   // Uitgelichte case: handmatig gekozen in Studio → anders eerste case
   const chosenCase = settings?.featuredCase;
@@ -74,6 +90,8 @@ export default async function HomePage() {
       heroImage={heroImage}
       businessPhoto={businessPhoto}
       artPhoto={artPhoto}
+      businessPhotos={businessPhotos}
+      artPhotos={artPhotos}
       ninaPortret={ninaPortret}
       heroStrip={heroStrip}
       featured={featured}
