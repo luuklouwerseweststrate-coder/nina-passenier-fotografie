@@ -7,7 +7,7 @@ export default defineType({
   type: "document",
   orderings: [orderRankOrdering],
   fields: [
-    orderRankField(),
+    orderRankField({ type: "photo" }),
     defineField({
       name: "image",
       title: "Afbeelding",
