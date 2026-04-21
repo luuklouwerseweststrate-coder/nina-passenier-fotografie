@@ -19,6 +19,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Geen blauwe/zwarte flits bij aanraken van links op mobiel */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* Selectie kleur uit logo-palet */
 ::selection {
   background: #E8913A;
