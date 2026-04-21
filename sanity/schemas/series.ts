@@ -7,7 +7,7 @@ export default defineType({
   type: "document",
   orderings: [orderRankOrdering],
   fields: [
-    orderRankField({ section: "Volgorde" }),
+    orderRankField(),
     defineField({
       name: "title",
       title: "Naam van de serie",
