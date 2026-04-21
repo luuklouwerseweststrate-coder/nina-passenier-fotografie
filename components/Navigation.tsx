@@ -56,7 +56,7 @@ export default function Navigation() {
         {/* Midden: logo */}
         <div className="flex justify-center">
           <Link href="/" aria-label="Home">
-            <Logo priority className={`h-8 w-auto transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`} />
+            <Logo priority className={`h-11 lg:h-12 w-auto transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`} />
           </Link>
         </div>
 

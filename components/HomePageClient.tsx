@@ -43,33 +43,42 @@ export default function HomePageClient({
     <div className="pt-14 overflow-x-hidden">
 
       {/* ════════════════════════════════════════
-          1. SPLIT-SCREEN — twee foto's met wit kader
+          1. INTRO + TWEE FOTO'S MET WIT KADER
       ════════════════════════════════════════ */}
-      <section className="px-5 lg:px-12 pt-10 lg:pt-14 pb-6">
+      <section className="px-5 lg:px-12 pt-8 lg:pt-10 pb-8">
 
-        {/* Beschikbaar */}
-        {beschikbaar !== false && (
-          <div className="flex justify-between items-center mb-8">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-black/30">
-              {beschikbaarTekst || "Rotterdam · Beschikbaar voor opdrachten"}
-            </span>
-            <Link href="/contact" className="text-[10px] uppercase tracking-[0.3em] text-black/25 hover:text-black transition-colors hidden sm:block">
-              Contact →
-            </Link>
+        {/* Introductie */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 lg:mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2"
+        >
+          <div>
+            <p className="font-serif text-2xl lg:text-3xl leading-snug">
+              Fotograaf in Rotterdam.
+            </p>
+            <p className="font-serif italic text-2xl lg:text-3xl leading-snug text-black/50">
+              Twee richtingen, één blik.
+            </p>
           </div>
-        )}
+          {beschikbaar !== false && (
+            <p className="text-[10px] uppercase tracking-[0.3em] text-black/30 shrink-0">
+              {beschikbaarTekst || "Beschikbaar voor opdrachten"}
+            </p>
+          )}
+        </motion.div>
 
+        {/* Twee foto's — gelijke hoogte, kleine offset rechts voor ritme */}
         <div className="grid grid-cols-2 gap-3 lg:gap-5 items-start">
 
-          {/* Links: Bedrijfsfotografie */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
           >
             <Link href="/bedrijfsfotografie" className="group block">
-              {/* Wit kader */}
-              <div className="bg-white p-2 shadow-sm">
+              <div className="bg-white p-2 lg:p-3 shadow-sm">
                 <div className="relative overflow-hidden aspect-[3/4]">
                   <Image
                     src={businessPhoto}
@@ -83,22 +92,21 @@ export default function HomePageClient({
                 <span className="text-[9px] uppercase tracking-[0.4em] text-nina-oranje">Zakelijk</span>
                 <div className="flex items-baseline justify-between mt-1">
                   <h2 className="font-serif text-lg lg:text-2xl">Bedrijfsfotografie</h2>
-                  <span className="text-black/25 group-hover:text-nina-oranje group-hover:translate-x-0.5 transition-all duration-300 text-sm">→</span>
+                  <span className="text-black/25 group-hover:text-nina-oranje transition-colors text-sm">→</span>
                 </div>
+                <p className="text-xs text-black/35 mt-1 hidden sm:block">Merken, campagnes, horeca &amp; portret.</p>
               </div>
             </Link>
           </motion.div>
 
-          {/* Rechts: Vrij werk — iets lager voor ritme */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-10 lg:mt-16"
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="mt-6 lg:mt-10"
           >
             <Link href="/vrij-werk" className="group block">
-              {/* Wit kader */}
-              <div className="bg-white p-2 shadow-sm">
+              <div className="bg-white p-2 lg:p-3 shadow-sm">
                 <div className="relative overflow-hidden aspect-[3/4]">
                   <Image
                     src={artPhoto}
@@ -112,8 +120,9 @@ export default function HomePageClient({
                 <span className="text-[9px] uppercase tracking-[0.4em] text-nina-groen">Autonoom</span>
                 <div className="flex items-baseline justify-between mt-1">
                   <h2 className="font-serif italic text-lg lg:text-2xl">Vrij werk</h2>
-                  <span className="text-black/25 group-hover:text-nina-groen group-hover:translate-x-0.5 transition-all duration-300 text-sm">→</span>
+                  <span className="text-black/25 group-hover:text-nina-groen transition-colors text-sm">→</span>
                 </div>
+                <p className="text-xs text-black/35 mt-1 hidden sm:block">Series &amp; concepten zonder opdracht.</p>
               </div>
             </Link>
           </motion.div>
