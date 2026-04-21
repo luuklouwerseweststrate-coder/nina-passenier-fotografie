@@ -71,42 +71,54 @@ export default function Navigation() {
         </div>
       </header>
 
-      {/* Full-screen overlay menu */}
+      {/* Full-screen semi-transparante overlay — zoals anneclairedebreij.com */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-[#1a1a1a] flex flex-col"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 flex flex-col"
+            style={{ backgroundColor: "rgba(30, 30, 28, 0.82)", backdropFilter: "blur(2px)" }}
           >
-            <nav className="flex flex-col justify-center flex-1 px-8 lg:px-16 pt-14">
+            {/* Logo gecentreerd bovenaan */}
+            <div className="flex justify-center pt-5">
+              <Link href="/" onClick={() => setOpen(false)}>
+                <Logo className="h-8 w-auto brightness-0 invert opacity-90" />
+              </Link>
+            </div>
+
+            {/* Links gecentreerd */}
+            <nav className="flex flex-col items-center justify-center flex-1 gap-1">
               {links.map((l, i) => (
                 <motion.div
                   key={l.href}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-b border-white/10"
                 >
                   <Link
                     href={l.href}
-                    className={`block py-5 lg:py-6 font-serif italic text-3xl lg:text-5xl transition-colors ${pathname === l.href ? "text-white" : "text-white/45 hover:text-white"}`}
+                    className={`block py-3 text-center text-xl lg:text-3xl uppercase tracking-[0.15em] font-sans transition-colors ${
+                      pathname === l.href ? "text-white" : "text-white/55 hover:text-white"
+                    }`}
                   >
                     {l.label}
                   </Link>
                 </motion.div>
               ))}
             </nav>
-            <motion.p
+
+            {/* Footer */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35 }}
-              className="px-8 lg:px-16 pb-8 text-[10px] uppercase tracking-[0.3em] text-white/20"
+              className="pb-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/25"
             >
               Rotterdam — Nina Passenier Fotografie
-            </motion.p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
