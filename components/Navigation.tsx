@@ -26,7 +26,7 @@ export default function Navigation() {
         <Link href="/" aria-label="Home" className="block relative">
           <Logo
   priority
-  className="h-10 md:h-11 lg:h-12 w-auto drop-shadow-sm"
+  className="h-14 md:h-16 lg:h-16 w-auto drop-shadow-sm"
 />
         </Link>
 
