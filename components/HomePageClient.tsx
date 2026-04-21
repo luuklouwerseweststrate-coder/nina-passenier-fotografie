@@ -43,71 +43,83 @@ export default function HomePageClient({
     <div className="pt-14 overflow-x-hidden">
 
       {/* ════════════════════════════════════════
-          1. SPLIT-SCREEN HERO — boven de vouw
+          1. SPLIT-SCREEN — twee foto's met wit kader
       ════════════════════════════════════════ */}
-      <section className="grid grid-cols-2" style={{ height: "calc(100svh - 3.5rem)" }}>
+      <section className="px-5 lg:px-12 pt-10 lg:pt-14 pb-6">
 
-        {/* Links: Bedrijfsfotografie */}
-        <Link href="/bedrijfsfotografie" className="group relative overflow-hidden">
-          <Image
-            src={businessPhoto}
-            alt="Bedrijfsfotografie Nina Passenier"
-            fill priority sizes="50vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-colors duration-500" />
-          {/* Oranje streep links */}
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-nina-oranje" />
-          <div className="absolute top-6 left-6">
-            <span className="text-[9px] uppercase tracking-[0.4em] text-nina-oranje">Zakelijk</span>
+        {/* Beschikbaar */}
+        {beschikbaar !== false && (
+          <div className="flex justify-between items-center mb-8">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-black/30">
+              {beschikbaarTekst || "Rotterdam · Beschikbaar voor opdrachten"}
+            </span>
+            <Link href="/contact" className="text-[10px] uppercase tracking-[0.3em] text-black/25 hover:text-black transition-colors hidden sm:block">
+              Contact →
+            </Link>
           </div>
-          <div className="absolute bottom-8 left-6 right-6">
-            <h2 className="font-serif text-xl sm:text-3xl lg:text-5xl text-white leading-tight">
-              Bedrijfs&shy;fotografie
-            </h2>
-            <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-nina-oranje transition-colors hidden sm:block">
-              Bekijk werk →
-            </p>
-          </div>
-        </Link>
+        )}
 
-        {/* Rechts: Vrij werk */}
-        <Link href="/vrij-werk" className="group relative overflow-hidden border-l border-white/15">
-          <Image
-            src={artPhoto}
-            alt="Vrij werk Nina Passenier"
-            fill priority sizes="50vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          />
-          <div className="absolute inset-0 bg-black/45 group-hover:bg-black/25 transition-colors duration-500" />
-          {/* Groene streep rechts */}
-          <div className="absolute right-0 top-0 bottom-0 w-1 bg-nina-groen" />
-          <div className="absolute top-6 right-6 text-right">
-            <span className="text-[9px] uppercase tracking-[0.4em] text-nina-groen">Autonoom</span>
-          </div>
-          <div className="absolute bottom-8 left-6 right-6 text-right">
-            <h2 className="font-serif italic text-xl sm:text-3xl lg:text-5xl text-white leading-tight">
-              Vrij werk
-            </h2>
-            <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-nina-groen transition-colors hidden sm:block">
-              Ontdek series →
-            </p>
-          </div>
-        </Link>
+        <div className="grid grid-cols-2 gap-3 lg:gap-5 items-start">
 
-      </section>
+          {/* Links: Bedrijfsfotografie */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <Link href="/bedrijfsfotografie" className="group block">
+              {/* Wit kader */}
+              <div className="bg-white p-2 shadow-sm">
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <Image
+                    src={businessPhoto}
+                    alt="Bedrijfsfotografie Nina Passenier"
+                    fill priority sizes="(max-width: 768px) 50vw, 45vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
+              <div className="mt-3 px-1">
+                <span className="text-[9px] uppercase tracking-[0.4em] text-nina-oranje">Zakelijk</span>
+                <div className="flex items-baseline justify-between mt-1">
+                  <h2 className="font-serif text-lg lg:text-2xl">Bedrijfsfotografie</h2>
+                  <span className="text-black/25 group-hover:text-nina-oranje group-hover:translate-x-0.5 transition-all duration-300 text-sm">→</span>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
 
-      {/* Beschikbaar lijn */}
-      {beschikbaar !== false && (
-        <div className="px-5 lg:px-10 py-4 border-b border-black/8 flex justify-between items-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-black/30">
-            {beschikbaarTekst || "Rotterdam · Beschikbaar voor opdrachten"}
-          </span>
-          <Link href="/contact" className="text-[10px] uppercase tracking-[0.3em] text-black/25 hover:text-black transition-colors hidden sm:block">
-            Contact →
-          </Link>
+          {/* Rechts: Vrij werk — iets lager voor ritme */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 lg:mt-16"
+          >
+            <Link href="/vrij-werk" className="group block">
+              {/* Wit kader */}
+              <div className="bg-white p-2 shadow-sm">
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <Image
+                    src={artPhoto}
+                    alt="Vrij werk Nina Passenier"
+                    fill priority sizes="(max-width: 768px) 50vw, 45vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
+              <div className="mt-3 px-1">
+                <span className="text-[9px] uppercase tracking-[0.4em] text-nina-groen">Autonoom</span>
+                <div className="flex items-baseline justify-between mt-1">
+                  <h2 className="font-serif italic text-lg lg:text-2xl">Vrij werk</h2>
+                  <span className="text-black/25 group-hover:text-nina-groen group-hover:translate-x-0.5 transition-all duration-300 text-sm">→</span>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
         </div>
-      )}
+      </section>
 
       {/* ════════════════════════════════════════
           2. TWEE KOLOMMEN — scrollen door werk
