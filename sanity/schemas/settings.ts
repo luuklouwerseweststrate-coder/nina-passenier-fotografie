@@ -61,6 +61,16 @@ export default defineType({
       group: "afbeeldingen",
     }),
 
+    // ── UITGELICHT PROJECT ────────────────────────────
+    defineField({
+      name: "featuredCase",
+      title: "Homepage — uitgelicht project",
+      type: "reference",
+      to: [{ type: "caseStudy" }],
+      description: "📍 Homepage · Het grote project dat onderaan de homepage wordt uitgelicht. Laat leeg = automatisch de eerste case.",
+      group: "homepage",
+    }),
+
     // ── HOMEPAGE ──────────────────────────────────────
     defineField({
       name: "heroTagline",

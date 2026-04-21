@@ -56,14 +56,15 @@ export default async function HomePage() {
       ? urlFor(sanityArtPhotos[0].image).width(1600).quality(80).url()
       : fallbackArtPhotos[0].src;
 
-  // Uitgelichte case (eerste)
-  const rawCase = sanityCases.length > 0 ? sanityCases[0] : fallbackCases[0];
+  // Uitgelichte case: handmatig gekozen in Studio → anders eerste case
+  const chosenCase = settings?.featuredCase;
+  const rawCase = chosenCase ?? (sanityCases.length > 0 ? sanityCases[0] : fallbackCases[0]);
   const featured = {
-    slug: sanityCases.length > 0 ? rawCase.slug?.current : rawCase.slug,
+    slug: chosenCase ? rawCase.slug?.current : sanityCases.length > 0 ? rawCase.slug?.current : rawCase.slug,
     client: rawCase.client,
     intro: rawCase.intro,
     cover:
-      sanityCases.length > 0 && rawCase.cover
+      rawCase.cover
         ? urlFor(rawCase.cover).width(2000).quality(85).url()
         : rawCase.cover,
   };

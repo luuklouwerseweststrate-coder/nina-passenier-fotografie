@@ -17,6 +17,7 @@ export const artPhotosQuery = groq`
 export const settingsQuery = groq`
   *[_type == "settings"][0] {
     heroImage, ninaPortret, horecaPhoto, heroStrip,
+    featuredCase->{ slug, client, intro, cover },
     heroTagline, heroSubtitel, introTekst,
     bio1, bio2, bio3, bio4, bio5,
     bedrijfTagline, bedrijfIntro,
