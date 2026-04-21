@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Button from "@/components/Button";
 import FadeIn from "@/components/FadeIn";
-import SectionLabel from "@/components/SectionLabel";
-import ParallaxHero from "@/components/ParallaxHero";
 import InstagramFeed from "@/components/InstagramFeed";
 
 type StripPhoto = { src: string; alt: string };
@@ -28,6 +25,17 @@ type Props = {
   igFeedVrijwerk?: string;
 };
 
+// Vaste collageposities voor maximaal 7 foto's
+const collagePositions = [
+  { top: "8%",  left: "2%",   w: "24%", rotate: "-2deg",  aspect: "3/4"  },
+  { top: "4%",  left: "27%",  w: "30%", rotate: "1.5deg", aspect: "4/3"  },
+  { top: "3%",  left: "60%",  w: "18%", rotate: "-1deg",  aspect: "3/4"  },
+  { top: "44%", left: "64%",  w: "26%", rotate: "2deg",   aspect: "3/4"  },
+  { top: "40%", left: "26%",  w: "22%", rotate: "-1.5deg",aspect: "4/3"  },
+  { top: "50%", left: "1%",   w: "19%", rotate: "1deg",   aspect: "3/4"  },
+  { top: "12%", left: "78%",  w: "20%", rotate: "-0.5deg",aspect: "2/3"  },
+];
+
 export default function HomePageClient({
   heroImage,
   businessPhoto,
@@ -37,7 +45,6 @@ export default function HomePageClient({
   featured,
   heroTagline,
   heroSubtitel,
-  introTekst,
   beschikbaar = true,
   beschikbaarTekst,
   igFeedBedrijf,
@@ -45,300 +52,253 @@ export default function HomePageClient({
 }: Props) {
   return (
     <>
-      {/* Hero met parallax */}
-      <ParallaxHero src={heroImage} alt="Nina Passenier aan het werk">
-        {beschikbaar !== false && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-nina-cream/80 text-xs tracking-wide mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-nina-groen animate-pulse shrink-0" />
-            {beschikbaarTekst || "Rotterdam · Beschikbaar voor opdrachten"}
-          </motion.div>
-        )}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif text-nina-cream text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl"
-        >
-          {heroTagline || <>Beeld dat <span className="italic">blijft</span> hangen.</>}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden sm:block text-nina-cream/75 text-lg md:text-xl mt-6 max-w-xl leading-relaxed"
-        >
-          {heroSubtitel || "Fotografie voor merken die willen opvallen, en vrije series voor mezelf. Beide uit dezelfde manier van kijken."}
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row gap-3 mt-8"
-        >
-          <Button href="/bedrijfsfotografie" variant="oranje">Voor bedrijven</Button>
-          <Button href="/vrij-werk" variant="groen">Vrij werk</Button>
-        </motion.div>
-      </ParallaxHero>
+      {/* ─── HERO: foto collage op wit vlak ─── */}
+      <section className="relative bg-white overflow-hidden" style={{ minHeight: "100svh" }}>
 
-      {/* Intro */}
-      <FadeIn as="section" className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-36 text-center">
-        <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-display">
-          {introTekst || <>Ik ben Nina. Ik fotografeer{" "}
-          <span className="text-nina-oranje">bedrijven</span>{" "}
-          en maak{" "}
-          <span className="text-nina-groen">vrij werk</span>.
-          Die twee werelden versterken elkaar.</>}
-        </p>
-      </FadeIn>
-
-      {/* Twee pijlers */}
-      <section className="mx-auto max-w-7xl px-5 lg:px-10">
-        <SectionLabel nr="01" label="Twee richtingen" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          <FadeIn>
-            <Link href="/bedrijfsfotografie" className="group relative overflow-hidden block">
-              <div className="aspect-[4/5] relative overflow-hidden">
-                <Image
-                  src={businessPhoto}
-                  alt="Bedrijfsfotografie"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-nina-ink/90 via-nina-ink/20 to-transparent" />
-                <div className="absolute top-6 left-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-nina-oranje" />
-                  <span className="text-nina-cream text-xs uppercase tracking-[0.3em]">Zakelijk</span>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10">
-                  <h3 className="font-serif text-4xl lg:text-5xl text-nina-cream leading-tight">
-                    Bedrijfsfotografie
-                  </h3>
-                  <p className="text-nina-cream/75 mt-3 text-sm lg:text-base max-w-md">
-                    Portretten, brand shoots, campagnebeeld en content dat past bij wie je bent.
-                  </p>
-                  <p className="text-nina-oranje mt-5 text-sm tracking-wide flex items-center gap-2">
-                    Bekijk werk
-                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">&rarr;</span>
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </FadeIn>
-
-          <FadeIn delay={0.12}>
-            <Link href="/vrij-werk" className="group relative overflow-hidden block lg:mt-24">
-              <div className="aspect-[4/5] relative overflow-hidden">
-                <Image
-                  src={artPhoto}
-                  alt="Vrij werk"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-nina-ink/90 via-nina-ink/20 to-transparent" />
-                <div className="absolute top-6 left-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-nina-groen" />
-                  <span className="text-nina-cream text-xs uppercase tracking-[0.3em]">Autonoom</span>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10">
-                  <h3 className="font-serif italic text-4xl lg:text-5xl text-nina-cream leading-tight">
-                    Vrij werk
-                  </h3>
-                  <p className="text-nina-cream/75 mt-3 text-sm lg:text-base max-w-md">
-                    Series en concepten. Onderzoek in beeld, zonder opdracht, zonder deadline.
-                  </p>
-                  <p className="text-nina-groen mt-5 text-sm tracking-wide flex items-center gap-2">
-                    Ontdek series
-                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">&rarr;</span>
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Uitgelichte case */}
-      <section className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-36">
-        <FadeIn>
-          <SectionLabel nr="02" label="Uitgelicht project" />
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-display max-w-3xl">
-            {featured.client} &mdash; {featured.intro.slice(0, 60)}
-          </h2>
-        </FadeIn>
-        <FadeIn delay={0.15}>
-          <Link href={`/cases/${featured.slug}`} className="block mt-12 relative aspect-[16/9] overflow-hidden group">
-            <Image
-              src={featured.cover}
-              alt={featured.client}
-              fill
-              sizes="100vw"
-              className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
-            />
-          </Link>
-        </FadeIn>
-        <FadeIn delay={0.25}>
-          <div className="mt-8 flex flex-col md:flex-row justify-between gap-6 items-start">
-            <p className="text-nina-ink/65 text-lg max-w-xl leading-relaxed">
-              {featured.intro}
-            </p>
-            <Button href="/cases" variant="outline">Alle cases</Button>
-          </div>
-        </FadeIn>
-      </section>
-
-      {/* Over Nina teaser */}
-      <section className="bg-nina-beige/15 py-24 lg:py-36 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-5 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <FadeIn>
-            <div className="relative aspect-[3/4] max-w-md">
-              <Image src={ninaPortret} alt="Nina Passenier" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
-              <motion.div
-                initial={{ scale: 0, rotate: -20 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-4 -right-4 bg-nina-oranje w-20 h-20"
-              />
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <SectionLabel nr="03" label="Over Nina" />
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-display">
-              Kijken is <em className="text-nina-oranje">kiezen</em>.
-            </h2>
-            <p className="mt-6 text-lg text-nina-ink/65 leading-relaxed">
-              Ik studeerde fotografie aan de Willem de Kooning in Rotterdam en vervolg mijn weg nu op de kunstacademie.
-              Die achtergrond vertaalt zich in alles wat ik maak: rustig, geduldig, en net iets scheef.
-            </p>
-            <div className="mt-8">
-              <Button href="/over" variant="ink">Lees mijn verhaal</Button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Foto collage — desktop scattered, mobiel horizontale strip */}
-      <section className="py-24 lg:py-36 overflow-hidden">
-        <FadeIn className="mx-auto max-w-7xl px-5 lg:px-10 mb-10">
-          <SectionLabel nr="04" label="Recent werk" />
-          <h2 className="font-serif text-4xl md:text-5xl tracking-display">Een greep uit beide werelden</h2>
-        </FadeIn>
-
-        {/* Desktop: collage */}
-        <div className="hidden lg:block relative mx-auto max-w-7xl px-10" style={{ height: "90vh" }}>
+        {/* Desktop: scattered collage */}
+        <div className="hidden lg:block relative w-full" style={{ height: "100svh" }}>
           {heroStrip.slice(0, 7).map((p, i) => {
-            const positions = [
-              { top: "2%",  left: "0%",   w: "26%", rotate: "-2.5deg", aspect: "3/4" },
-              { top: "5%",  left: "22%",  w: "32%", rotate: "1deg",    aspect: "4/3" },
-              { top: "0%",  left: "56%",  w: "20%", rotate: "-1deg",   aspect: "3/4" },
-              { top: "42%", left: "62%",  w: "28%", rotate: "2deg",    aspect: "3/4" },
-              { top: "38%", left: "22%",  w: "24%", rotate: "-1.5deg", aspect: "4/3" },
-              { top: "48%", left: "0%",   w: "20%", rotate: "1.5deg",  aspect: "3/4" },
-              { top: "10%", left: "76%",  w: "22%", rotate: "-0.5deg", aspect: "3/2" },
-            ];
-            const pos = positions[i];
+            const pos = collagePositions[i];
             if (!pos) return null;
-            const [aw, ah] = pos.aspect.split("/").map(Number);
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.09, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   position: "absolute",
                   top: pos.top,
                   left: pos.left,
                   width: pos.w,
-                  aspectRatio: `${aw}/${ah}`,
+                  aspectRatio: pos.aspect,
                   rotate: pos.rotate,
+                  zIndex: i === 1 || i === 3 ? 2 : 1,
                 }}
-                whileHover={{ scale: 1.03, zIndex: 10 }}
-                className="overflow-hidden shadow-lg cursor-pointer"
+                whileHover={{ scale: 1.02, zIndex: 10, rotate: "0deg" }}
+                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                className="overflow-hidden shadow-md cursor-default"
               >
-                <Image
-                  src={p.src}
-                  alt={p.alt}
-                  fill
-                  sizes="30vw"
-                  className="object-cover"
-                />
+                <Image src={p.src} alt={p.alt} fill sizes="30vw" className="object-cover" />
               </motion.div>
             );
           })}
+
+          {/* Naam + tagline linksonder */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.7 }}
+            className="absolute bottom-12 left-10 z-20"
+          >
+            <p className="text-[11px] uppercase tracking-[0.35em] text-black/40 mb-3">
+              {beschikbaar !== false ? (beschikbaarTekst || "Rotterdam · beschikbaar") : "Rotterdam"}
+            </p>
+            <h1 className="font-serif text-5xl xl:text-6xl leading-[1.05] text-black max-w-xl">
+              {heroTagline || <><em>Fotografie</em> voor bedrijven &amp; vrij werk.</>}
+            </h1>
+            <div className="flex items-center gap-8 mt-8 text-sm">
+              <Link href="/bedrijfsfotografie" className="group flex items-center gap-2 text-black/70 hover:text-black transition-colors">
+                Bedrijfsfotografie
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
+              <Link href="/vrij-werk" className="group flex items-center gap-2 text-black/70 hover:text-black transition-colors">
+                Vrij werk
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Mobiel: horizontale strip */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
-          className="lg:hidden scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 snap-x snap-mandatory"
-        >
-          {heroStrip.map((p, i) => (
-            <motion.div
-              key={i}
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              className="relative shrink-0 w-[75vw] sm:w-[45vw] aspect-[3/4] snap-start overflow-hidden"
-            >
-              <Image
-                src={p.src}
-                alt={p.alt}
-                fill
-                sizes="75vw"
-                className="object-cover"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Mobiel: één grote hero afbeelding + scroll strip */}
+        <div className="lg:hidden">
+          <div className="relative w-full" style={{ height: "65svh" }}>
+            <Image
+              src={heroImage}
+              alt="Nina Passenier"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="px-5 pt-8 pb-6">
+            {beschikbaar !== false && (
+              <p className="text-[10px] uppercase tracking-[0.3em] text-black/40 mb-3">
+                {beschikbaarTekst || "Rotterdam · beschikbaar"}
+              </p>
+            )}
+            <h1 className="font-serif text-4xl leading-tight text-black">
+              {heroTagline || <><em>Fotografie</em> voor bedrijven &amp; vrij werk.</>}
+            </h1>
+            <div className="flex gap-6 mt-6 text-sm text-black/60">
+              <Link href="/bedrijfsfotografie" className="hover:text-black transition-colors">Bedrijfsfotografie →</Link>
+              <Link href="/vrij-werk" className="hover:text-black transition-colors">Vrij werk →</Link>
+            </div>
+          </div>
+          {/* Scroll strip mobiel */}
+          <div className="scroll-strip flex overflow-x-auto gap-3 pb-4 px-5 snap-x snap-mandatory mt-4">
+            {heroStrip.map((p, i) => (
+              <div key={i} className="relative shrink-0 w-[70vw] aspect-[3/4] snap-start overflow-hidden">
+                <Image src={p.src} alt={p.alt} fill sizes="70vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Instagram feeds */}
-      {(igFeedBedrijf || igFeedVrijwerk) && (
-        <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
+      {/* ─── TWEE PIJLERS ─── */}
+      <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
+        <div className="flex items-center gap-3 mb-12">
+          <span className="w-3 h-px bg-nina-oranje" />
+          <p className="text-[11px] uppercase tracking-[0.35em] text-black/35">Werk</p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <FadeIn>
-            <SectionLabel nr="05" label="Instagram" />
-            <h2 className="font-serif text-4xl md:text-5xl tracking-display mb-16">Volg het werk</h2>
+            <Link href="/bedrijfsfotografie" className="group block">
+              <div className="relative overflow-hidden aspect-[4/5]">
+                <Image
+                  src={businessPhoto}
+                  alt="Bedrijfsfotografie"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="mt-4 flex items-baseline justify-between">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-nina-oranje mr-3">Zakelijk</span>
+                  <h3 className="font-serif text-2xl inline">Bedrijfsfotografie</h3>
+                </div>
+                <span className="text-sm text-black/30 group-hover:text-nina-oranje transition-colors">→</span>
+              </div>
+              <p className="mt-1 text-sm text-black/45">Merken, campagnes, horeca, team &amp; portret.</p>
+            </Link>
           </FadeIn>
-          <div className={`grid gap-16 ${igFeedBedrijf && igFeedVrijwerk ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
-            {igFeedBedrijf && (
-              <FadeIn>
-                <InstagramFeed feedId={igFeedBedrijf} handle="nina.bedrijfsfotografie" label="Bedrijfsfotografie" />
-              </FadeIn>
-            )}
-            {igFeedVrijwerk && (
-              <FadeIn delay={0.1}>
-                <InstagramFeed feedId={igFeedVrijwerk} handle="ninapassenierfotografie" label="Vrij werk" />
-              </FadeIn>
-            )}
+
+          <FadeIn delay={0.1}>
+            <Link href="/vrij-werk" className="group block lg:mt-20">
+              <div className="relative overflow-hidden aspect-[4/5]">
+                <Image
+                  src={artPhoto}
+                  alt="Vrij werk"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="mt-4 flex items-baseline justify-between">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-nina-groen mr-3">Autonoom</span>
+                  <h3 className="font-serif italic text-2xl inline">Vrij werk</h3>
+                </div>
+                <span className="text-sm text-black/30 group-hover:text-nina-groen transition-colors">→</span>
+              </div>
+              <p className="mt-1 text-sm text-black/45">Series &amp; concepten. Onderzoek zonder opdracht.</p>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── UITGELICHT PROJECT ─── */}
+      {featured.cover && (
+        <section className="mx-auto max-w-7xl px-5 lg:px-10 pb-24 lg:pb-32">
+          <FadeIn>
+            <p className="text-[11px] uppercase tracking-[0.35em] text-black/35 mb-6">Uitgelicht</p>
+            <Link href={`/cases/${featured.slug}`} className="group block">
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <Image
+                  src={featured.cover}
+                  alt={featured.client}
+                  fill
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                />
+              </div>
+              <div className="mt-5 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+                <h2 className="font-serif text-2xl">{featured.client}</h2>
+                <p className="text-sm text-black/45 max-w-xl">{featured.intro}</p>
+                <span className="text-sm text-black/40 group-hover:text-black transition-colors shrink-0">Lees case →</span>
+              </div>
+            </Link>
+            <Link href="/cases" className="inline-block mt-4 text-xs uppercase tracking-[0.25em] text-black/40 hover:text-black transition-colors">
+              Alle cases
+            </Link>
+          </FadeIn>
+        </section>
+      )}
+
+      {/* ─── OVER NINA ─── */}
+      <section className="border-t border-black/8 py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-5 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <FadeIn>
+            <div className="relative aspect-[3/4] max-w-sm">
+              <Image src={ninaPortret} alt="Nina Passenier" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <p className="text-[11px] uppercase tracking-[0.35em] text-black/35 mb-8">Over Nina</p>
+            <h2 className="font-serif text-4xl md:text-5xl leading-tight">
+              Kijken is <em>kiezen</em>.
+            </h2>
+            <p className="mt-6 text-black/55 leading-relaxed max-w-md">
+              Ik studeerde fotografie aan de Willem de Kooning in Rotterdam en vervolg mijn weg nu op de kunstacademie.
+              Die achtergrond vertaalt zich in alles wat ik maak: rustig, geduldig, en net iets scheef.
+            </p>
+            <Link href="/over" className="inline-flex items-center gap-2 mt-8 text-sm text-black/60 hover:text-black transition-colors group">
+              Lees mijn verhaal
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── INSTAGRAM ─── */}
+      {(igFeedBedrijf || igFeedVrijwerk) && (
+        <section className="bg-black py-24 lg:py-32">
+          <div className="mx-auto max-w-7xl px-5 lg:px-10">
+            <FadeIn>
+              <p className="text-[11px] uppercase tracking-[0.35em] text-white/30 mb-12">Instagram</p>
+            </FadeIn>
+            <div className={`grid gap-16 ${igFeedBedrijf && igFeedVrijwerk ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+              {igFeedBedrijf && (
+                <FadeIn>
+                  <InstagramFeed feedId={igFeedBedrijf} handle="nina.bedrijfsfotografie" />
+                </FadeIn>
+              )}
+              {igFeedVrijwerk && (
+                <FadeIn delay={0.1}>
+                  <InstagramFeed feedId={igFeedVrijwerk} handle="ninapassenierfotografie" />
+                </FadeIn>
+              )}
+            </div>
           </div>
         </section>
       )}
 
-      {/* Contact CTA */}
-      <FadeIn as="section" className="mx-auto max-w-5xl px-5 lg:px-10 py-24 lg:py-36 text-center">
-        <SectionLabel nr="06" label="Contact" className="justify-center" />
-        <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-display leading-[1.05]">
-          Zullen we <em className="text-nina-oranje">koffie</em> drinken?
-        </h2>
-        <p className="mt-6 text-lg text-nina-ink/65 max-w-xl mx-auto">
-          Idee voor een shoot, campagne of samenwerking? Stuur een bericht &mdash; ik reageer meestal binnen een dag.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <Button href="/contact" variant="ink">Plan een kennismaking</Button>
-          <Button href="/werkwijze" variant="outline">Hoe ik werk</Button>
+      {/* ─── CONTACT CTA ─── */}
+      <FadeIn as="section" className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-36">
+        <div className="border-t border-black/8 pt-16 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.35em] text-black/35 mb-6">Contact</p>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight max-w-xl">
+              Zullen we <em>koffie</em> drinken?
+            </h2>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-black text-sm tracking-wide hover:bg-black hover:text-white transition-all duration-300"
+            >
+              Plan een kennismaking
+            </Link>
+            <Link
+              href="/werkwijze"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-black/20 text-sm text-black/50 tracking-wide hover:border-black hover:text-black transition-all duration-300"
+            >
+              Hoe ik werk
+            </Link>
+          </div>
         </div>
       </FadeIn>
     </>

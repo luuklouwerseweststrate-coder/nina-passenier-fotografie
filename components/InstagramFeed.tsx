@@ -23,13 +23,13 @@ export default function InstagramFeed({ feedId, label, handle }: Props) {
     <div className="w-full">
       {(label || handle) && (
         <div className="flex items-center gap-3 mb-6">
-          <span className="w-4 h-px bg-nina-ink/30" />
+          <span className="w-4 h-px bg-white/20" />
           {handle && (
             <a
               href={`https://instagram.com/${handle}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs uppercase tracking-[0.25em] text-nina-ink/50 hover:text-nina-oranje transition-colors"
+              className="text-xs uppercase tracking-[0.25em] text-white/40 hover:text-white transition-colors"
             >
               @{handle}
             </a>
