@@ -2,13 +2,13 @@ import { groq } from "next-sanity";
 
 // Foto's per categorie
 export const businessPhotosQuery = groq`
-  *[_type == "photo" && category == "business"] | order(order asc) {
+  *[_type == "photo" && category == "business"] | order(orderRank) {
     _id, image, alt, title, meta
   }
 `;
 
 export const artPhotosQuery = groq`
-  *[_type == "photo" && category == "art"] | order(order asc) {
+  *[_type == "photo" && category == "art"] | order(orderRank) {
     _id, image, alt, title, meta
   }
 `;
@@ -44,7 +44,7 @@ export const caseSlugsQuery = groq`
 
 // Vrij werk series
 export const seriesQuery = groq`
-  *[_type == "series"] | order(order asc) {
+  *[_type == "series"] | order(orderRank) {
     _id, title, year, text, cover
   }
 `;

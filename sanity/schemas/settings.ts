@@ -40,7 +40,13 @@ export default defineType({
           type: "image",
           options: { hotspot: true },
           fields: [
-            defineField({ name: "alt", title: "Alt-tekst", type: "string" }),
+            defineField({
+              name: "alt",
+              title: "Alt-tekst",
+              type: "string",
+              description: "Bijv: 'Portret Nina Passenier, Rotterdam' — Google leest dit.",
+              validation: (r) => r.required().error("Alt-tekst is verplicht voor elke stripfoto"),
+            }),
           ],
         },
       ],

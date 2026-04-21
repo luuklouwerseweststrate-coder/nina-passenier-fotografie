@@ -1,10 +1,13 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 
 export default defineType({
   name: "photo",
   title: "Foto",
   type: "document",
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({ section: "Volgorde" }),
     defineField({
       name: "image",
       title: "Afbeelding",
@@ -16,8 +19,8 @@ export default defineType({
       name: "alt",
       title: "Alt-tekst",
       type: "string",
-      description: "Korte beschrijving voor slechtzienden en zoekmachines",
-      validation: (r) => r.required(),
+      description: "Beschrijf WAT er op de foto staat voor Google en slechtzienden. Bijv: 'Portret van een vrouw in een wachtkamer, Rotterdam 2025' — niet 'foto' of de bestandsnaam.",
+      validation: (r) => r.required().min(10).error("Vul minimaal 10 tekens in — Google leest dit!"),
     }),
     defineField({
       name: "title",
@@ -42,12 +45,6 @@ export default defineType({
         layout: "radio",
       },
       validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "order",
-      title: "Volgorde",
-      type: "number",
-      description: "Lager = eerder zichtbaar",
     }),
   ],
   preview: {

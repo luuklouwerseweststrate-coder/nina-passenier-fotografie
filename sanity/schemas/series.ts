@@ -1,10 +1,13 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 
 export default defineType({
   name: "series",
   title: "Vrij werk — serie",
   type: "document",
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({ section: "Volgorde" }),
     defineField({
       name: "title",
       title: "Naam van de serie",
@@ -27,11 +30,6 @@ export default defineType({
       title: "Omslagfoto",
       type: "image",
       options: { hotspot: true },
-    }),
-    defineField({
-      name: "order",
-      title: "Volgorde",
-      type: "number",
     }),
   ],
   preview: {
