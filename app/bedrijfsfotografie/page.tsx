@@ -3,6 +3,8 @@ import Button from "@/components/Button";
 import PhotoCard from "@/components/PhotoCard";
 import SectionHeader from "@/components/SectionHeader";
 import ColorBlob from "@/components/ColorBlob";
+import FadeIn from "@/components/FadeIn";
+import SectionLabel from "@/components/SectionLabel";
 import { businessPhotos } from "@/lib/photos";
 
 export const metadata = { title: "Bedrijfsfotografie &mdash; Nina Passenier" };
@@ -19,14 +21,14 @@ const diensten = [
 export default function BedrijfsfotografiePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-nina-ink text-nina-cream">
+      <section className="relative overflow-hidden bg-nina-cream">
         <ColorBlob color="#E8913A" className="w-[60vw] h-[60vw] -top-40 -right-40" />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
           <p className="text-nina-oranje text-xs uppercase tracking-[0.3em] mb-6">Zakelijk werk</p>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
+          <h1 className="font-serif text-nina-ink text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
             Beeld dat werkt voor je <span className="text-nina-oranje italic">merk</span>.
           </h1>
-          <p className="mt-8 text-lg md:text-xl opacity-80 max-w-2xl leading-relaxed">
+          <p className="mt-8 text-lg md:text-xl text-nina-ink/70 max-w-2xl leading-relaxed">
             Ik fotografeer voor bedrijven, merken, organisaties en makers. Beeld dat zichtbaarheid en herkenning geeft, zonder dat het aanvoelt als een advertentie.
           </p>
           <div className="mt-10">
@@ -46,6 +48,55 @@ export default function BedrijfsfotografiePage() {
               <p className="text-nina-ink/70 text-sm leading-relaxed">{d.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Horeca & restaurants — uitgelicht */}
+      <section className="bg-nina-ink text-nina-cream">
+        <div className="mx-auto max-w-7xl px-5 lg:px-10 py-20 lg:py-28">
+          <FadeIn>
+            <SectionLabel nr="02" label="Specialisatie" className="[&>span]:text-nina-cream/50 [&>div]:bg-nina-cream/20" />
+          </FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            <FadeIn delay={0.1}>
+              <h2 className="font-serif italic text-4xl md:text-5xl lg:text-6xl leading-tight tracking-display">
+                Horeca &amp; restaurants.
+              </h2>
+              <p className="mt-6 text-lg text-nina-cream/75 leading-relaxed max-w-xl">
+                Een groot deel van mijn werk zit in de horeca. Ik fotografeer gerechten, sfeer, team en ruimte — op het moment dat alles klopt. Niet geposeerd, maar zoals een goed restaurant er echt uitziet.
+              </p>
+              <p className="mt-4 text-nina-cream/60 leading-relaxed max-w-xl">
+                Of het nu gaat om een menukaart, een nieuwe locatie, social content of een complete brand shoot: ik weet hoe horeca werkt en fotografeer daaromheen — voor openingstijd, na service, in het licht dat er altijd al was.
+              </p>
+              <ul className="mt-8 space-y-3 text-sm text-nina-cream/70 border-t border-nina-cream/10 pt-8">
+                {["Gerechten & drinks", "Sfeer & interieur", "Team & portret", "Social content pakketten", "Menu- en campagnebeelden"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-nina-oranje shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10">
+                <Button href="/contact" variant="oranje">Vraag een offerte aan</Button>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <div className="relative aspect-[4/5]">
+                <Image
+                  src={businessPhotos[1]?.src ?? businessPhotos[0].src}
+                  alt="Horecafotografie Nina Passenier"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-nina-oranje text-white text-xs uppercase tracking-widest px-3 py-1.5">
+                    Horeca
+                  </span>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
