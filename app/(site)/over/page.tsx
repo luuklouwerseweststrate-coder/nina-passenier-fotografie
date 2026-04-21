@@ -112,7 +112,7 @@ export default async function OverPage() {
       {/* Beeldenstrip */}
       <section className="py-20 lg:py-28">
         <div className="scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 lg:px-10 snap-x snap-mandatory">
-          {heroStrip.map((p: { src: string; alt: string }, i) => (
+          {heroStrip.map((p: { src: string; alt: string }, i: number) => (
             <div key={i} className="relative shrink-0 w-[70vw] sm:w-[40vw] lg:w-[22vw] aspect-[3/4] snap-start">
               <Image src={p.src} alt={p.alt} fill sizes="(max-width: 640px) 70vw, 22vw" className="object-cover" />
             </div>
