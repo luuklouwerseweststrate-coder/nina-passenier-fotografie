@@ -130,7 +130,7 @@ export default defineType({
       name: "bedrijfTagline",
       title: "Hero tagline",
       type: "string",
-      placeholder: "Beeld dat werkt voor je merk.",
+      placeholder: "Beeld dat werkt voor je bedrijf.",
       group: "bedrijf",
     }),
     defineField({

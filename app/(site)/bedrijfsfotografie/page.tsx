@@ -51,7 +51,7 @@ export default async function BedrijfsfotografiePage() {
         <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
           <p className="text-nina-oranje text-xs uppercase tracking-[0.3em] mb-6">Zakelijk werk</p>
           <h1 className="font-serif text-nina-ink text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
-            {settings?.bedrijfTagline || <>Beeld dat werkt voor je <span className="text-nina-oranje italic">merk</span>.</>}
+            {settings?.bedrijfTagline || <>Beeld dat werkt voor je <span className="text-nina-oranje italic">bedrijf</span>.</>}
           </h1>
           <p className="mt-8 text-lg md:text-xl text-nina-ink/70 max-w-2xl leading-relaxed">
             {settings?.bedrijfIntro || "Ik fotografeer voor bedrijven, merken, organisaties en makers. Beeld dat zichtbaarheid en herkenning geeft, zonder dat het aanvoelt als een advertentie."}

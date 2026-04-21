@@ -77,7 +77,7 @@ export default function HomePageClient({
       <FadeIn as="section" className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-36 text-center">
         <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-display">
           {introTekst || <>Ik ben Nina. Ik fotografeer{" "}
-          <span className="text-nina-oranje">merken</span>{" "}
+          <span className="text-nina-oranje">bedrijven</span>{" "}
           en maak{" "}
           <span className="text-nina-groen">vrij werk</span>.
           Die twee werelden versterken elkaar.</>}
