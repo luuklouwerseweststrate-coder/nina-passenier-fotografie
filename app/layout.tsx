@@ -24,9 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nl" className={`${dmSans.variable} ${dmSerif.variable}`}>
       <body className="font-sans">
-        <Navigation />
-        <main className="pt-20 lg:pt-24">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
