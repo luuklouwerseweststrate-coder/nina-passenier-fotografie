@@ -40,7 +40,9 @@ export default async function BedrijfsfotografiePage() {
         }))
       : fallbackBusinessPhotos;
 
-  const horecaPhoto = businessPhotos[1]?.src ?? businessPhotos[0].src;
+  const horecaPhoto = settings?.horecaPhoto
+    ? urlFor(settings.horecaPhoto).width(1200).quality(85).url()
+    : businessPhotos[0]?.src ?? "";
 
   return (
     <>

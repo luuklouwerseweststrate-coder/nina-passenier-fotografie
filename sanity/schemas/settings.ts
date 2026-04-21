@@ -32,6 +32,14 @@ export default defineType({
       group: "afbeeldingen",
     }),
     defineField({
+      name: "horecaPhoto",
+      title: "Horecafoto (uitgelicht op bedrijfsfotografie-pagina)",
+      type: "image",
+      options: { hotspot: true },
+      description: "De grote foto in het donkere 'Horeca & restaurants' blok",
+      group: "afbeeldingen",
+    }),
+    defineField({
       name: "heroStrip",
       title: "Beeldenstrip homepage (horizontale scroll onderaan)",
       type: "array",
