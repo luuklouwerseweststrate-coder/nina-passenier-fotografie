@@ -76,7 +76,6 @@ export default function HomePageClient({
                   zIndex: i === 1 || i === 3 ? 2 : 1,
                 }}
                 whileHover={{ scale: 1.02, zIndex: 10, rotate: "0deg" }}
-                transition={{ type: "spring", stiffness: 200, damping: 25 }}
                 className="overflow-hidden shadow-md cursor-default"
               >
                 <Image src={p.src} alt={p.alt} fill sizes="30vw" className="object-cover" />
