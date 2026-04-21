@@ -13,10 +13,15 @@ export const artPhotosQuery = groq`
   }
 `;
 
-// Site-instellingen (singleton) — hero, strip, portret
+// Site-instellingen (singleton) — alle velden
 export const settingsQuery = groq`
   *[_type == "settings"][0] {
-    heroImage, ninaPortret, heroStrip
+    heroImage, ninaPortret, heroStrip,
+    heroTagline, heroSubtitel, introTekst,
+    bio1, bio2, bio3, bio4, bio5,
+    bedrijfTagline, bedrijfIntro,
+    vrijwerkTagline, vrijwerkIntro,
+    email, instagram, location
   }
 `;
 

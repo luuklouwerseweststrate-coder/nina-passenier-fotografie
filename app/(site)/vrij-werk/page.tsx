@@ -6,7 +6,7 @@ import FadeIn from "@/components/FadeIn";
 import SectionLabel from "@/components/SectionLabel";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { artPhotosQuery, seriesQuery, exhibitionQuery, pressMentionsQuery } from "@/sanity/lib/queries";
+import { artPhotosQuery, seriesQuery, exhibitionQuery, pressMentionsQuery, settingsQuery } from "@/sanity/lib/queries";
 import { artPhotos as fallbackArtPhotos } from "@/lib/photos";
 
 export const metadata = { title: "Vrij werk — Nina Passenier" };
@@ -60,11 +60,12 @@ const fallbackPress = [
 ];
 
 export default async function VrijWerkPage() {
-  const [sanityArtPhotos, sanitySeries, sanityExhibition, sanityPress] = await Promise.all([
+  const [sanityArtPhotos, sanitySeries, sanityExhibition, sanityPress, settings] = await Promise.all([
     client.fetch(artPhotosQuery).catch(() => []),
     client.fetch(seriesQuery).catch(() => []),
     client.fetch(exhibitionQuery).catch(() => null),
     client.fetch(pressMentionsQuery).catch(() => []),
+    client.fetch(settingsQuery).catch(() => null),
   ]);
 
   // Foto's voor de fragmenten-sectie
@@ -108,11 +109,10 @@ export default async function VrijWerkPage() {
         <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
           <p className="text-nina-groen text-xs uppercase tracking-[0.3em] mb-6">Vrij werk</p>
           <h1 className="font-serif italic text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
-            Onderzoek <br className="hidden md:block" />in beeld.
+            {settings?.vrijwerkTagline || <>Onderzoek <br className="hidden md:block" />in beeld.</>}
           </h1>
           <p className="mt-8 text-lg md:text-xl text-nina-ink/70 max-w-2xl leading-relaxed">
-            Naast opdrachten werk ik aan eigen series. Langzaam, zonder deadline, zonder vooraf bedacht eindresultaat.
-            Dit is waar mijn blik zich blijft ontwikkelen.
+            {settings?.vrijwerkIntro || "Naast opdrachten werk ik aan eigen series. Langzaam, zonder deadline, zonder vooraf bedacht eindresultaat. Dit is waar mijn blik zich blijft ontwikkelen."}
           </p>
         </div>
       </section>

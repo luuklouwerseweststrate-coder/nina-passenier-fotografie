@@ -19,6 +19,14 @@ export default async function OverPage() {
   const heroStrip = settings?.heroStrip?.length > 0
     ? settings.heroStrip.map((img: any) => ({ src: urlFor(img).width(1200).quality(80).url(), alt: img.alt || "Foto Nina Passenier" }))
     : fallbackStrip;
+
+  const bio = {
+    p1: settings?.bio1 || "Ik ben Nina Passenier, fotograaf in Rotterdam. Ik studeerde fotografie aan de Willem de Kooning en vervolg mijn weg nu op de kunstacademie. Die twee werelden — het commerciële en het autonome — versterken elkaar in mijn werk.",
+    p2: settings?.bio2 || "Voor bedrijven maak ik beeld dat klopt: portretten die iets zeggen, campagnes met karakter, branding die verder gaat dan een productfoto. Daarnaast werk ik aan eigen series, waarin ik onderzoek wat beeld kan zijn als je het niet hoeft te verkopen.",
+    p3: settings?.bio3 || "Wat beide verbindt: een manier van kijken die rustig is, geduldig en net iets scheef.",
+    p4: settings?.bio4 || "Ik geloof dat de beste foto's ontstaan als je blijft wachten tot iemand zichzelf vergeet. Dat geldt voor een advocaat in een overhemd, voor een model in een veld met zoute lucht, en voor een vreemde in een wachtkamer.",
+    p5: settings?.bio5 || "Werken met mij betekent: geen strakke shotlist van zes uur, geen geforceerde poses. Wel voorbereiding, gesprek, en genoeg ruimte om de dag haar werk te laten doen.",
+  };
   return (
     <>
       <section className="relative overflow-hidden">
@@ -43,25 +51,11 @@ export default async function OverPage() {
 
       {/* Verhaal */}
       <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 space-y-8 text-lg leading-relaxed text-nina-ink/80">
-        <p>
-          Ik ben Nina Passenier, fotograaf in Rotterdam. Ik studeerde fotografie aan de <strong className="text-nina-ink">Willem de Kooning</strong>{" "}
-          en vervolg mijn weg nu op de kunstacademie. Die twee werelden &mdash; het commercieele en het autonome &mdash; versterken elkaar in mijn werk.
-        </p>
-        <p>
-          Voor bedrijven maak ik beeld dat klopt: portretten die iets zeggen, campagnes met karakter, branding die verder gaat dan een productfoto.
-          Daarnaast werk ik aan eigen series, waarin ik onderzoek wat beeld kan zijn als je het niet hoeft te verkopen.
-        </p>
-        <p className="font-serif italic text-2xl md:text-3xl text-nina-ink leading-snug">
-          Wat beide verbindt: een manier van kijken die rustig is, geduldig en net iets scheef.
-        </p>
-        <p>
-          Ik geloof dat de beste foto&apos;s ontstaan als je blijft wachten tot iemand zichzelf vergeet. Dat geldt voor een advocaat in een overhemd,
-          voor een model in een veld met zoute lucht, en voor een vreemde in een wachtkamer.
-        </p>
-        <p>
-          Werken met mij betekent: geen strakke shotlist van zes uur, geen geforceerde poses. Wel voorbereiding, gesprek, en genoeg ruimte om de dag
-          haar werk te laten doen.
-        </p>
+        <p>{bio.p1}</p>
+        <p>{bio.p2}</p>
+        <p className="font-serif italic text-2xl md:text-3xl text-nina-ink leading-snug">{bio.p3}</p>
+        <p>{bio.p4}</p>
+        <p>{bio.p5}</p>
       </section>
 
       {/* Opleiding & CV */}

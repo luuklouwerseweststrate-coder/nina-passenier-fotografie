@@ -76,6 +76,9 @@ export default async function HomePage() {
       ninaPortret={ninaPortret}
       heroStrip={heroStrip}
       featured={featured}
+      heroTagline={settings?.heroTagline}
+      heroSubtitel={settings?.heroSubtitel}
+      introTekst={settings?.introTekst}
     />
   );
 }

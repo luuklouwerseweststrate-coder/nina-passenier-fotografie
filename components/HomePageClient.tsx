@@ -18,6 +18,9 @@ type Props = {
   ninaPortret: string;
   heroStrip: StripPhoto[];
   featured: FeaturedCase;
+  heroTagline?: string;
+  heroSubtitel?: string;
+  introTekst?: string;
 };
 
 export default function HomePageClient({
@@ -27,6 +30,9 @@ export default function HomePageClient({
   ninaPortret,
   heroStrip,
   featured,
+  heroTagline,
+  heroSubtitel,
+  introTekst,
 }: Props) {
   return (
     <>
@@ -46,7 +52,7 @@ export default function HomePageClient({
           transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif text-nina-cream text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl"
         >
-          Beeld dat <span className="italic">blijft</span> hangen.
+          {heroTagline || <>Beeld dat <span className="italic">blijft</span> hangen.</>}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -54,7 +60,7 @@ export default function HomePageClient({
           transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="hidden sm:block text-nina-cream/75 text-lg md:text-xl mt-6 max-w-xl leading-relaxed"
         >
-          Fotografie voor merken die willen opvallen, en vrije series voor mezelf. Beide uit dezelfde manier van kijken.
+          {heroSubtitel || "Fotografie voor merken die willen opvallen, en vrije series voor mezelf. Beide uit dezelfde manier van kijken."}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -70,11 +76,11 @@ export default function HomePageClient({
       {/* Intro */}
       <FadeIn as="section" className="mx-auto max-w-4xl px-5 lg:px-10 py-24 lg:py-36 text-center">
         <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-display">
-          Ik ben Nina. Ik fotografeer{" "}
+          {introTekst || <>Ik ben Nina. Ik fotografeer{" "}
           <span className="text-nina-oranje">merken</span>{" "}
           en maak{" "}
           <span className="text-nina-groen">vrij werk</span>.
-          Die twee werelden versterken elkaar.
+          Die twee werelden versterken elkaar.</>}
         </p>
       </FadeIn>
 

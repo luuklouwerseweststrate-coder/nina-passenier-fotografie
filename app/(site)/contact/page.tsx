@@ -1,9 +1,18 @@
 import Button from "@/components/Button";
 import ColorBlob from "@/components/ColorBlob";
+import { client } from "@/sanity/lib/client";
+import { settingsQuery } from "@/sanity/lib/queries";
 
 export const metadata = { title: "Contact &mdash; Nina Passenier" };
+export const revalidate = 3600;
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await client.fetch(settingsQuery).catch(() => null);
+
+  const email = settings?.email || "hallo@ninapassenier.nl";
+  const instagram = settings?.instagram || "ninapassenier";
+  const location = settings?.location || "Rotterdam, werkt door heel NL";
+
   return (
     <section className="relative overflow-hidden min-h-[80vh]">
       <ColorBlob color="#E8913A" className="w-[50vw] h-[50vw] -top-20 -right-20" />
@@ -23,19 +32,19 @@ export default function ContactPage() {
           <div className="mt-12 space-y-6">
             <div>
               <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">E-mail</p>
-              <a href="mailto:hallo@ninapassenier.nl" className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
-                hallo@ninapassenier.nl
+              <a href={`mailto:${email}`} className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
+                {email}
               </a>
             </div>
             <div>
               <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">Instagram</p>
-              <a href="https://instagram.com" className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
-                @ninapassenier
+              <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
+                @{instagram}
               </a>
             </div>
             <div>
               <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">Locatie</p>
-              <p className="font-serif text-2xl md:text-3xl">Rotterdam, werkt door heel NL</p>
+              <p className="font-serif text-2xl md:text-3xl">{location}</p>
             </div>
           </div>
         </div>
@@ -43,7 +52,7 @@ export default function ContactPage() {
         {/* Formulier */}
         <form
           className="bg-white p-6 lg:p-10 rounded-sm border border-nina-beige/40 shadow-sm space-y-5"
-          action="mailto:hallo@ninapassenier.nl"
+          action={`mailto:${email}`}
           method="post"
           encType="text/plain"
         >
@@ -84,9 +93,6 @@ export default function ContactPage() {
           >
             Verstuur bericht &rarr;
           </button>
-          <p className="text-xs text-nina-ink/50">
-            Dit formulier stuurt een e-mail. Voor een echte formulier-integratie: vervang dit door Formspree, Resend of een eigen API-route.
-          </p>
         </form>
       </div>
     </section>

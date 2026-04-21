@@ -7,7 +7,7 @@ import FadeIn from "@/components/FadeIn";
 import SectionLabel from "@/components/SectionLabel";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { businessPhotosQuery } from "@/sanity/lib/queries";
+import { businessPhotosQuery, settingsQuery } from "@/sanity/lib/queries";
 import { businessPhotos as fallbackBusinessPhotos } from "@/lib/photos";
 
 export const metadata = { title: "Bedrijfsfotografie &mdash; Nina Passenier" };
@@ -25,7 +25,10 @@ const diensten = [
 type PhotoItem = { src: string; alt: string; title?: string; meta?: string };
 
 export default async function BedrijfsfotografiePage() {
-  const sanityPhotos = await client.fetch(businessPhotosQuery).catch(() => []);
+  const [sanityPhotos, settings] = await Promise.all([
+    client.fetch(businessPhotosQuery).catch(() => []),
+    client.fetch(settingsQuery).catch(() => null),
+  ]);
 
   const businessPhotos: PhotoItem[] =
     sanityPhotos.length > 0
@@ -46,10 +49,10 @@ export default async function BedrijfsfotografiePage() {
         <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40">
           <p className="text-nina-oranje text-xs uppercase tracking-[0.3em] mb-6">Zakelijk werk</p>
           <h1 className="font-serif text-nina-ink text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display max-w-4xl">
-            Beeld dat werkt voor je <span className="text-nina-oranje italic">merk</span>.
+            {settings?.bedrijfTagline || <>Beeld dat werkt voor je <span className="text-nina-oranje italic">merk</span>.</>}
           </h1>
           <p className="mt-8 text-lg md:text-xl text-nina-ink/70 max-w-2xl leading-relaxed">
-            Ik fotografeer voor bedrijven, merken, organisaties en makers. Beeld dat zichtbaarheid en herkenning geeft, zonder dat het aanvoelt als een advertentie.
+            {settings?.bedrijfIntro || "Ik fotografeer voor bedrijven, merken, organisaties en makers. Beeld dat zichtbaarheid en herkenning geeft, zonder dat het aanvoelt als een advertentie."}
           </p>
           <div className="mt-10">
             <Button href="/contact" variant="oranje">Plan een shoot</Button>
