@@ -64,9 +64,9 @@ export default async function HomePage() {
     client: rawCase.client,
     intro: rawCase.intro,
     cover:
-      rawCase.cover
+      rawCase.cover?.asset
         ? urlFor(rawCase.cover).width(2000).quality(85).url()
-        : rawCase.cover,
+        : rawCase.cover ?? "",
   };
 
   return (
