@@ -9,10 +9,12 @@ import { cases as fallbackCases } from "@/lib/cases";
 export const metadata = { title: "Cases &mdash; Nina Passenier" };
 export const revalidate = 3600;
 
+type CaseItem = { slug: string; client: string; year: string; type: string; title: string; cover: string };
+
 export default async function CasesPage() {
   const sanityCases = await client.fetch(casesQuery).catch(() => []);
 
-  const cases =
+  const cases: CaseItem[] =
     sanityCases.length > 0
       ? sanityCases.map((c: any) => ({
           slug: c.slug?.current,
