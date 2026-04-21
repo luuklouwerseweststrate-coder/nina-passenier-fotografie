@@ -60,14 +60,11 @@ export default function Navigation() {
           </Link>
         </div>
 
-        {/* Rechts: contact link (desktop) */}
+        {/* Rechts: naam (desktop) */}
         <div className="flex justify-end">
-          <Link
-            href="/contact"
-            className="hidden sm:block text-[10px] uppercase tracking-[0.3em] text-black/35 hover:text-black transition-colors"
-          >
-            Contact
-          </Link>
+          <span className="hidden lg:block text-[10px] uppercase tracking-[0.2em] text-black/35 whitespace-nowrap">
+            Nina Passenier Fotografie
+          </span>
         </div>
       </header>
 
