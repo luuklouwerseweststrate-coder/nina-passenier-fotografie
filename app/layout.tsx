@@ -8,16 +8,27 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans", display: "
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Nina Passenier Fotografie &mdash; Bedrijfsfotografie en vrij werk",
+  title: "Nina Passenier Fotografie — Bedrijfsfotografie en vrij werk",
   description:
-    "Nina Passenier is fotograaf in Rotterdam. Beeld voor merken, portretten, campagnes en autonoom vrij werk. Studie Willem de Kooning, nu kunstacademie.",
+    "Nina Passenier is fotograaf in Rotterdam. Beeld voor bedrijven, portretten, campagnes en autonoom vrij werk. Studie Willem de Kooning, nu kunstacademie.",
   metadataBase: new URL("https://ninapassenier.nl"),
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Nina Passenier Fotografie",
     description: "Bedrijfsfotografie en vrij werk uit Rotterdam",
     type: "website",
-    locale: "nl_NL"
-  }
+    locale: "nl_NL",
+    images: [{ url: "/logo.png", width: 1200, height: 440, alt: "Nina Passenier Fotografie" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nina Passenier Fotografie",
+    description: "Bedrijfsfotografie en vrij werk uit Rotterdam",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
