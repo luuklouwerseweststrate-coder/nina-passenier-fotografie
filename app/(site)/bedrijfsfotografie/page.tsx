@@ -68,7 +68,7 @@ export default async function BedrijfsfotografiePage() {
       <section className="mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32">
         <SectionHeader eyebrow="Wat ik doe" title="Voor elke fase van jouw merk." accent="oranje" />
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-          {diensten.map((d, i) => (
+          {diensten.map((d: { title: string; desc: string }, i: number) => (
             <div key={d.title} className="border-t border-nina-ink/10 pt-6">
               <p className="text-nina-oranje text-sm font-medium">0{i + 1}</p>
               <h3 className="font-serif text-2xl mt-2 mb-3">{d.title}</h3>
