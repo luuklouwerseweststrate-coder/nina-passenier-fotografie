@@ -38,14 +38,15 @@ export default function HomePageClient({
     <>
       {/* Hero met parallax */}
       <ParallaxHero src={heroImage} alt="Nina Passenier aan het werk">
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-nina-cream/70 text-xs tracking-[0.3em] uppercase mb-5"
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-nina-cream/80 text-xs tracking-wide mb-5"
         >
-          Fotograaf &middot; Rotterdam
-        </motion.p>
+          <span className="w-1.5 h-1.5 rounded-full bg-nina-groen animate-pulse shrink-0" />
+          Rotterdam &middot; Beschikbaar voor opdrachten
+        </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
