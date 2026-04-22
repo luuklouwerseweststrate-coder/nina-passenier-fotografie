@@ -97,7 +97,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
         </section>
 
         {/* Navigatielinks — zitten in de hero wrapper */}
-        <div className="px-8 lg:px-12 py-5 flex flex-wrap gap-x-8 gap-y-2">
+        <div className="px-8 lg:px-12 py-5 flex gap-x-5 sm:gap-x-8 gap-y-2 flex-nowrap overflow-x-auto no-scrollbar">
           {[
             { href: "/cases",    label: "Cases"    },
             { href: "/over",     label: "Over"     },
@@ -105,7 +105,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
             { href: "/contact",  label: "Contact"  },
           ].map((l) => (
             <Link key={l.href} href={l.href}
-              className="text-[13px] uppercase tracking-[0.22em] font-medium text-ink hover:text-muted transition-colors">
+              className="text-[10px] sm:text-[13px] uppercase tracking-[0.18em] sm:tracking-[0.22em] font-medium text-ink hover:text-muted transition-colors whitespace-nowrap shrink-0">
               {l.label}
             </Link>
           ))}

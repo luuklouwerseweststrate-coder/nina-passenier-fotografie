@@ -59,40 +59,53 @@ export default async function CasePage({ params }: { params: { slug: string } })
         .catch(() => null)
     : fallbackCases.find((x) => x.slug === nextSlug);
 
-  const labelColor = c.type === "bedrijf" ? "text-commerce" : "text-free";
+  const typeLabel = c.type === "bedrijf" ? "Bedrijfsfotografie" : "Autonoom werk";
 
   return (
-    <>
-      {/* ── Hero ───────────────────────────────────── */}
-      <section className="relative aspect-[16/10] lg:aspect-[21/9] overflow-hidden">
+    <div className="bg-white">
+
+      {/* ── Hero — grote afbeelding full-width ─────── */}
+      <section className="relative w-full overflow-hidden" style={{ aspectRatio: "16/8", minHeight: "320px" }}>
         <Image src={c.cover} alt={c.client} fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 px-7 lg:px-12 pb-10 lg:pb-14">
-          <p className={`text-[9px] uppercase tracking-[0.28em] mb-4 ${labelColor}`}>
-            {c.type === "bedrijf" ? "Bedrijfsfotografie" : "Vrij werk"} &middot; {c.year}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 55%)" }} />
+        <div className="absolute bottom-0 left-0 right-0 px-7 lg:px-12 pb-9 lg:pb-12">
+          <p className="text-[9px] uppercase tracking-[0.28em] text-white/50 mb-3">
+            {typeLabel} · {c.year}
           </p>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-light text-bg leading-tight max-w-3xl">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
             {c.client}
           </h1>
         </div>
       </section>
 
+      {/* ── Terug + breadcrumb ──────────────────────── */}
+      <div className="px-7 lg:px-12 py-5 border-b border-border flex items-center justify-between">
+        <Link href="/cases" className="text-[9px] uppercase tracking-[0.28em] text-faint hover:text-ink transition-colors">
+          ← Alle cases
+        </Link>
+        <span className="text-[9px] uppercase tracking-[0.28em] text-faint">{typeLabel}</span>
+      </div>
+
       {/* ── Intro ──────────────────────────────────── */}
-      <section className="px-7 lg:px-12 py-14 lg:py-20 border-b border-border max-w-3xl">
-        <h2 className="text-xl lg:text-2xl font-light leading-snug text-ink/80"
-          dangerouslySetInnerHTML={{ __html: c.title }} />
-        {c.intro && (
-          <p className="mt-6 text-base text-ink/55 leading-relaxed">{c.intro}</p>
-        )}
+      <section className="px-7 lg:px-12 py-14 lg:py-20 border-b border-border">
+        <div className="max-w-2xl">
+          {c.title && (
+            <h2 className="text-xl lg:text-2xl font-light leading-snug text-ink mb-6"
+              dangerouslySetInnerHTML={{ __html: c.title }} />
+          )}
+          {c.intro && (
+            <p className="text-base text-ink/55 leading-relaxed">{c.intro}</p>
+          )}
+        </div>
       </section>
 
       {/* ── Galerij ────────────────────────────────── */}
       {c.images?.length > 0 && (
         <section className="px-7 lg:px-12 py-10 border-b border-border">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             {c.images.map((img: string, i: number) => (
               <div key={i} className={`relative overflow-hidden ${
-                i % 3 === 0 ? "aspect-[4/5] sm:col-span-2 sm:aspect-[16/9]" : "aspect-[4/5]"
+                i % 3 === 0 ? "aspect-[16/10] sm:col-span-2" : "aspect-[4/5]"
               }`}>
                 <Image
                   src={img}
@@ -107,58 +120,52 @@ export default async function CasePage({ params }: { params: { slug: string } })
         </section>
       )}
 
-      {/* ── Aanpak & quote ─────────────────────────── */}
-      {(c.approach || c.quote) && (
-        <section className="px-7 lg:px-12 py-14 lg:py-20 border-b border-border max-w-3xl">
-          {c.approach && (
-            <>
-              <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-5">Aanpak</p>
-              <p className="text-xl lg:text-2xl font-light leading-relaxed text-ink/75">{c.approach}</p>
-            </>
-          )}
-          {c.quote && (
-            <blockquote className="mt-14 border-l border-border pl-7">
-              <p className="text-xl lg:text-2xl font-light leading-relaxed text-ink">
-                &ldquo;{c.quote.text}&rdquo;
-              </p>
-              <cite className="block mt-4 text-[9px] uppercase tracking-[0.28em] text-faint not-italic">
-                &mdash; {c.quote.author}
+      {/* ── Aanpak ─────────────────────────────────── */}
+      {c.approach && (
+        <section className="px-7 lg:px-12 py-14 lg:py-20 border-b border-border">
+          <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-7">Aanpak</p>
+          <p className="text-xl lg:text-2xl font-light leading-relaxed text-ink/70 max-w-2xl">{c.approach}</p>
+        </section>
+      )}
+
+      {/* ── Quote ──────────────────────────────────── */}
+      {c.quote?.text && (
+        <section className="px-7 lg:px-12 py-14 lg:py-20 border-b border-border">
+          <div className="max-w-2xl border-l-2 border-border pl-8">
+            <p className="text-xl lg:text-2xl font-light leading-relaxed text-ink">
+              &ldquo;{c.quote.text}&rdquo;
+            </p>
+            {c.quote.author && (
+              <cite className="block mt-5 text-[9px] uppercase tracking-[0.28em] text-faint not-italic">
+                — {c.quote.author}
               </cite>
-            </blockquote>
-          )}
+            )}
+          </div>
         </section>
       )}
 
       {/* ── Volgende case ──────────────────────────── */}
-      {nextCase && (
-        <section>
-          <Link href={`/cases/${nextCase.slug}`} className="block group">
-            <div className="relative aspect-[21/9] overflow-hidden">
-              <Image
-                src={nextCase.cover}
-                alt={nextCase.client}
-                fill
-                sizes="100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-ink/55 group-hover:bg-ink/40 transition-colors duration-700" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-bg text-center px-7">
-                <p className="text-[9px] uppercase tracking-[0.28em] text-bg/40 mb-4">Volgende case</p>
-                <h3 className="text-3xl md:text-5xl font-light group-hover:text-bg/80 transition-colors">
-                  {nextCase.client} &rarr;
-                </h3>
-              </div>
+      {nextCase && nextCase.slug !== c.slug && (
+        <section className="border-t border-border">
+          <Link href={`/cases/${nextCase.slug}`} className="group block relative overflow-hidden" style={{ aspectRatio: "21/8", minHeight: "240px" }}>
+            <Image
+              src={nextCase.cover}
+              alt={nextCase.client}
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+            />
+            <div className="absolute inset-0 bg-white/70 group-hover:bg-white/60 transition-colors duration-500" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-7">
+              <p className="text-[9px] uppercase tracking-[0.28em] text-ink/40 mb-4">Volgende case</p>
+              <h3 className="text-2xl md:text-4xl font-light text-ink group-hover:text-ink/70 transition-colors">
+                {nextCase.client} →
+              </h3>
             </div>
           </Link>
         </section>
       )}
 
-      {/* ── Terug ──────────────────────────────────── */}
-      <div className="px-7 lg:px-12 py-8 border-t border-border">
-        <Link href="/cases" className="text-[9px] uppercase tracking-[0.28em] text-muted hover:text-ink transition-colors">
-          &larr; Alle cases
-        </Link>
-      </div>
-    </>
+    </div>
   );
 }

@@ -25,56 +25,88 @@ export default async function CasesPage() {
         }))
       : fallbackCases.map((c) => ({ slug: c.slug, client: c.client, year: c.year, type: c.type, title: c.title, cover: c.cover }));
 
+  const bedrijfCases = cases.filter((c) => c.type === "bedrijf");
+  const kunstCases   = cases.filter((c) => c.type === "kunst");
+
   return (
-    <>
+    <div className="bg-white">
+
       {/* ── Header ─────────────────────────────────── */}
       <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-14 border-b border-border">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Cases</p>
+        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-5">Cases</p>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink max-w-2xl">
-          Projecten, samenwerkingen en eigen werk.
+          Projecten & werk.
         </h1>
-        <p className="mt-6 text-base text-ink/55 max-w-lg leading-relaxed">
-          Een selectie van projecten waar ik trots op ben. Sommige commercieel, sommige autonoom — allemaal vanuit dezelfde manier van kijken.
+        <p className="mt-5 text-sm text-ink/50 max-w-md leading-relaxed">
+          Een selectie samenwerkingen en eigen werk — bedrijfsfotografie en autonoom.
         </p>
       </section>
 
-      {/* ── Cases ──────────────────────────────────── */}
-      <section className="px-7 lg:px-12 py-4 pb-16">
-        {cases.map((c, i) => (
-          <Link key={c.slug} href={`/cases/${c.slug}`} className="group block border-b border-border">
-            <div className={`grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end py-12 lg:py-16 ${i % 2 === 1 ? "lg:text-right" : ""}`}>
+      {/* ── Bedrijfsfotografie ─────────────────────── */}
+      {bedrijfCases.length > 0 && (
+        <section className="border-b border-border">
+          <div className="px-7 lg:px-12 pt-12 pb-4 flex items-baseline justify-between">
+            <p className="text-[9px] uppercase tracking-[0.28em] text-muted">Bedrijfsfotografie</p>
+            <span className="text-[9px] text-faint">{bedrijfCases.length} projecten</span>
+          </div>
+          {bedrijfCases.map((c, i) => (
+            <CaseRow key={c.slug} c={c} i={i} total={bedrijfCases.length} />
+          ))}
+        </section>
+      )}
 
-              {/* Afbeelding */}
-              <div className={`relative aspect-[16/10] overflow-hidden ${
-                i % 2 === 1
-                  ? "lg:col-start-4 lg:col-span-9"
-                  : "lg:col-span-9"
-              }`}>
-                <Image
-                  src={c.cover}
-                  alt={c.client}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 75vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                />
-              </div>
+      {/* ── Autonoom werk ──────────────────────────── */}
+      {kunstCases.length > 0 && (
+        <section className="border-b border-border">
+          <div className="px-7 lg:px-12 pt-12 pb-4 flex items-baseline justify-between">
+            <p className="text-[9px] uppercase tracking-[0.28em] text-muted">Autonoom werk</p>
+            <span className="text-[9px] text-faint">{kunstCases.length} projecten</span>
+          </div>
+          {kunstCases.map((c, i) => (
+            <CaseRow key={c.slug} c={c} i={i} total={kunstCases.length} />
+          ))}
+        </section>
+      )}
 
-              {/* Meta */}
-              <div className={`lg:col-span-3 pb-1 ${i % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                <p className={`text-[9px] uppercase tracking-[0.28em] mb-3 ${c.type === "bedrijf" ? "text-commerce" : "text-free"}`}>
-                  {c.type === "bedrijf" ? "Bedrijfsfotografie" : "Vrij werk"} &middot; {c.year}
-                </p>
-                <h3 className="text-2xl lg:text-3xl font-light leading-tight">{c.client}</h3>
-                <p className="mt-3 text-sm text-ink/45 leading-relaxed" dangerouslySetInnerHTML={{ __html: c.title }} />
-                <p className="mt-6 text-[9px] uppercase tracking-[0.28em] text-faint group-hover:text-ink transition-colors">
-                  Lees case &rarr;
-                </p>
-              </div>
+    </div>
+  );
+}
 
-            </div>
-          </Link>
-        ))}
-      </section>
-    </>
+function CaseRow({ c, i, total }: { c: CaseItem; i: number; total: number }) {
+  return (
+    <Link href={`/cases/${c.slug}`} className="group block border-t border-border">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+
+        {/* Afbeelding */}
+        <div className={`relative overflow-hidden ${
+          i % 2 === 1 ? "lg:col-start-5 lg:col-span-8" : "lg:col-span-8"
+        }`} style={{ minHeight: "300px", maxHeight: "480px", aspectRatio: "16/9" }}>
+          <Image
+            src={c.cover}
+            alt={c.client}
+            fill
+            sizes="(max-width: 1024px) 100vw, 66vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        </div>
+
+        {/* Meta */}
+        <div className={`lg:col-span-4 flex flex-col justify-end px-7 lg:px-10 py-8 ${
+          i % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""
+        }`}>
+          <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-3">
+            {c.year}
+          </p>
+          <h3 className="text-2xl lg:text-3xl font-light leading-tight text-ink">{c.client}</h3>
+          {c.title && (
+            <p className="mt-2 text-sm text-ink/45 leading-relaxed" dangerouslySetInnerHTML={{ __html: c.title }} />
+          )}
+          <p className="mt-6 text-[9px] uppercase tracking-[0.28em] text-faint group-hover:text-ink transition-colors duration-300">
+            Bekijk case →
+          </p>
+        </div>
+
+      </div>
+    </Link>
   );
 }
