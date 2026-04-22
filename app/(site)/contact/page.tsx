@@ -73,10 +73,6 @@ export default function ContactPage() {
               @{instagram}
             </a>
           </div>
-          <div>
-            <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">Locatie</p>
-            <p className="text-sm text-ink">{location}</p>
-          </div>
           <div className="pt-4 border-t border-border">
             <p className="text-xs text-ink/35 leading-relaxed">
               Ik reageer meestal binnen één werkdag.
