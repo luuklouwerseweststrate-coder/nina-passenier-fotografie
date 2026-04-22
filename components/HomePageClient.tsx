@@ -172,19 +172,31 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
               })}
             </div>
 
-            {/* Mobiel: strak 2-koloms grid */}
-            <div className="lg:hidden grid grid-cols-2 gap-2">
-              {galleryItems.map((item, i) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="group relative overflow-hidden"
-                  style={{ aspectRatio: i % 5 === 0 ? "1/1" : i % 5 === 2 ? "4/5" : "3/4" }}
-                >
-                  <Image src={item.src} alt={item.alt} fill sizes="50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                </Link>
-              ))}
+            {/* Mobiel: scattered met grotere percentages */}
+            <div className="lg:hidden relative" style={{ minHeight: "520px" }}>
+              {galleryItems.map((item, i) => {
+                const mobileSlots = [
+                  { left: "4%",  top: "2%",  width: "44%", rotate: "-2deg"   },
+                  { left: "50%", top: "5%",  width: "42%", rotate: "1.5deg"  },
+                  { left: "12%", top: "36%", width: "38%", rotate: "-1deg"   },
+                  { left: "52%", top: "40%", width: "40%", rotate: "2deg"    },
+                  { left: "6%",  top: "68%", width: "42%", rotate: "-1.5deg" },
+                  { left: "46%", top: "70%", width: "38%", rotate: "1deg"    },
+                ];
+                const slot = mobileSlots[i % mobileSlots.length];
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="group absolute overflow-hidden shadow-sm"
+                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
+                  >
+                    <div className="relative w-full" style={{ paddingTop: i % 3 === 0 ? "133%" : i % 3 === 1 ? "65%" : "100%" }}>
+                      <Image src={item.src} alt={item.alt} fill sizes="45vw" className="object-cover" />
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </>
         )}
