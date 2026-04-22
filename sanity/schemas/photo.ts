@@ -40,7 +40,7 @@ export default defineType({
       options: {
         list: [
           { title: "Bedrijfsfotografie", value: "business" },
-          { title: "Vrij werk / kunst", value: "art" },
+          { title: "Autonoom werk", value: "art" },
         ],
         layout: "radio",
       },
@@ -52,7 +52,7 @@ export default defineType({
     prepare({ title, subtitle, media }) {
       return {
         title: title || "Naamloos",
-        subtitle: subtitle === "business" ? "Bedrijfsfotografie" : "Vrij werk",
+        subtitle: subtitle === "business" ? "Bedrijfsfotografie" : "Autonoom werk",
         media,
       };
     },

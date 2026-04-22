@@ -3,7 +3,7 @@ import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-li
 
 export default defineType({
   name: "series",
-  title: "Vrij werk — serie",
+  title: "Autonoom werk — serie",
   type: "document",
   orderings: [orderRankOrdering],
   fields: [

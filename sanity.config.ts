@@ -17,9 +17,10 @@ export default defineConfig({
     structureTool({
       structure: (S, context) =>
         S.list()
-          .title("Inhoud")
+          .title("Beheer")
           .items([
-            // Singleton: instellingen
+
+            // ── Instellingen ───────────────────────────────
             S.listItem()
               .title("⚙️ Site-instellingen")
               .id("settings")
@@ -28,23 +29,54 @@ export default defineConfig({
                   .schemaType("settings")
                   .documentId(SETTINGS_DOC_ID)
               ),
+
             S.divider(),
-            // Drag & drop volgorde voor foto's en series
-            orderableDocumentListDeskItem({
-              type: "photo",
-              title: "📷 Foto's (sleep om te sorteren)",
-              S,
-              context,
-            }),
-            orderableDocumentListDeskItem({
-              type: "series",
-              title: "🎨 Vrij werk — series",
-              S,
-              context,
-            }),
+
+            // ── Bedrijfsfotografie ─────────────────────────
+            S.listItem()
+              .title("📸 Bedrijfsfotografie")
+              .child(
+                S.list()
+                  .title("Bedrijfsfotografie")
+                  .items([
+                    orderableDocumentListDeskItem({
+                      type: "photo",
+                      title: "Foto's (sleep om volgorde te bepalen)",
+                      filter: `category == "business"`,
+                      S,
+                      context,
+                    }),
+                    S.documentTypeListItem("caseStudy").title("Cases & portfolio"),
+                  ])
+              ),
+
+            // ── Autonoom werk ──────────────────────────────
+            S.listItem()
+              .title("🎨 Autonoom werk")
+              .child(
+                S.list()
+                  .title("Autonoom werk")
+                  .items([
+                    orderableDocumentListDeskItem({
+                      type: "photo",
+                      title: "Foto's (sleep om volgorde te bepalen)",
+                      filter: `category == "art"`,
+                      S,
+                      context,
+                    }),
+                    orderableDocumentListDeskItem({
+                      type: "series",
+                      title: "Series",
+                      S,
+                      context,
+                    }),
+                    S.documentTypeListItem("exhibition").title("Exposities"),
+                  ])
+              ),
+
             S.divider(),
-            S.documentTypeListItem("caseStudy").title("💼 Cases & portfolio"),
-            S.documentTypeListItem("exhibition").title("🖼️ Exposities"),
+
+            // ── Overig ────────────────────────────────────
             S.documentTypeListItem("pressMention").title("📰 Pers & media"),
           ]),
     }),
