@@ -1,12 +1,11 @@
 import Image from "next/image";
-import Button from "@/components/Button";
-import ColorBlob from "@/components/ColorBlob";
+import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { ninaPortret as fallbackPortret, heroStrip as fallbackStrip } from "@/lib/photos";
 
-export const metadata = { title: "Over Nina &mdash; Nina Passenier Fotografie" };
+export const metadata = { title: "Over Nina — Nina Passenier" };
 export const revalidate = 3600;
 
 export default async function OverPage() {
@@ -27,100 +26,116 @@ export default async function OverPage() {
     p4: settings?.bio4 || "Ik geloof dat de beste foto's ontstaan als je blijft wachten tot iemand zichzelf vergeet. Dat geldt voor een advocaat in een overhemd, voor een model in een veld met zoute lucht, en voor een vreemde in een wachtkamer.",
     p5: settings?.bio5 || "Werken met mij betekent: geen strakke shotlist van zes uur, geen geforceerde poses. Wel voorbereiding, gesprek, en genoeg ruimte om de dag haar werk te laten doen.",
   };
+
   return (
     <>
-      <section className="relative overflow-hidden">
-        <ColorBlob color="#E8913A" className="w-[50vw] h-[50vw] -top-20 -right-20" />
-        <ColorBlob color="#8FA368" className="w-[40vw] h-[40vw] top-60 -left-20" delay={0.3} />
-
-        <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7">
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-petrol mb-6">Over Nina</p>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-display">
-              Kijken is <em className="text-nina-oranje">kiezen</em>.
+      {/* ── Header ─────────────────────────────────── */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 border-b border-border">
+        <div className="px-7 lg:px-12 pt-20 lg:pt-28 pb-12 lg:pb-16 flex flex-col justify-between">
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Over Nina</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink max-w-sm">
+              Kijken is kiezen.
             </h1>
           </div>
-          <div className="lg:col-span-5">
-            <div className="relative aspect-[3/4]">
-              <Image src={ninaPortret} alt="Nina Passenier" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" priority />
-              <div className="absolute -bottom-4 -right-4 bg-nina-geel w-24 h-24 -z-0" />
-            </div>
-          </div>
+          <p className="mt-10 text-base text-ink/55 max-w-sm leading-relaxed">
+            Fotograaf in Rotterdam — bedrijfsfotografie en autonoom vrij werk.
+          </p>
+        </div>
+        <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px] overflow-hidden">
+          <Image
+            src={ninaPortret}
+            alt="Nina Passenier"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+            priority
+          />
         </div>
       </section>
 
-      {/* Verhaal */}
-      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 space-y-8 text-lg leading-relaxed text-nina-ink/80">
-        <p>{bio.p1}</p>
-        <p>{bio.p2}</p>
-        <p className="font-serif italic text-2xl md:text-3xl text-nina-ink leading-snug">{bio.p3}</p>
-        <p>{bio.p4}</p>
-        <p>{bio.p5}</p>
+      {/* ── Verhaal ────────────────────────────────── */}
+      <section className="px-7 lg:px-12 py-16 lg:py-24 border-b border-border">
+        <div className="max-w-2xl space-y-7 text-base text-ink/65 leading-relaxed">
+          <p>{bio.p1}</p>
+          <p>{bio.p2}</p>
+        </div>
+
+        <blockquote className="my-12 lg:my-16 max-w-xl border-l border-border pl-7">
+          <p className="text-2xl lg:text-3xl font-light leading-snug text-ink">{bio.p3}</p>
+        </blockquote>
+
+        <div className="max-w-2xl space-y-7 text-base text-ink/65 leading-relaxed">
+          <p>{bio.p4}</p>
+          <p>{bio.p5}</p>
+        </div>
       </section>
 
-      {/* Opleiding & CV */}
-      <section className="bg-nina-beige/20 py-20 lg:py-28">
-        <div className="mx-auto max-w-4xl px-5 lg:px-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* ── CV ─────────────────────────────────────── */}
+      <section className="px-7 lg:px-12 py-14 border-b border-border bg-surface">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-oranje mb-5">Opleiding</p>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <p className="font-medium text-nina-ink">Kunstacademie</p>
-                <p className="text-nina-ink/60">Lopend &middot; autonome fotografie</p>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-7">Opleiding</p>
+            <ul className="space-y-5">
+              <li className="border-t border-border pt-4">
+                <p className="text-sm font-medium text-ink">Kunstacademie</p>
+                <p className="text-sm text-ink/45 mt-0.5">Lopend &middot; autonome fotografie</p>
               </li>
-              <li>
-                <p className="font-medium text-nina-ink">Willem de Kooning, Rotterdam</p>
-                <p className="text-nina-ink/60">Fotografie, BA</p>
+              <li className="border-t border-border pt-4">
+                <p className="text-sm font-medium text-ink">Willem de Kooning · Rotterdam</p>
+                <p className="text-sm text-ink/45 mt-0.5">Fotografie, BA</p>
               </li>
             </ul>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-nina-groen mb-5">Exposities & publicaties</p>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <p className="font-medium text-nina-ink">Expo Nina Passenier &mdash; Polderhuis Westkapelle</p>
-                <p className="text-nina-ink/60">
-                  <a
-                    href="https://www.polderhuiswestkapelle.nl/nl/exposities-museum/1663-expo-nina-passenier"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-nina-groen underline underline-offset-4"
-                  >
-                    Museum Polderhuis Westkapelle
-                  </a>
-                </p>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-7">Exposities & publicaties</p>
+            <ul className="space-y-5">
+              <li className="border-t border-border pt-4">
+                <p className="text-sm font-medium text-ink">Expo Nina Passenier — Polderhuis Westkapelle</p>
+                <a href="https://www.polderhuiswestkapelle.nl/nl/exposities-museum/1663-expo-nina-passenier"
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-sm text-ink/45 mt-0.5 hover:text-ink transition-colors underline underline-offset-4 decoration-border block">
+                  polderhuiswestkapelle.nl
+                </a>
               </li>
-              <li>
-                <p className="font-medium text-nina-ink">Wachtkamer &mdash; groepsexpositie</p>
-                <p className="text-nina-ink/60">Rotterdam, 2025</p>
+              <li className="border-t border-border pt-4">
+                <p className="text-sm font-medium text-ink">Wachtkamer — groepsexpositie</p>
+                <p className="text-sm text-ink/45 mt-0.5">Rotterdam, 2025</p>
               </li>
-              <li>
-                <p className="font-medium text-nina-ink">Willem de Kooning eindexamen expositie</p>
-                <p className="text-nina-ink/60">Rotterdam, 2024</p>
+              <li className="border-t border-border pt-4">
+                <p className="text-sm font-medium text-ink">Willem de Kooning eindexamen</p>
+                <p className="text-sm text-ink/45 mt-0.5">Rotterdam, 2024</p>
               </li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* Beeldenstrip */}
-      <section className="py-20 lg:py-28">
-        <div className="scroll-strip flex overflow-x-auto gap-4 pb-4 px-5 lg:px-10 snap-x snap-mandatory">
-          {heroStrip.map((p: { src: string; alt: string }, i: number) => (
-            <div key={i} className="relative shrink-0 w-[70vw] sm:w-[40vw] lg:w-[22vw] aspect-[3/4] snap-start">
-              <Image src={p.src} alt={p.alt} fill sizes="(max-width: 640px) 70vw, 22vw" className="object-cover" />
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Beeldenstrip ───────────────────────────── */}
+      {heroStrip.length > 0 && (
+        <section className="py-14 border-b border-border">
+          <div className="no-scrollbar flex overflow-x-auto gap-3 pb-2 px-7 lg:px-12 snap-x snap-mandatory">
+            {heroStrip.map((p: { src: string; alt: string }, i: number) => (
+              <div key={i} className="relative shrink-0 w-[60vw] sm:w-[35vw] lg:w-[20vw] aspect-[3/4] snap-start overflow-hidden">
+                <Image src={p.src} alt={p.alt} fill sizes="(max-width: 640px) 60vw, 20vw" className="object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <section className="mx-auto max-w-3xl px-5 lg:px-10 py-20 lg:py-28 text-center">
-        <h2 className="font-serif text-4xl md:text-5xl tracking-display leading-tight">
+      {/* ── CTA ────────────────────────────────────── */}
+      <section className="px-7 lg:px-12 py-16 lg:py-24 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 border-b border-border">
+        <h2 className="text-2xl lg:text-3xl font-light leading-tight max-w-xs">
           Benieuwd hoe ik werk?
         </h2>
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <Button href="/werkwijze" variant="ink">Bekijk mijn werkwijze</Button>
-          <Button href="/contact" variant="outline">Plan een gesprek</Button>
+        <div className="flex gap-3">
+          <Link href="/werkwijze" className="border border-ink px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] hover:bg-ink hover:text-bg transition-all duration-300">
+            Werkwijze
+          </Link>
+          <Link href="/contact" className="border border-border px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-muted hover:border-ink hover:text-ink transition-all duration-300">
+            Contact
+          </Link>
         </div>
       </section>
     </>

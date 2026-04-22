@@ -35,7 +35,7 @@ export default function InstagramFeed({ feedId, label, handle }: Props) {
             </a>
           )}
           {label && !handle && (
-            <span className="text-xs uppercase tracking-[0.25em] text-nina-ink/50">{label}</span>
+            <span className="text-xs uppercase tracking-[0.25em] text-white/40">{label}</span>
           )}
         </div>
       )}

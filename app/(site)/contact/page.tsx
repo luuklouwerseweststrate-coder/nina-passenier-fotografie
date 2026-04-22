@@ -1,78 +1,86 @@
-import Button from "@/components/Button";
-import ColorBlob from "@/components/ColorBlob";
 import { client } from "@/sanity/lib/client";
 import { settingsQuery } from "@/sanity/lib/queries";
 
-export const metadata = { title: "Contact &mdash; Nina Passenier" };
+export const metadata = { title: "Contact — Nina Passenier" };
 export const revalidate = 3600;
 
 export default async function ContactPage() {
   const settings = await client.fetch(settingsQuery).catch(() => null);
 
-  const email = settings?.email || "hallo@ninapassenier.nl";
+  const email    = settings?.email    || "hallo@ninapassenier.nl";
   const instagram = settings?.instagram || "ninapassenier";
-  const location = settings?.location || "Rotterdam, werkt door heel NL";
+  const location = settings?.location  || "Rotterdam, werkt door heel NL";
 
   return (
-    <section className="relative overflow-hidden min-h-[80vh]">
-      <ColorBlob color="#E8913A" className="w-[50vw] h-[50vw] -top-20 -right-20" />
-      <ColorBlob color="#8FA368" className="w-[40vw] h-[40vw] bottom-0 -left-20" delay={0.3} />
+    <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-0">
 
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-10 py-24 lg:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-nina-oranje mb-6">Contact</p>
-          <h1 className="font-serif text-5xl md:text-7xl leading-[0.95] tracking-display">
-            Laten we <span className="italic text-nina-oranje">praten</span>.
-          </h1>
-          <p className="mt-8 text-lg text-nina-ink/70 max-w-lg leading-relaxed">
-            Plan een shoot, bespreek een campagne, of stel een vraag over vrij werk.
-            Ik reageer meestal binnen een werkdag.
-          </p>
+      {/* ── Header ─────────────────────────────────── */}
+      <div className="border-b border-border pb-14 max-w-2xl">
+        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Contact</p>
+        <h1 className="text-4xl md:text-6xl font-light leading-[1.05] text-ink">
+          Laten we praten.
+        </h1>
+        <p className="mt-6 text-base text-ink/55 leading-relaxed max-w-md">
+          Plan een shoot, bespreek een campagne, of stel een vraag over vrij werk.
+          Ik reageer meestal binnen een werkdag.
+        </p>
+      </div>
 
-          <div className="mt-12 space-y-6">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">E-mail</p>
-              <a href={`mailto:${email}`} className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
-                {email}
-              </a>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 py-14 lg:py-20 border-b border-border">
+
+        {/* ── Gegevens ─────────────────────────────── */}
+        <div className="space-y-10">
+          {[
+            { label: "E-mail",    value: email,        href: `mailto:${email}` },
+            { label: "Instagram", value: `@${instagram}`, href: `https://instagram.com/${instagram}` },
+            { label: "Locatie",   value: location,     href: null },
+          ].map(({ label, value, href }) => (
+            <div key={label} className="border-t border-border pt-6">
+              <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">{label}</p>
+              {href ? (
+                <a
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="text-xl lg:text-2xl font-light text-ink hover:text-muted transition-colors"
+                >
+                  {value}
+                </a>
+              ) : (
+                <p className="text-xl lg:text-2xl font-light text-ink">{value}</p>
+              )}
             </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">Instagram</p>
-              <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="font-serif text-2xl md:text-3xl hover:text-nina-oranje">
-                @{instagram}
-              </a>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-nina-petrol mb-1">Locatie</p>
-              <p className="font-serif text-2xl md:text-3xl">{location}</p>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Formulier */}
+        {/* ── Formulier ────────────────────────────── */}
         <form
-          className="bg-white p-6 lg:p-10 rounded-sm border border-nina-beige/40 shadow-sm space-y-5"
           action={`mailto:${email}`}
           method="post"
           encType="text/plain"
+          className="space-y-7"
         >
-          <div>
-            <label htmlFor="naam" className="block text-xs uppercase tracking-widest text-nina-petrol mb-2">Naam</label>
-            <input
-              id="naam" name="naam" type="text" required
-              className="w-full border-b border-nina-ink/20 bg-transparent py-2 focus:outline-none focus:border-nina-oranje"
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-xs uppercase tracking-widest text-nina-petrol mb-2">E-mail</label>
-            <input
-              id="email" name="email" type="email" required
-              className="w-full border-b border-nina-ink/20 bg-transparent py-2 focus:outline-none focus:border-nina-oranje"
-            />
-          </div>
-          <div>
-            <label htmlFor="type" className="block text-xs uppercase tracking-widest text-nina-petrol mb-2">Soort project</label>
-            <select id="type" name="type" className="w-full border-b border-nina-ink/20 bg-transparent py-2 focus:outline-none focus:border-nina-oranje">
+          {[
+            { id: "naam",   label: "Naam",    type: "text",  required: true },
+            { id: "email",  label: "E-mail",  type: "email", required: true },
+          ].map(({ id, label, type, required }) => (
+            <div key={id} className="border-t border-border pt-5">
+              <label htmlFor={id} className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
+                {label}
+              </label>
+              <input
+                id={id} name={id} type={type} required={required}
+                className="w-full bg-transparent text-ink placeholder:text-faint focus:outline-none text-sm py-1"
+              />
+            </div>
+          ))}
+
+          <div className="border-t border-border pt-5">
+            <label htmlFor="type" className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
+              Soort project
+            </label>
+            <select id="type" name="type"
+              className="w-full bg-transparent text-ink text-sm py-1 focus:outline-none appearance-none cursor-pointer">
               <option>Bedrijfsfotografie</option>
               <option>Campagne / branding</option>
               <option>Portret</option>
@@ -80,20 +88,27 @@ export default async function ContactPage() {
               <option>Anders</option>
             </select>
           </div>
-          <div>
-            <label htmlFor="bericht" className="block text-xs uppercase tracking-widest text-nina-petrol mb-2">Bericht</label>
+
+          <div className="border-t border-border pt-5">
+            <label htmlFor="bericht" className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
+              Bericht
+            </label>
             <textarea
               id="bericht" name="bericht" rows={5} required
-              className="w-full border-b border-nina-ink/20 bg-transparent py-2 focus:outline-none focus:border-nina-oranje resize-none"
+              className="w-full bg-transparent text-ink text-sm py-1 focus:outline-none resize-none"
             />
           </div>
-          <button
-            type="submit"
-            className="w-full bg-nina-ink text-nina-cream py-4 rounded-full text-sm tracking-wide hover:bg-nina-oranje transition-colors"
-          >
-            Verstuur bericht &rarr;
-          </button>
+
+          <div className="border-t border-border pt-6">
+            <button
+              type="submit"
+              className="w-full border border-ink py-3.5 text-[11px] uppercase tracking-[0.22em] hover:bg-ink hover:text-bg transition-all duration-300"
+            >
+              Verstuur bericht
+            </button>
+          </div>
         </form>
+
       </div>
     </section>
   );

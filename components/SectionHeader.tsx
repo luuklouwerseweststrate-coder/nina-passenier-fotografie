@@ -2,29 +2,27 @@ type Props = {
   eyebrow?: string;
   title: string;
   lead?: string;
-  accent?: "oranje" | "groen" | "geel" | "petrol" | "beige";
+  accent?: "commerce" | "free" | "muted";
 };
 
-const accentColor = {
-  oranje: "text-nina-oranje",
-  groen: "text-nina-groen",
-  geel: "text-nina-geel",
-  petrol: "text-nina-petrol",
-  beige: "text-nina-beige"
+const accentColor: Record<string, string> = {
+  commerce: "text-commerce",
+  free:     "text-free",
+  muted:    "text-muted",
 };
 
-export default function SectionHeader({ eyebrow, title, lead, accent = "oranje" }: Props) {
+export default function SectionHeader({ eyebrow, title, lead, accent = "muted" }: Props) {
   return (
     <div className="max-w-3xl">
       {eyebrow && (
-        <p className={`text-xs uppercase tracking-[0.3em] mb-4 ${accentColor[accent]}`}>
+        <p className={`text-[9px] uppercase tracking-[0.28em] mb-5 ${accentColor[accent] ?? "text-muted"}`}>
           {eyebrow}
         </p>
       )}
-      <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-display text-nina-ink">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight text-ink">
         {title}
       </h2>
-      {lead && <p className="mt-6 text-lg text-nina-ink/70 leading-relaxed">{lead}</p>}
+      {lead && <p className="mt-5 text-base text-ink/60 leading-relaxed">{lead}</p>}
     </div>
   );
 }

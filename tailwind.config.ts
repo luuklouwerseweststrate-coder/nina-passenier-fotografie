@@ -5,27 +5,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Uit het logo afgeleid
-        nina: {
-          oranje: "#E8913A",
-          geel: "#E8B544",
-          groen: "#8FA368",
-          petrol: "#3E6773",
-          beige: "#C9A988",
-          cream: "#FAF7F2",
-          ink: "#1A1A1A"
-        }
+        // Neutraal palette — foto's zijn de kleur, UI trekt zich terug
+        bg:      "#F7F6F3",  // warme off-white (ACDB-achtig)
+        ink:     "#141414",  // bijna-zwart
+        muted:   "#8B8680",  // warme middengrijs
+        faint:   "#C4C0BA",  // lichte grijs
+        border:  "#E5E2DC",  // warme lichte rand
+        surface: "#ECEAE5",  // iets donkerder vlak
+
+        // Categorie-accenten — klein, terughoudend, alleen als tekstlabel
+        commerce: "#9C4916",  // gedempte terra / rust
+        free:     "#365449",  // gedempte forest / slate-green
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "DM Sans", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "DM Serif Display", "Georgia", "serif"]
+        sans: ["var(--font-sans)", "Space Grotesk", "system-ui", "sans-serif"],
       },
       letterSpacing: {
-        display: "-0.02em"
-      }
-    }
+        label:   "0.14em",
+        wide:    "0.22em",
+        xl:      "0.35em",
+        display: "-0.02em", // bestaande pagina's gebruiken dit nog
+      },
+      fontSize: {
+        label: ["0.6875rem", { lineHeight: "1", letterSpacing: "0.14em" }],
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };
 
 export default config;

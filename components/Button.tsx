@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
-type Variant = "oranje" | "groen" | "ink" | "outline" | "glass";
+type Variant = "primary" | "ghost" | "glass" | "commerce" | "free";
 type Props = {
   href: string;
   children: ReactNode;
@@ -10,21 +10,21 @@ type Props = {
 };
 
 const variants: Record<Variant, string> = {
-  oranje: "bg-nina-oranje text-white hover:bg-nina-ink",
-  groen: "bg-nina-groen text-white hover:bg-nina-ink",
-  ink: "bg-nina-ink text-nina-cream hover:bg-nina-petrol",
-  outline: "border border-nina-ink/25 text-nina-ink bg-white/50 backdrop-blur-sm hover:bg-nina-ink hover:border-nina-ink hover:text-nina-cream",
-  glass: "bg-white/10 backdrop-blur-md border border-white/25 text-white hover:bg-white/20",
+  primary:  "bg-ink text-bg border border-ink hover:bg-transparent hover:text-ink",
+  ghost:    "border border-border text-muted hover:border-ink hover:text-ink",
+  glass:    "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20",
+  commerce: "bg-commerce text-white hover:bg-ink",
+  free:     "bg-free text-white hover:bg-ink",
 };
 
-export default function Button({ href, children, variant = "ink", className = "" }: Props) {
+export default function Button({ href, children, variant = "primary", className = "" }: Props) {
   return (
     <Link
       href={href}
-      className={`group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full ${variants[variant]} ${className}`}
+      className={`group inline-flex items-center gap-2 px-6 py-3 text-[11px] uppercase tracking-[0.18em] transition-all duration-300 ${variants[variant]} ${className}`}
     >
       {children}
-      <span aria-hidden className="text-base transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
     </Link>
   );
 }

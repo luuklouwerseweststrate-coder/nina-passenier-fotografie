@@ -1,40 +1,37 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Cormorant_Garamond } from "next/font/google";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400", "600"], style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "Nina Passenier Fotografie — Bedrijfsfotografie en vrij werk",
+  title: "Nina Passenier — Fotografie",
   description:
-    "Nina Passenier is fotograaf in Rotterdam. Beeld voor bedrijven, portretten, campagnes en autonoom vrij werk. Studie Willem de Kooning, nu kunstacademie.",
+    "Nina Passenier is fotograaf in Rotterdam. Bedrijfsfotografie voor merken en organisaties, en autonoom vrij werk.",
   metadataBase: new URL("https://ninapassenier.nl"),
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-  },
+  icons: { icon: "/logo.png", apple: "/logo.png" },
   openGraph: {
-    title: "Nina Passenier Fotografie",
-    description: "Bedrijfsfotografie en vrij werk uit Rotterdam",
+    title: "Nina Passenier — Fotografie",
+    description: "Bedrijfsfotografie en vrij werk vanuit Rotterdam",
     type: "website",
     locale: "nl_NL",
-    images: [{ url: "/logo.png", width: 1200, height: 440, alt: "Nina Passenier Fotografie" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nina Passenier Fotografie",
-    description: "Bedrijfsfotografie en vrij werk uit Rotterdam",
-    images: ["/logo.png"],
+    title: "Nina Passenier — Fotografie",
+    description: "Bedrijfsfotografie en vrij werk vanuit Rotterdam",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl" className={`${spaceGrotesk.variable} ${cormorant.variable}`}>
-      <body className="font-sans">
+    <html lang="nl" className={spaceGrotesk.variable}>
+      <body className="font-sans bg-bg text-ink antialiased">
         {children}
       </body>
     </html>

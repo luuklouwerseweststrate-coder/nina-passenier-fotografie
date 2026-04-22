@@ -23,7 +23,7 @@ export default function Marquee({ items, className = "", reverse = false, speed 
         {doubled.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-10 lg:gap-16">
             <span>{item}</span>
-            <span aria-hidden className="text-nina-oranje">&bull;</span>
+            <span aria-hidden className="text-commerce">&bull;</span>
           </span>
         ))}
       </motion.div>

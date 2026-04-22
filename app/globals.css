@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --nina-cream: #FAF7F2;
-  --nina-ink: #1A1A1A;
+  --bg:     #F7F6F3;
+  --ink:    #141414;
+  --muted:  #8B8680;
+  --border: #E5E2DC;
 }
 
 html {
@@ -12,48 +14,28 @@ html {
 }
 
 body {
-  background: #f5f4f1;
-  color: #1a1a1a;
+  background: var(--bg);
+  color: var(--ink);
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Geen blauwe/zwarte flits bij aanraken van links op mobiel */
 a, button {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
-/* Selectie kleur uit logo-palet */
 ::selection {
-  background: #E8913A;
-  color: #FAF7F2;
+  background: var(--ink);
+  color: var(--bg);
 }
 
-/* Custom scrollbar, subtiel */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #FAF7F2;
-}
-::-webkit-scrollbar-thumb {
-  background: #C9A988;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3E6773;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-/* Horizontale scroll-strip zonder zichtbare scrollbar op mobiel */
-.scroll-strip {
-  scrollbar-width: none;
-  /* Fade-out rechts als hint dat er meer is */
-  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-  mask-image: linear-gradient(to right, black 85%, transparent 100%);
-}
-.scroll-strip::-webkit-scrollbar {
-  display: none;
-}
+/* Horizontale scroll zonder scrollbar */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
