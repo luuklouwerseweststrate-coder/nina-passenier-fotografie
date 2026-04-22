@@ -141,9 +141,9 @@ export default defineType({
     }),
     defineField({
       name: "bio3",
-      title: "Groot citaat (cursief weergegeven)",
+      title: "Alinea 3",
       type: "text",
-      rows: 3,
+      rows: 4,
       group: "over",
     }),
     defineField({
