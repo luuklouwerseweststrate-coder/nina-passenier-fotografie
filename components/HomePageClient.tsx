@@ -34,37 +34,36 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
   return (
     <div className="bg-bg">
 
-      {/* ══ WIT + CONTAINER MET PADDING ══════════════════════════ */}
-      <div className="px-8 lg:px-20 xl:px-28 pt-8 pb-12">
-        <div className="grid grid-cols-2 gap-3 lg:gap-4">
+      {/* Wrapper — overflow visible zodat thumbnails eronder hangen */}
+      <div className="relative" style={{ paddingBottom: "22vh" }}>
 
-          {/* ── LINKER KOLOM: BEDRIJFSFOTOGRAFIE ── */}
-          <div className="flex flex-col gap-3 lg:gap-4">
+        {/* ══ ACDB STRIP: 2 grote kolommen ══════════════════════════ */}
+        <section
+          className="flex border-t border-b border-border"
+          style={{ height: "58vh", minHeight: "360px", overflow: "visible" }}
+        >
 
-            {/* Klein uitgelicht project — duidelijk kleiner */}
-            <Link href={`/cases/${proj1.slug}`} className="group relative overflow-hidden block" style={{ aspectRatio: "16/6" }}>
-              {proj1.cover && (
-                <Image src={proj1.cover} alt={proj1.client} fill sizes="45vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-              )}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-colors duration-500" />
-              <div className="absolute inset-0 flex flex-col justify-center px-5">
-                <p className="text-[7px] uppercase tracking-[0.32em] text-white/50 mb-1.5">Uitgelicht project</p>
-                <p className="text-xs lg:text-sm font-bold uppercase text-white leading-snug tracking-wide">{proj1.client}</p>
-              </div>
-              <div className="absolute top-3 right-4 text-[8px] uppercase tracking-[0.2em] text-white/30 group-hover:text-white/60 transition-colors">
-                Bekijk →
-              </div>
-            </Link>
+          {/* Verticale label */}
+          <div className="hidden lg:flex flex-col items-center justify-center border-r border-border w-7 shrink-0">
+            <span
+              className="text-[7px] uppercase tracking-[0.4em] text-muted whitespace-nowrap"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+            >
+              Uitgelichte projecten
+            </span>
+          </div>
 
-            {/* Grote sectieafbeelding — dominant */}
-            <Link href="/bedrijfsfotografie" className="group relative overflow-hidden block" style={{ aspectRatio: "3/4" }}>
+          {/* ── Kolom 1: Bedrijfsfotografie ── */}
+          <div className="relative border-r border-border" style={{ flex: "1 1 0%", overflow: "visible" }}>
+
+            {/* Grote achtergrond — gaat naar sectie */}
+            <Link href="/bedrijfsfotografie" className="group block absolute inset-0 overflow-hidden">
               {bedrijfImg && (
-                <Image src={bedrijfImg} alt="Bedrijfsfotografie" fill sizes="45vw"
+                <Image src={bedrijfImg} alt="Bedrijfsfotografie" fill sizes="50vw"
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
               )}
               <div className="absolute inset-0"
-                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0) 100%)" }} />
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
               <div className="absolute top-5 left-5">
                 <p className="text-[7px] uppercase tracking-[0.32em] text-white/50 mb-2">Commissioned</p>
                 <p className="text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-white leading-[1.05]">
@@ -72,35 +71,36 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
                 </p>
               </div>
             </Link>
-          </div>
 
-          {/* ── RECHTER KOLOM: VRIJ WERK ── */}
-          <div className="flex flex-col gap-3 lg:gap-4">
-
-            {/* Klein uitgelicht project */}
-            <Link href={`/cases/${proj2.slug}`} className="group relative overflow-hidden block" style={{ aspectRatio: "16/6" }}>
-              {proj2.cover && (
-                <Image src={proj2.cover} alt={proj2.client} fill sizes="45vw"
+            {/* Klein uitgelicht project — hangt artistiek over de onderrand */}
+            <Link
+              href={`/cases/${proj1.slug}`}
+              className="group absolute z-20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
+              style={{ bottom: "-32%", right: "8%", width: "42%", aspectRatio: "3/4" }}
+            >
+              {proj1.cover && (
+                <Image src={proj1.cover} alt={proj1.client} fill sizes="22vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
               )}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-colors duration-500" />
-              <div className="absolute inset-0 flex flex-col justify-center px-5">
-                <p className="text-[7px] uppercase tracking-[0.32em] text-white/50 mb-1.5">Uitgelicht project</p>
-                <p className="text-xs lg:text-sm font-bold uppercase text-white leading-snug tracking-wide">{proj2.client}</p>
-              </div>
-              <div className="absolute top-3 right-4 text-[8px] uppercase tracking-[0.2em] text-white/30 group-hover:text-white/60 transition-colors">
-                Bekijk →
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+              <div className="absolute bottom-3 left-3 right-3">
+                <p className="text-[7px] uppercase tracking-[0.25em] text-white/55 mb-1">Uitgelicht</p>
+                <p className="text-[10px] lg:text-xs font-bold uppercase text-white leading-snug">{proj1.client}</p>
               </div>
             </Link>
+          </div>
 
-            {/* Grote sectieafbeelding */}
-            <Link href="/vrij-werk" className="group relative overflow-hidden block" style={{ aspectRatio: "3/4" }}>
+          {/* ── Kolom 2: Vrij werk ── */}
+          <div className="relative" style={{ flex: "1 1 0%", overflow: "visible" }}>
+
+            {/* Grote achtergrond — gaat naar sectie */}
+            <Link href="/vrij-werk" className="group block absolute inset-0 overflow-hidden">
               {vrijImg && (
-                <Image src={vrijImg} alt="Vrij werk" fill sizes="45vw"
+                <Image src={vrijImg} alt="Vrij werk" fill sizes="50vw"
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
               )}
               <div className="absolute inset-0"
-                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0) 100%)" }} />
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
               <div className="absolute top-5 left-5">
                 <p className="text-[7px] uppercase tracking-[0.32em] text-white/50 mb-2">Persoonlijk</p>
                 <p className="text-2xl lg:text-3xl xl:text-4xl font-bold uppercase text-white leading-[1.05]">
@@ -108,13 +108,35 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
                 </p>
               </div>
             </Link>
+
+            {/* Klein uitgelicht project — hangt artistiek over de onderrand */}
+            <Link
+              href={`/cases/${proj2.slug}`}
+              className="group absolute z-20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
+              style={{ bottom: "-38%", right: "10%", width: "38%", aspectRatio: "3/4" }}
+            >
+              {proj2.cover && (
+                <Image src={proj2.cover} alt={proj2.client} fill sizes="20vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+              )}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+              <div className="absolute bottom-3 left-3 right-3">
+                <p className="text-[7px] uppercase tracking-[0.25em] text-white/55 mb-1">Uitgelicht</p>
+                <p className="text-[10px] lg:text-xs font-bold uppercase text-white leading-snug">{proj2.client}</p>
+              </div>
+            </Link>
           </div>
 
-        </div>
+          {/* Pijl rechts */}
+          <div className="hidden lg:flex flex-col items-center justify-center border-l border-border w-7 shrink-0">
+            <span className="text-muted text-lg leading-none">›</span>
+          </div>
+
+        </section>
       </div>
 
-      {/* ══ LINKS ONDERAAN ═══════════════════════════════════════ */}
-      <div className="px-8 lg:px-20 xl:px-28 pb-10 flex flex-wrap gap-x-8 gap-y-2 border-t border-border pt-5">
+      {/* ══ NAVIGATIELINKS ════════════════════════════════════════ */}
+      <div className="px-8 lg:px-12 py-6 border-t border-border flex flex-wrap gap-x-8 gap-y-2">
         {[
           { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
           { href: "/vrij-werk",          label: "Vrij werk"          },
