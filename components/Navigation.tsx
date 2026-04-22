@@ -63,7 +63,7 @@ export default function Navigation() {
           <Link
             href="/"
             aria-label="Home"
-            className={`text-[13px] tracking-[0.22em] uppercase font-medium transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
+            className={`text-[11px] sm:text-[13px] tracking-[0.18em] sm:tracking-[0.22em] uppercase font-medium whitespace-nowrap transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
           >
             Nina Passenier
           </Link>
