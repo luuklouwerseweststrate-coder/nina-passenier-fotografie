@@ -72,18 +72,17 @@ export default async function HomePage() {
         }))
       : fallbackArtPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
 
-  // Uitgelichte case: handmatig gekozen in Studio → anders eerste case
-  const chosenCase = settings?.featuredCase;
-  const rawCase = chosenCase ?? (sanityCases.length > 0 ? sanityCases[0] : fallbackCases[0]);
-  const featured = {
-    slug: chosenCase ? rawCase.slug?.current : sanityCases.length > 0 ? rawCase.slug?.current : rawCase.slug,
-    client: rawCase.client,
-    intro: rawCase.intro,
-    cover:
-      rawCase.cover?.asset
-        ? urlFor(rawCase.cover).width(2000).quality(85).url()
-        : rawCase.cover ?? "",
-  };
+  // Uitgelichte cases
+  const allCases = sanityCases.length > 0 ? sanityCases : fallbackCases;
+  const makeFeatured = (raw: any, fromSanity: boolean) => ({
+    slug:   fromSanity ? raw.slug?.current : raw.slug,
+    client: raw.client,
+    intro:  raw.intro,
+    cover:  raw.cover?.asset ? urlFor(raw.cover).width(1200).quality(85).url() : raw.cover ?? "",
+  });
+
+  const featured  = makeFeatured(allCases[0], sanityCases.length > 0);
+  const featured2 = makeFeatured(allCases[1] ?? allCases[0], sanityCases.length > 0);
 
   return (
     <HomePageClient
@@ -95,6 +94,7 @@ export default async function HomePage() {
       ninaPortret={ninaPortret}
       heroStrip={heroStrip}
       featured={featured}
+      featured2={featured2}
       heroTagline={settings?.heroTagline}
       heroSubtitel={settings?.heroSubtitel}
       introTekst={settings?.introTekst}
