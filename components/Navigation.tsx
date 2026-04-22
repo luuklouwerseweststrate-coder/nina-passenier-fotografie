@@ -110,7 +110,7 @@ export default function Navigation() {
                 >
                   <Link
                     href={l.href}
-                    className={`block py-2.5 text-center text-2xl lg:text-4xl uppercase tracking-[0.14em] font-light transition-colors duration-150 ${
+                    className={`block py-3 text-center text-3xl lg:text-5xl uppercase tracking-[0.12em] font-normal transition-colors duration-150 ${
                       pathname === l.href ? "text-white" : "text-white/35 hover:text-white"
                     }`}
                   >
