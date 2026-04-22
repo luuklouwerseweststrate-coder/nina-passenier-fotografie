@@ -60,7 +60,7 @@ export default async function BedrijfsfotografiePage() {
       {/* ── Foto grid — overzichtelijk 3-koloms ─────── */}
       {photos.length > 0 && (
         <section className="px-7 lg:px-12 py-12 border-b border-border">
-          <div className="grid grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-4">
             {photos.map((p, i) => (
               <div
                 key={i}
