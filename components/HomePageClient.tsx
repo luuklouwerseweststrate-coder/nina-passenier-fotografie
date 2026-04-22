@@ -64,7 +64,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
               <div className="absolute top-5 left-5">
-                <p className="text-2xl lg:text-3xl xl:text-4xl font-semibold uppercase text-white leading-[1.05]">
+                <p className="text-2xl lg:text-3xl xl:text-4xl font-light uppercase text-white leading-[1.05]">
                   Bedrijfs-<br />fotografie
                 </p>
               </div>
@@ -81,7 +81,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
               <div className="absolute top-5 left-5">
-                <p className="text-2xl lg:text-3xl xl:text-4xl font-semibold uppercase text-white leading-[1.05]">
+                <p className="text-2xl lg:text-3xl xl:text-4xl font-light uppercase text-white leading-[1.05]">
                   Autonoom<br />werk
                 </p>
               </div>
