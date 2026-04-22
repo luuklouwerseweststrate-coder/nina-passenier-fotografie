@@ -57,7 +57,7 @@ export default async function VrijWerkPage() {
       <section className="px-7 lg:px-12 pt-20 lg:pt-24 pb-10 border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-4">Autonoom werk</p>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] text-ink max-w-xl">
-          {settings?.autonomTagline || "Eigen werk, eigen tempo."}
+          {settings?.autonomTagline || "Fotografie buiten opdracht."}
         </h1>
         {settings?.autonomIntro && (
           <p className="mt-4 text-sm text-ink/45 max-w-sm leading-relaxed">{settings.autonomIntro}</p>

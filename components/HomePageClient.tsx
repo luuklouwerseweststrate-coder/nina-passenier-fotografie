@@ -73,7 +73,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
 
           {/* Kolom 2: Autonoom werk */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
-            <Link href="/vrij-werk" className="group block absolute inset-0">
+            <Link href="/autonoom-werk" className="group block absolute inset-0">
               {vrijImg && (
                 <Image src={vrijImg} alt="Autonoom werk" fill sizes="50vw"
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
