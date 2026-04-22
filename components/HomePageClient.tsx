@@ -99,12 +99,10 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
         {/* Navigatielinks — zitten in de hero wrapper */}
         <div className="px-8 lg:px-12 py-5 flex flex-wrap gap-x-8 gap-y-2">
           {[
-            { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
-            { href: "/vrij-werk",          label: "Autonoom werk"      },
-            { href: "/cases",              label: "Cases"              },
-            { href: "/over",               label: "Over"               },
-            { href: "/werkwijze",          label: "Werkwijze"          },
-            { href: "/contact",            label: "Contact"            },
+            { href: "/cases",    label: "Cases"    },
+            { href: "/over",     label: "Over"     },
+            { href: "/werkwijze",label: "Werkwijze"},
+            { href: "/contact",  label: "Contact"  },
           ].map((l) => (
             <Link key={l.href} href={l.href}
               className="text-[13px] uppercase tracking-[0.22em] font-medium text-ink hover:text-muted transition-colors">

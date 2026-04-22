@@ -5,183 +5,72 @@ export default defineType({
   title: "Site-instellingen",
   type: "document",
 
-  // Tabs in de Studio — overzichtelijk voor Nina
   groups: [
-    { name: "afbeeldingen", title: "📷 Afbeeldingen" },
-    { name: "homepage", title: "🏠 Homepage" },
-    { name: "over", title: "👤 Over Nina" },
-    { name: "bedrijf", title: "🏢 Bedrijfsfotografie" },
-    { name: "vrijwerk", title: "🎨 Vrij werk" },
-    { name: "contact", title: "✉️ Contact" },
+    { name: "homepage",    title: "🏠 Homepage"           },
+    { name: "bedrijf",     title: "🏢 Bedrijfsfotografie" },
+    { name: "autonoom",    title: "🎨 Autonoom werk"      },
+    { name: "werkwijze",   title: "📋 Werkwijze"          },
+    { name: "over",        title: "👤 Over Nina"          },
+    { name: "instagram",   title: "📸 Instagram"          },
+    { name: "contact",     title: "✉️ Contact"            },
   ],
 
   fields: [
-    // ── AFBEELDINGEN ──────────────────────────────────
-    defineField({
-      name: "heroImage",
-      title: "Hero afbeelding (homepage achtergrond)",
-      type: "image",
-      options: { hotspot: true },
-      group: "afbeeldingen",
-    }),
-    defineField({
-      name: "ninaPortret",
-      title: "Portretfoto Nina (homepage + Over-pagina)",
-      type: "image",
-      options: { hotspot: true },
-      group: "afbeeldingen",
-    }),
-    defineField({
-      name: "horecaPhoto",
-      title: "Horecafoto (uitgelicht op bedrijfsfotografie-pagina)",
-      type: "image",
-      options: { hotspot: true },
-      description: "De grote foto in het donkere 'Horeca & restaurants' blok",
-      group: "afbeeldingen",
-    }),
-    defineField({
-      name: "heroStrip",
-      title: "Beeldenstrip homepage (horizontale scroll onderaan)",
-      type: "array",
-      of: [
-        {
-          type: "image",
-          options: { hotspot: true },
-          fields: [
-            defineField({
-              name: "alt",
-              title: "Alt-tekst",
-              type: "string",
-              description: "Bijv: 'Portret Nina Passenier, Rotterdam' — Google leest dit.",
-              validation: (r) => r.required().error("Alt-tekst is verplicht voor elke stripfoto"),
-            }),
-          ],
-        },
-      ],
-      group: "afbeeldingen",
-    }),
 
-    // ── HERO BADGE ────────────────────────────────────
+    // ── HOMEPAGE ──────────────────────────────────────────
     defineField({
       name: "beschikbaar",
-      title: "Homepage — beschikbaarheidsbadge tonen",
+      title: "Beschikbaarheidsbadge tonen",
       type: "boolean",
-      description: "📍 Homepage · Toont de groene 'Beschikbaar voor opdrachten' badge op de hero. Zet uit als je volgeboekt bent.",
+      description: "Toont 'Beschikbaar voor opdrachten' op de homepage",
       initialValue: true,
       group: "homepage",
     }),
     defineField({
       name: "beschikbaarTekst",
-      title: "Homepage — badge tekst",
+      title: "Badge tekst",
       type: "string",
-      placeholder: "Rotterdam · Beschikbaar voor opdrachten",
-      description: "📍 Homepage · Tekst in de groene badge bovenaan",
+      placeholder: "Beschikbaar voor opdrachten",
       group: "homepage",
     }),
-
-    // ── UITGELICHT PROJECT ────────────────────────────
     defineField({
       name: "featuredCase",
-      title: "Homepage — uitgelicht project",
+      title: "Uitgelicht project — Bedrijfsfotografie kolom",
       type: "reference",
       to: [{ type: "caseStudy" }],
-      description: "📍 Homepage · Het grote project dat onderaan de homepage wordt uitgelicht. Laat leeg = automatisch de eerste case.",
+      description: "Verschijnt als eerste uitgelicht project op de homepage. Laat leeg = automatisch de eerste case.",
+      group: "homepage",
+    }),
+    defineField({
+      name: "featuredCase2",
+      title: "Uitgelicht project — Autonoom werk kolom",
+      type: "reference",
+      to: [{ type: "caseStudy" }],
+      description: "Verschijnt als tweede uitgelicht project op de homepage.",
       group: "homepage",
     }),
 
-    // ── HOMEPAGE ──────────────────────────────────────
-    defineField({
-      name: "heroTagline",
-      title: "Homepage — grote titel (hero)",
-      type: "string",
-      placeholder: "Beeld dat blijft hangen.",
-      description: "📍 Homepage · Het grote opschrift bovenaan over de foto",
-      group: "homepage",
-    }),
-    defineField({
-      name: "heroSubtitel",
-      title: "Homepage — subtitel onder de titel",
-      type: "text",
-      rows: 2,
-      placeholder: "Fotografie voor merken die willen opvallen…",
-      description: "📍 Homepage · De kleinere tekst direct onder de grote titel",
-      group: "homepage",
-    }),
-    defineField({
-      name: "introTekst",
-      title: "Homepage — intro zin (middensectie)",
-      type: "text",
-      rows: 2,
-      description: "📍 Homepage · De zin in het midden van de pagina: 'Ik ben Nina…'",
-      group: "homepage",
-    }),
-
-    // ── OVER NINA ─────────────────────────────────────
-    defineField({
-      name: "bio1",
-      title: "Over-pagina — alinea 1",
-      type: "text",
-      rows: 4,
-      placeholder: "Ik ben Nina Passenier, fotograaf in Rotterdam…",
-      description: "📍 Over Nina · Eerste alinea van het verhaal",
-      group: "over",
-    }),
-    defineField({
-      name: "bio2",
-      title: "Over-pagina — alinea 2",
-      type: "text",
-      rows: 4,
-      description: "📍 Over Nina · Tweede alinea",
-      group: "over",
-    }),
-    defineField({
-      name: "bio3",
-      title: "Over-pagina — citaat (groot schrift)",
-      type: "text",
-      rows: 3,
-      description: "📍 Over Nina · Dit wordt cursief en groot weergegeven als tussenzin",
-      group: "over",
-    }),
-    defineField({
-      name: "bio4",
-      title: "Over-pagina — alinea 4",
-      type: "text",
-      rows: 4,
-      description: "📍 Over Nina · Vierde alinea",
-      group: "over",
-    }),
-    defineField({
-      name: "bio5",
-      title: "Over-pagina — alinea 5 (slotalinea)",
-      type: "text",
-      rows: 4,
-      description: "📍 Over Nina · Laatste alinea, over hoe werken met Nina eruitziet",
-      group: "over",
-    }),
-
-    // ── BEDRIJFSFOTOGRAFIE ────────────────────────────
+    // ── BEDRIJFSFOTOGRAFIE ────────────────────────────────
     defineField({
       name: "bedrijfTagline",
-      title: "Bedrijfsfotografie — grote titel (hero)",
+      title: "Grote titel",
       type: "string",
       placeholder: "Beeld dat werkt voor je bedrijf.",
-      description: "📍 Bedrijfsfotografie · Het grote opschrift bovenaan de pagina",
       group: "bedrijf",
     }),
     defineField({
       name: "bedrijfIntro",
-      title: "Bedrijfsfotografie — intro alinea",
+      title: "Intro alinea",
       type: "text",
       rows: 3,
-      placeholder: "Ik fotografeer voor bedrijven, merken…",
-      description: "📍 Bedrijfsfotografie · De tekst onder de grote titel",
+      placeholder: "Ik fotografeer voor bedrijven, merken en organisaties…",
       group: "bedrijf",
     }),
     defineField({
       name: "diensten",
-      title: "Bedrijfsfotografie — diensten (6 kaartjes)",
+      title: "Diensten (kaartjes)",
       type: "array",
-      description: "📍 Bedrijfsfotografie · De 6 diensten-kaartjes in het midden van de pagina",
+      description: "De diensten-kaartjes op de bedrijfsfotografie pagina",
       of: [{
         type: "object",
         fields: [
@@ -192,11 +81,30 @@ export default defineType({
       }],
       group: "bedrijf",
     }),
+
+    // ── AUTONOOM WERK ─────────────────────────────────────
+    defineField({
+      name: "autonomTagline",
+      title: "Grote titel",
+      type: "string",
+      placeholder: "Onderzoek in beeld.",
+      group: "autonoom",
+    }),
+    defineField({
+      name: "autonomIntro",
+      title: "Intro alinea",
+      type: "text",
+      rows: 3,
+      placeholder: "Naast opdrachten werk ik aan eigen series…",
+      group: "autonoom",
+    }),
+
+    // ── WERKWIJZE ─────────────────────────────────────────
     defineField({
       name: "werkwijzeStappen",
-      title: "Werkwijze — stappen",
+      title: "Stappen",
       type: "array",
-      description: "📍 Werkwijze · De genummerde stappen op de werkwijze-pagina",
+      description: "De genummerde stappen op de werkwijze-pagina",
       of: [{
         type: "object",
         fields: [
@@ -205,41 +113,99 @@ export default defineType({
         ],
         preview: { select: { title: "titel", subtitle: "tekst" } },
       }],
-      group: "bedrijf",
+      group: "werkwijze",
     }),
 
-    // ── VRIJ WERK ─────────────────────────────────────
+    // ── OVER NINA ─────────────────────────────────────────
     defineField({
-      name: "vrijwerkTagline",
-      title: "Vrij werk — grote titel (hero)",
-      type: "string",
-      placeholder: "Onderzoek in beeld.",
-      group: "vrijwerk",
+      name: "ninaPortret",
+      title: "Portretfoto Nina",
+      type: "image",
+      options: { hotspot: true },
+      group: "over",
     }),
     defineField({
-      name: "vrijwerkIntro",
-      title: "Vrij werk — intro alinea",
+      name: "bio1",
+      title: "Alinea 1",
+      type: "text",
+      rows: 4,
+      placeholder: "Ik ben Nina Passenier, fotograaf in Rotterdam…",
+      group: "over",
+    }),
+    defineField({
+      name: "bio2",
+      title: "Alinea 2",
+      type: "text",
+      rows: 4,
+      group: "over",
+    }),
+    defineField({
+      name: "bio3",
+      title: "Groot citaat (cursief weergegeven)",
       type: "text",
       rows: 3,
-      description: "📍 Vrij werk · De tekst onder de grote titel bovenaan",
-      group: "vrijwerk",
+      group: "over",
+    }),
+    defineField({
+      name: "bio4",
+      title: "Alinea 4",
+      type: "text",
+      rows: 4,
+      group: "over",
+    }),
+    defineField({
+      name: "bio5",
+      title: "Slotalinea",
+      type: "text",
+      rows: 4,
+      group: "over",
     }),
 
-    // ── CONTACT ───────────────────────────────────────
+    // ── INSTAGRAM ─────────────────────────────────────────
+    defineField({
+      name: "igHandleBedrijf",
+      title: "Instagram handle — Bedrijfsfotografie (zonder @)",
+      type: "string",
+      placeholder: "nina.bedrijfsfotografie",
+      description: "Getoond als @handle op de bedrijfsfotografie pagina",
+      group: "instagram",
+    }),
+    defineField({
+      name: "igFeedIdBedrijf",
+      title: "Behold Feed ID — Bedrijfsfotografie",
+      type: "string",
+      description: "Feed ID van behold.so voor de bedrijfsfotografie Instagram feed",
+      group: "instagram",
+    }),
+    defineField({
+      name: "igHandleAutonoom",
+      title: "Instagram handle — Autonoom werk (zonder @)",
+      type: "string",
+      placeholder: "ninapassenierfotografie",
+      description: "Getoond als @handle op de autonoom werk pagina",
+      group: "instagram",
+    }),
+    defineField({
+      name: "igFeedIdAutonoom",
+      title: "Behold Feed ID — Autonoom werk",
+      type: "string",
+      description: "Feed ID van behold.so voor de autonoom werk Instagram feed",
+      group: "instagram",
+    }),
+
+    // ── CONTACT ───────────────────────────────────────────
     defineField({
       name: "email",
-      title: "E-mailadres (zichtbaar op contactpagina)",
+      title: "E-mailadres",
       type: "string",
       placeholder: "hallo@ninapassenier.nl",
-      description: "📍 Contactpagina + footer · Klikbaar mailto-link",
       group: "contact",
     }),
     defineField({
       name: "instagram",
-      title: "Instagram handle (zonder @)",
+      title: "Hoofd Instagram handle (zonder @)",
       type: "string",
       placeholder: "ninapassenier",
-      description: "📍 Contactpagina · Wordt @ninapassenier op de site",
       group: "contact",
     }),
     defineField({

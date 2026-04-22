@@ -30,7 +30,7 @@ export default defineType({
       options: {
         list: [
           { title: "Bedrijfsfotografie", value: "bedrijf" },
-          { title: "Vrij werk / kunst", value: "kunst" },
+          { title: "Autonoom werk", value: "kunst" },
         ],
         layout: "radio",
       },
@@ -87,7 +87,7 @@ export default defineType({
     prepare({ title, subtitle, media }) {
       return {
         title,
-        subtitle: subtitle === "bedrijf" ? "Bedrijfsfotografie" : "Vrij werk",
+        subtitle: subtitle === "bedrijf" ? "Bedrijfsfotografie" : "Autonoom werk",
         media,
       };
     },

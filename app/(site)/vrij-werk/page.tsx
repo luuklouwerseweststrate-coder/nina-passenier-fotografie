@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PhotoCard from "@/components/PhotoCard";
+import InstagramFeed from "@/components/InstagramFeed";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { artPhotosQuery, seriesQuery, exhibitionQuery, pressMentionsQuery, settingsQuery } from "@/sanity/lib/queries";
@@ -54,17 +55,19 @@ export default async function VrijWerkPage() {
     : fallbackExhibition;
 
   const press = sanityPress.length > 0 ? sanityPress : fallbackPress;
+  const igHandle = settings?.igHandleAutonoom as string | undefined;
+  const igFeedId = settings?.igFeedIdAutonoom as string | undefined;
 
   return (
     <>
       {/* ── Header ─────────────────────────────────── */}
       <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-16 border-b border-border">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-free mb-6">Vrij werk</p>
+        <p className="text-[9px] uppercase tracking-[0.28em] text-free mb-6">Autonoom werk</p>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-ink max-w-3xl">
-          {settings?.vrijwerkTagline || "Onderzoek in beeld."}
+          {settings?.autonomTagline || "Onderzoek in beeld."}
         </h1>
         <p className="mt-7 text-base text-ink/55 max-w-lg leading-relaxed">
-          {settings?.vrijwerkIntro || "Naast opdrachten werk ik aan eigen series. Langzaam, zonder deadline, zonder vooraf bedacht eindresultaat."}
+          {settings?.autonomIntro || "Naast opdrachten werk ik aan eigen series. Langzaam, zonder deadline, zonder vooraf bedacht eindresultaat."}
         </p>
       </section>
 
@@ -151,17 +154,45 @@ export default async function VrijWerkPage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────── */}
-      <section className="px-7 lg:px-12 py-16 lg:py-24 bg-surface">
+      <section className="px-7 lg:px-12 py-16 lg:py-24 bg-surface border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Samenwerken</p>
         <h2 className="text-2xl lg:text-3xl font-light leading-tight max-w-md">
           Tentoonstellingen, prints of samenwerkingen?
         </h2>
         <p className="mt-5 text-base text-ink/55 max-w-sm leading-relaxed">
-          Mijn vrije werk is op aanvraag als print beschikbaar. Voor exposities of publicaties sta ik altijd open voor een gesprek.
+          Mijn autonome werk is op aanvraag als print beschikbaar. Voor exposities of publicaties sta ik altijd open voor een gesprek.
         </p>
         <Link href="/contact" className="mt-9 inline-flex items-center gap-2 border border-ink px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] hover:bg-ink hover:text-bg transition-all duration-300">
           Neem contact op
         </Link>
+      </section>
+
+      {/* ── Instagram ──────────────────────────────── */}
+      <section className="px-7 lg:px-12 py-16 lg:py-20">
+        <div className="flex items-baseline justify-between mb-8">
+          <p className="text-[9px] uppercase tracking-[0.28em] text-muted">Instagram</p>
+          {igHandle && (
+            <a
+              href={`https://instagram.com/${igHandle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors"
+            >
+              @{igHandle} →
+            </a>
+          )}
+        </div>
+        {igFeedId ? (
+          <InstagramFeed feedId={igFeedId} handle={igHandle} />
+        ) : (
+          <div className="border border-dashed border-border py-16 text-center">
+            <p className="text-[9px] uppercase tracking-[0.28em] text-faint">Instagram feed</p>
+            <p className="text-sm text-ink/30 mt-3">
+              Voeg een Behold Feed ID toe via{" "}
+              <span className="font-medium text-ink/50">Site-instellingen → Instagram</span>
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

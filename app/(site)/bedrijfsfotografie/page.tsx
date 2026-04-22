@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PhotoCard from "@/components/PhotoCard";
+import InstagramFeed from "@/components/InstagramFeed";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { businessPhotosQuery, settingsQuery } from "@/sanity/lib/queries";
@@ -37,10 +38,9 @@ export default async function BedrijfsfotografiePage() {
       : fallbackBusinessPhotos;
 
   const diensten = settings?.diensten?.length > 0 ? settings.diensten : fallbackDiensten;
-
-  const horecaPhoto = settings?.horecaPhoto
-    ? urlFor(settings.horecaPhoto).width(1200).quality(85).url()
-    : photos[0]?.src ?? "";
+  const horecaPhoto = photos[0]?.src ?? "";
+  const igHandle = settings?.igHandleBedrijf as string | undefined;
+  const igFeedId = settings?.igFeedIdBedrijf as string | undefined;
 
   return (
     <>
@@ -140,7 +140,7 @@ export default async function BedrijfsfotografiePage() {
       </section>
 
       {/* ── Voor wie ───────────────────────────────── */}
-      <section className="px-7 lg:px-12 py-16 lg:py-24 bg-surface">
+      <section className="px-7 lg:px-12 py-16 lg:py-24 bg-surface border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-7">Voor wie</p>
         <p className="text-2xl lg:text-3xl font-light leading-relaxed max-w-3xl text-ink/75">
           Modemerken, creatieve bureaus, advocatenkantoren, restaurants, makers,
@@ -152,6 +152,34 @@ export default async function BedrijfsfotografiePage() {
         >
           Stuur een bericht
         </Link>
+      </section>
+
+      {/* ── Instagram ──────────────────────────────── */}
+      <section className="px-7 lg:px-12 py-16 lg:py-20">
+        <div className="flex items-baseline justify-between mb-8">
+          <p className="text-[9px] uppercase tracking-[0.28em] text-muted">Instagram</p>
+          {igHandle && (
+            <a
+              href={`https://instagram.com/${igHandle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors"
+            >
+              @{igHandle} →
+            </a>
+          )}
+        </div>
+        {igFeedId ? (
+          <InstagramFeed feedId={igFeedId} handle={igHandle} />
+        ) : (
+          <div className="border border-dashed border-border py-16 text-center">
+            <p className="text-[9px] uppercase tracking-[0.28em] text-faint">Instagram feed</p>
+            <p className="text-sm text-ink/30 mt-3">
+              Voeg een Behold Feed ID toe via{" "}
+              <span className="font-medium text-ink/50">Site-instellingen → Instagram</span>
+            </p>
+          </div>
+        )}
       </section>
     </>
   );
