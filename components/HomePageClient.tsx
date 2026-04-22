@@ -39,7 +39,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
 
         {/* ══ ACDB STRIP: 2 grote kolommen ══════════════════════════ */}
         <section
-          className="flex border-t border-b border-border"
+          className="flex gap-4 lg:gap-6 border-t border-b border-border"
           style={{ height: "58vh", minHeight: "360px", overflow: "visible" }}
         >
 
@@ -54,7 +54,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
           </div>
 
           {/* ── Kolom 1: Bedrijfsfotografie ── */}
-          <div className="relative border-r border-border" style={{ flex: "1 1 0%", overflow: "visible" }}>
+          <div className="relative" style={{ flex: "1 1 0%", overflow: "visible" }}>
 
             {/* Grote achtergrond — gaat naar sectie */}
             <Link href="/bedrijfsfotografie" className="group block absolute inset-0 overflow-hidden">
