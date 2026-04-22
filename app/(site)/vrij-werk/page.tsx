@@ -69,7 +69,7 @@ export default async function VrijWerkPage() {
         {series.map((s: any, i: number) => (
           <div key={s.title} className="border-b border-border last:border-0">
             {/* Foto full-width */}
-            <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/2" }}>
+            <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/2", maxHeight: "70vh" }}>
               <Image
                 src={s.cover}
                 alt={s.title}
