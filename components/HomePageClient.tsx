@@ -35,7 +35,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
     <div className="bg-bg">
 
       {/* Wrapper — overflow visible zodat thumbnails eronder hangen */}
-      <div className="relative" style={{ paddingBottom: "22vh" }}>
+      <div className="relative" style={{ paddingBottom: "22vh", paddingTop: "4vh" }}>
 
         {/* ══ ACDB STRIP: 2 grote kolommen ══════════════════════════ */}
         <section
