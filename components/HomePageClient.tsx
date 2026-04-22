@@ -76,7 +76,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
             <Link
               href={`/cases/${proj1.slug}`}
               className="group absolute z-20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
-              style={{ bottom: "-32%", right: "8%", width: "42%", aspectRatio: "3/4" }}
+              style={{ bottom: "-18%", right: "8%", width: "22%", aspectRatio: "3/4" }}
             >
               {proj1.cover && (
                 <Image src={proj1.cover} alt={proj1.client} fill sizes="22vw"
@@ -113,7 +113,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
             <Link
               href={`/cases/${proj2.slug}`}
               className="group absolute z-20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
-              style={{ bottom: "-38%", right: "10%", width: "38%", aspectRatio: "3/4" }}
+              style={{ bottom: "-22%", right: "10%", width: "20%", aspectRatio: "3/4" }}
             >
               {proj2.cover && (
                 <Image src={proj2.cover} alt={proj2.client} fill sizes="20vw"
