@@ -44,15 +44,8 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
           className="flex gap-4 lg:gap-6"
           style={{ height: "58vh", minHeight: "360px" }}
         >
-          {/* Verticale label */}
-          <div className="hidden lg:flex flex-col items-center justify-center w-7 shrink-0">
-            <span
-              className="text-[7px] uppercase tracking-[0.4em] text-muted whitespace-nowrap"
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-            >
-              Uitgelichte projecten
-            </span>
-          </div>
+          {/* Witruimte links */}
+          <div className="hidden lg:block w-7 shrink-0" />
 
           {/* Kolom 1: Bedrijfsfotografie */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
@@ -88,10 +81,8 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
             </Link>
           </div>
 
-          {/* Pijl rechts */}
-          <div className="hidden lg:flex flex-col items-center justify-center w-7 shrink-0">
-            <span className="text-muted text-lg leading-none">›</span>
-          </div>
+          {/* Witruimte rechts */}
+          <div className="hidden lg:block w-7 shrink-0" />
         </section>
 
         {/* Navigatielinks — zitten in de hero wrapper */}
