@@ -18,8 +18,7 @@ export const cases: Case[] = [
     year: "2025",
     type: "bedrijf",
     title: "Een menselijke kant voor een formeel kantoor",
-    intro:
-      "Advocatenkantoor De Waal wilde af van het stockbeeld op hun website. Ik fotografeerde het team in hun eigen werkritme, zonder stropdas-poses.",
+    intro: "Advocatenkantoor De Waal wilde af van het stockbeeld op hun website. Ik fotografeerde het team in hun eigen werkritme, zonder stropdas-poses.",
     cover: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=2000&q=85",
     images: [
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80",
@@ -27,12 +26,8 @@ export const cases: Case[] = [
       "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80",
       "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=1600&q=80"
     ],
-    approach:
-      "Een halve dag meelopen op kantoor, zonder strakke shotlist. Ik werk vaak het liefst als ik even onzichtbaar mag zijn: mensen vergeten de camera, en dan gebeurt het echte.",
-    quote: {
-      text: "Voor het eerst herkennen we onszelf op onze eigen website.",
-      author: "Rutger de Waal, partner"
-    }
+    approach: "Een halve dag meelopen op kantoor, zonder strakke shotlist. Ik werk vaak het liefst als ik even onzichtbaar mag zijn: mensen vergeten de camera, en dan gebeurt het echte.",
+    quote: { text: "Voor het eerst herkennen we onszelf op onze eigen website.", author: "Rutger de Waal, partner" }
   },
   {
     slug: "nova-campagne-ss25",
@@ -40,8 +35,7 @@ export const cases: Case[] = [
     year: "2025",
     type: "bedrijf",
     title: "SS25 campagne op locatie in Zeeland",
-    intro:
-      "Voor kledingmerk Nova schoot ik de zomercampagne op de Zeeuwse kust. Rustig licht, zoute lucht, en een paar gelukkige toevalligheden.",
+    intro: "Voor kledingmerk Nova schoot ik de zomercampagne op de Zeeuwse kust. Rustig licht, zoute lucht, en een paar gelukkige toevalligheden.",
     cover: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=2000&q=85",
     images: [
       "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1600&q=80",
@@ -49,17 +43,46 @@ export const cases: Case[] = [
       "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&q=80",
       "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1600&q=80"
     ],
-    approach:
-      "Moodboard samen met de ontwerper, locatiescouting vooraf, en op de dag zelf veel ruimte laten voor wat het weer en licht doen. De beste frames waren niet gepland."
+    approach: "Moodboard samen met de ontwerper, locatiescouting vooraf, en op de dag zelf veel ruimte laten voor wat het weer en licht doen."
+  },
+  {
+    slug: "haarlem-horeca",
+    client: "Brasserie de Linde",
+    year: "2024",
+    type: "bedrijf",
+    title: "Sfeer die je niet kunt faken",
+    intro: "Horecafotografie voor Brasserie de Linde in Haarlem. Avondlicht, dampende borden, en gasten die het niet doorhadden.",
+    cover: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2000&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80",
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=80"
+    ],
+    approach: "Geen opgestelde borden, geen lege tafels. Ik fotografeer tijdens de service — met toestemming van de gasten."
+  },
+  {
+    slug: "architect-portret",
+    client: "Studio Borst Architecten",
+    year: "2024",
+    type: "bedrijf",
+    title: "Architecten in hun eigen ruimte",
+    intro: "Portretten van het team van Studio Borst, gefotografeerd in hun eigen ontworpen panden.",
+    cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=2000&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=1600&q=80",
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1600&q=80",
+      "https://images.unsplash.com/photo-1463453091185-61582044d556?w=1600&q=80"
+    ],
+    approach: "Elk portret op locatie in een van hun eigen projecten. De ruimte vertelt mee."
   },
   {
     slug: "wachtkamer-serie",
     client: "Eigen werk",
     year: "2024",
     type: "kunst",
-    title: "Wachtkamer &mdash; een serie over verstilde ruimtes",
-    intro:
-      "Een langlopend project over plekken waar mensen even niet weten wat ze met zichzelf aan moeten. Wachtkamers, stationshallen, gangen.",
+    title: "Wachtkamer — een serie over verstilde ruimtes",
+    intro: "Een langlopend project over plekken waar mensen even niet weten wat ze met zichzelf aan moeten. Wachtkamers, stationshallen, gangen.",
     cover: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=2000&q=85",
     images: [
       "https://images.unsplash.com/photo-1490349368154-73de9c9bc37c?w=1600&q=80",
@@ -67,7 +90,36 @@ export const cases: Case[] = [
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80",
       "https://images.unsplash.com/photo-1508182314998-3bd49473002f?w=1600&q=80"
     ],
-    approach:
-      "Anderhalf jaar rondlopen met een analoge camera. Geen opdracht, geen deadline. Alleen kijken wat blijft hangen als je terug thuiskomt."
+    approach: "Anderhalf jaar rondlopen met een analoge camera. Geen opdracht, geen deadline."
+  },
+  {
+    slug: "randen-serie",
+    client: "Eigen werk",
+    year: "2025",
+    type: "kunst",
+    title: "Randen — landschap als stemming",
+    intro: "Foto's van plaatsen waar iets ophoudt. Kustlijnen, bosranden, stadsranden. Niet het midden, maar de grens.",
+    cover: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=2000&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80",
+      "https://images.unsplash.com/photo-1508182314998-3bd49473002f?w=1600&q=80",
+      "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=1600&q=80"
+    ],
+    approach: "Vroeg opstaan, alleen rijden, wachten op licht."
+  },
+  {
+    slug: "ongezien",
+    client: "Eigen werk",
+    year: "2025",
+    type: "kunst",
+    title: "Ongezien — portretten zonder gezicht",
+    intro: "Een serie portretten waarbij het gezicht net buiten beeld valt, of verborgen is. Over aanwezigheid zonder identificatie.",
+    cover: "https://images.unsplash.com/photo-1504203700686-f21e703e5f1c?w=2000&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1600&q=80",
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1600&q=80",
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1600&q=80"
+    ],
+    approach: "Geen geposeerde modellen. Mensen in hun eigen omgeving, net op het moment dat ze zich niet bewust zijn."
   }
 ];

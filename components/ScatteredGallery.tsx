@@ -18,30 +18,30 @@ interface SlotDef {
 // Curated, editorial compositions — elk slot is bewust geplaatst
 const COMPOSITIONS: Record<number, SlotDef[]> = {
   3: [
-    { left: "4%",  top: "4%",  width: "36%", ar: "3/4",  rot: "-1.5deg", z: 2 },
-    { left: "42%", top: "2%",  width: "52%", ar: "16/10",rot: "1.2deg",  z: 1 },
-    { left: "18%", top: "56%", width: "42%", ar: "4/5",  rot: "-0.8deg", z: 3 },
+    { left: "5%",  top: "8%",  width: "18%", ar: "3/4",  rot: "-1.5deg", z: 2 },
+    { left: "30%", top: "4%",  width: "26%", ar: "16/10",rot: "1.2deg",  z: 1 },
+    { left: "15%", top: "58%", width: "20%", ar: "4/5",  rot: "-0.8deg", z: 3 },
   ],
   4: [
-    { left: "4%",  top: "4%",  width: "33%", ar: "3/4",  rot: "-1.5deg", z: 2 },
-    { left: "40%", top: "2%",  width: "44%", ar: "16/10",rot: "1.2deg",  z: 1 },
-    { left: "10%", top: "58%", width: "28%", ar: "4/5",  rot: "-0.8deg", z: 3 },
-    { left: "46%", top: "52%", width: "38%", ar: "3/4",  rot: "2deg",    z: 2 },
+    { left: "4%",  top: "6%",  width: "16%", ar: "3/4",  rot: "-1.5deg", z: 2 },
+    { left: "25%", top: "3%",  width: "22%", ar: "16/10",rot: "1.2deg",  z: 1 },
+    { left: "8%",  top: "60%", width: "15%", ar: "4/5",  rot: "-0.8deg", z: 3 },
+    { left: "52%", top: "52%", width: "18%", ar: "3/4",  rot: "2deg",    z: 2 },
   ],
   5: [
-    { left: "3%",  top: "4%",  width: "28%", ar: "3/4",  rot: "-1.8deg", z: 2 },
-    { left: "34%", top: "2%",  width: "42%", ar: "16/10",rot: "1.2deg",  z: 1 },
-    { left: "22%", top: "55%", width: "22%", ar: "1/1",  rot: "-0.8deg", z: 3 },
-    { left: "50%", top: "50%", width: "24%", ar: "3/4",  rot: "2.2deg",  z: 2 },
-    { left: "68%", top: "40%", width: "28%", ar: "4/3",  rot: "-1deg",   z: 1 },
+    { left: "2%",  top: "5%",  width: "15%", ar: "3/4",  rot: "-1.8deg", z: 2 },
+    { left: "20%", top: "2%",  width: "22%", ar: "16/10",rot: "1.2deg",  z: 1 },
+    { left: "12%", top: "58%", width: "13%", ar: "1/1",  rot: "-0.8deg", z: 3 },
+    { left: "48%", top: "52%", width: "14%", ar: "3/4",  rot: "2.2deg",  z: 2 },
+    { left: "66%", top: "38%", width: "17%", ar: "4/3",  rot: "-1deg",   z: 1 },
   ],
   6: [
-    { left: "3%",  top: "4%",  width: "28%", ar: "3/4",  rot: "-1.8deg", z: 2 },
-    { left: "34%", top: "2%",  width: "38%", ar: "16/10",rot: "1deg",    z: 1 },
-    { left: "70%", top: "4%",  width: "24%", ar: "4/5",  rot: "1.8deg",  z: 3 },
-    { left: "8%",  top: "58%", width: "26%", ar: "1/1",  rot: "-0.8deg", z: 2 },
-    { left: "40%", top: "55%", width: "22%", ar: "3/4",  rot: "1.5deg",  z: 3 },
-    { left: "66%", top: "52%", width: "30%", ar: "4/3",  rot: "-1.2deg", z: 1 },
+    { left: "2%",  top: "5%",  width: "15%", ar: "3/4",  rot: "-1.8deg", z: 2 },
+    { left: "20%", top: "2%",  width: "20%", ar: "16/10",rot: "1deg",    z: 1 },
+    { left: "62%", top: "4%",  width: "14%", ar: "4/5",  rot: "1.8deg",  z: 3 },
+    { left: "5%",  top: "60%", width: "16%", ar: "1/1",  rot: "-0.8deg", z: 2 },
+    { left: "38%", top: "55%", width: "13%", ar: "3/4",  rot: "1.5deg",  z: 3 },
+    { left: "58%", top: "50%", width: "18%", ar: "4/3",  rot: "-1.2deg", z: 1 },
   ],
 };
 

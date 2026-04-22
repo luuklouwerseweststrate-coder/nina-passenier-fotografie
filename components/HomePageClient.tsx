@@ -135,7 +135,7 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
           <ScatteredGallery
             photos={galleryPhotos}
             href="/cases"
-            containerMinHeight="700px"
+            containerMinHeight="480px"
           />
         )}
 
