@@ -40,21 +40,21 @@ export default function Navigation() {
               ? { rotate: 45, y: 7, backgroundColor: "#F7F6F3" }
               : { rotate: 0,  y: 0, backgroundColor: "#141414" }}
             transition={{ duration: 0.2 }}
-            className="block h-[2px] w-6 origin-center rounded-none"
+            className="block h-[3px] w-6 origin-center rounded-none"
           />
           <motion.span
             animate={open
               ? { opacity: 0, scaleX: 0 }
               : { opacity: 1, scaleX: 1, backgroundColor: "#141414" }}
             transition={{ duration: 0.15 }}
-            className="block h-[2px] w-6 rounded-none"
+            className="block h-[3px] w-6 rounded-none"
           />
           <motion.span
             animate={open
               ? { rotate: -45, y: -7, backgroundColor: "#F7F6F3" }
               : { rotate: 0,   y: 0,  backgroundColor: "#141414" }}
             transition={{ duration: 0.2 }}
-            className="block h-[2px] w-6 origin-center rounded-none"
+            className="block h-[3px] w-6 origin-center rounded-none"
           />
         </button>
 
