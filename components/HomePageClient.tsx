@@ -76,7 +76,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, featured, fe
             <Link
               href={`/cases/${proj1.slug}`}
               className="group absolute z-20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
-              style={{ bottom: "-18%", right: "8%", width: "22%", aspectRatio: "3/4" }}
+              style={{ bottom: "-18%", right: "-14%", width: "38%", aspectRatio: "4/3" }}
             >
               {proj1.cover && (
                 <Image src={proj1.cover} alt={proj1.client} fill sizes="22vw"
