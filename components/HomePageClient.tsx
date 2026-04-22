@@ -24,12 +24,21 @@ type Props = {
   igFeedVrijwerk?: string;
 };
 
-const SECTIONS = [
-  { href: "/vrij-werk",          label: "Vrij werk",          category: "Persoonlijk"  },
-  { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie", category: "Commissioned" },
-  { href: "/cases",              label: "Cases",              category: "Projecten"    },
-  { href: "/over",               label: "Over Nina",          category: "Studio"       },
-  { href: "/werkwijze",          label: "Werkwijze",          category: "Aanpak"       },
+const STRIP = [
+  { href: "/vrij-werk",          category: "Persoonlijk",  label: "Vrij werk",          color: "#4a7c59" },
+  { href: "/bedrijfsfotografie", category: "Commissioned", label: "Bedrijfs-\nfotografie", color: "#c0784a" },
+  { href: "/cases",              category: "Projecten",    label: "Cases",              color: "#6b8cba" },
+  { href: "/over",               category: "Studio",       label: "Over Nina",          color: "#b5a89a" },
+  { href: "/werkwijze",          category: "Aanpak",       label: "Werkwijze",          color: "#8b8680" },
+];
+
+const NAV_LINKS = [
+  { href: "/vrij-werk",          label: "Vrij werk"          },
+  { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
+  { href: "/cases",              label: "Cases"              },
+  { href: "/over",               label: "Over"               },
+  { href: "/werkwijze",          label: "Werkwijze"          },
+  { href: "/contact",            label: "Contact"            },
 ];
 
 export default function HomePageClient({
@@ -37,110 +46,84 @@ export default function HomePageClient({
   businessPhotos,
   ninaPortret,
 }: Props) {
-  const a = artPhotos;
-  const b = businessPhotos;
-
-  const strip = [
-    { src: a[0]?.src || "", alt: a[0]?.alt || "",  ...SECTIONS[0] },
-    { src: b[0]?.src || "", alt: b[0]?.alt || "",  ...SECTIONS[1] },
-    { src: a[1]?.src || a[0]?.src || "", alt: "",  ...SECTIONS[2] },
-    { src: ninaPortret,     alt: "Nina Passenier", ...SECTIONS[3] },
-    { src: b[1]?.src || b[0]?.src || "", alt: "",  ...SECTIONS[4] },
+  const images = [
+    artPhotos[0]?.src      || "",
+    businessPhotos[0]?.src || "",
+    artPhotos[1]?.src      || artPhotos[0]?.src || "",
+    ninaPortret            || "",
+    businessPhotos[1]?.src || businessPhotos[0]?.src || "",
   ];
 
   return (
     <div className="bg-bg">
 
-      {/* ══ 5-KOLOMS STRIP — direct onder de nav, vult het scherm ══ */}
+      {/* ══ STRIP — vult het volledige scherm, direct onder de nav ══ */}
       <section
-        className="hidden lg:flex border-b border-border"
+        className="flex border-b border-border"
         style={{ height: "calc(100svh - 48px)" }}
       >
-        {strip.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="group relative overflow-hidden border-r border-border last:border-r-0"
-            style={{ flex: "1 1 0%" }}
+
+        {/* Links: verticale label */}
+        <div className="hidden lg:flex flex-col items-center justify-center border-r border-border px-2 shrink-0 w-7">
+          <span
+            className="text-[7px] uppercase tracking-[0.4em] text-muted whitespace-nowrap"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
-            {item.src && (
+            Uitgelichte projecten
+          </span>
+        </div>
+
+        {/* 5 kolommen */}
+        {STRIP.map((section, i) => (
+          <Link
+            key={section.href}
+            href={section.href}
+            className="group relative overflow-hidden border-r border-border last:border-r-0"
+            style={{ flex: "1 1 0%", minWidth: 0 }}
+          >
+            {images[i] && (
               <Image
-                src={item.src}
-                alt={item.alt}
+                src={images[i]}
+                alt={section.label.replace("\n", " ")}
                 fill
                 sizes="20vw"
-                className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+                className="object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-[1.04]"
               />
             )}
 
-            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors duration-700" />
-
-            {/* Tekst linksboven — precies zoals ACDB */}
-            <div className="absolute top-0 left-0 right-0 p-5">
-              <p className="text-[7px] uppercase tracking-[0.32em] text-white/50 mb-1.5">
-                {item.category}
+            {/* Tekst linksboven — geen overlay, tekst direct op foto */}
+            <div className="absolute top-4 left-4 right-4">
+              <p className="text-[7px] uppercase tracking-[0.32em] text-white/60 mb-1.5">
+                {section.category}
               </p>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-white font-light leading-snug">
-                {item.label}
+              <p
+                className="text-xl lg:text-2xl xl:text-3xl font-bold uppercase leading-tight"
+                style={{ color: section.color, whiteSpace: "pre-line" }}
+              >
+                {section.label}
               </p>
             </div>
           </Link>
         ))}
-      </section>
 
-      {/* Mobiel: 2×2 + 1 volledig */}
-      <section className="lg:hidden border-b border-border">
-        <div className="grid grid-cols-2">
-          {strip.slice(0, 4).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group relative overflow-hidden aspect-[3/4] border-b border-r border-border even:border-r-0"
-            >
-              {item.src && (
-                <Image src={item.src} alt={item.alt} fill sizes="50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-              )}
-              <div className="absolute inset-0 bg-black/30" />
-              <div className="absolute top-0 left-0 right-0 p-4">
-                <p className="text-[7px] uppercase tracking-[0.28em] text-white/40 mb-1">{item.category}</p>
-                <p className="text-[10px] uppercase tracking-[0.16em] text-white font-light">{item.label}</p>
-              </div>
-            </Link>
-          ))}
+        {/* Rechts: pijl */}
+        <div className="hidden lg:flex flex-col items-center justify-center border-l border-border px-1.5 shrink-0 w-7">
+          <span className="text-muted text-lg leading-none">›</span>
         </div>
-        {strip[4] && (
-          <Link href={strip[4].href} className="group relative block overflow-hidden aspect-[16/7]">
-            {strip[4].src && (
-              <Image src={strip[4].src} alt={strip[4].alt} fill sizes="100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
-            )}
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute top-0 left-0 right-0 p-4">
-              <p className="text-[7px] uppercase tracking-[0.28em] text-white/40 mb-1">{strip[4].category}</p>
-              <p className="text-[10px] uppercase tracking-[0.16em] text-white font-light">{strip[4].label}</p>
-            </div>
-          </Link>
-        )}
+
       </section>
 
-      {/* ══ WIT ERONDER — simpele links zoals ACDB ════════════════ */}
-      <div className="px-7 lg:px-12 py-10 flex flex-wrap gap-x-10 gap-y-3">
-        {SECTIONS.map((s) => (
+      {/* ══ WIT ERONDER — simpele navigatielinks ════════════════════ */}
+      <div className="px-7 lg:px-10 py-6 flex flex-wrap gap-x-8 gap-y-2">
+        {NAV_LINKS.map((l) => (
           <Link
-            key={s.href}
-            href={s.href}
+            key={l.href}
+            href={l.href}
             className="text-[9px] uppercase tracking-[0.28em] text-muted hover:text-ink transition-colors"
           >
-            {s.label}
+            {l.label}
           </Link>
         ))}
-        <Link
-          href="/contact"
-          className="text-[9px] uppercase tracking-[0.28em] text-muted hover:text-ink transition-colors"
-        >
-          Contact
-        </Link>
       </div>
 
     </div>
