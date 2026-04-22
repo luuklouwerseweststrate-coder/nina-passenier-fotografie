@@ -27,7 +27,7 @@ export default function Navigation() {
   return (
     <>
       {/* Topbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-12 bg-bg/95 backdrop-blur-sm border-b border-border grid grid-cols-3 items-center px-5 lg:px-8">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-bg/95 backdrop-blur-sm border-b border-border grid grid-cols-3 items-center px-5 lg:px-8">
 
         {/* Links: hamburger */}
         <button
@@ -63,7 +63,7 @@ export default function Navigation() {
           <Link
             href="/"
             aria-label="Home"
-            className={`text-[10px] tracking-[0.28em] uppercase font-medium transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
+            className={`text-[13px] tracking-[0.22em] uppercase font-medium transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
           >
             Nina Passenier
           </Link>
