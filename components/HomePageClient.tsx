@@ -60,7 +60,7 @@ export default function HomePageClient({
       {/* ══ STRIP — vult het volledige scherm, direct onder de nav ══ */}
       <section
         className="flex border-b border-border"
-        style={{ height: "calc(100svh - 48px)" }}
+        style={{ height: "clamp(380px, 58vh, 520px)" }}
       >
 
         {/* Links: verticale label */}
