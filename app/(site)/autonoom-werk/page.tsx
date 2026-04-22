@@ -38,11 +38,11 @@ export default async function VrijWerkPage() {
   ]);
 
   const artPhotos = sanityArtPhotos.length > 0
-    ? sanityArtPhotos.map((p: any) => ({ src: urlFor(p.image).width(1600).quality(80).url(), alt: p.alt }))
+    ? sanityArtPhotos.map((p: any) => ({ src: urlFor(p.image).width(3200).quality(92).url(), alt: p.alt }))
     : fallbackArtPhotos.map((p) => ({ src: p.src, alt: p.alt }));
 
   const series = sanitySeries.length > 0
-    ? sanitySeries.map((s: any) => ({ title: s.title, year: s.year, text: s.text, cover: urlFor(s.cover).width(1600).quality(80).url() }))
+    ? sanitySeries.map((s: any) => ({ title: s.title, year: s.year, text: s.text, cover: urlFor(s.cover).width(3200).quality(92).url() }))
     : fallbackSeries;
 
   const expo = sanityExpo ?? fallbackExhibition;

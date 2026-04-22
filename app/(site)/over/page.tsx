@@ -12,7 +12,7 @@ export default async function OverPage() {
   const settings = await client.fetch(settingsQuery).catch(() => null);
 
   const ninaPortret = settings?.ninaPortret
-    ? urlFor(settings.ninaPortret).width(1200).quality(85).url()
+    ? urlFor(settings.ninaPortret).width(2400).quality(92).url()
     : fallbackPortret;
 
   const bio = {

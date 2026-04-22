@@ -37,8 +37,8 @@ export default async function CasePage({ params }: { params: { slug: string } })
       intro:    sanityCase.intro,
       approach: sanityCase.approach,
       quote:    sanityCase.quote,
-      cover:    sanityCase.cover?.asset ? urlFor(sanityCase.cover).width(2000).quality(85).url() : "",
-      images:   (sanityCase.images || []).map((img: any) => urlFor(img).width(1600).quality(80).url()),
+      cover:    sanityCase.cover?.asset ? urlFor(sanityCase.cover).width(3600).quality(92).url() : "",
+      images:   (sanityCase.images || []).map((img: any) => urlFor(img).width(3200).quality(92).url()),
     };
   } else {
     const fallback = fallbackCases.find((x) => x.slug === params.slug);
@@ -55,7 +55,7 @@ export default async function CasePage({ params }: { params: { slug: string } })
 
   const nextCase = isSanity
     ? await client.fetch(caseBySlugQuery, { slug: nextSlug })
-        .then((n: any) => ({ client: n.client, slug: n.slug?.current, cover: n.cover?.asset ? urlFor(n.cover).width(2000).quality(85).url() : "" }))
+        .then((n: any) => ({ client: n.client, slug: n.slug?.current, cover: n.cover?.asset ? urlFor(n.cover).width(3600).quality(92).url() : "" }))
         .catch(() => null)
     : fallbackCases.find((x) => x.slug === nextSlug);
 

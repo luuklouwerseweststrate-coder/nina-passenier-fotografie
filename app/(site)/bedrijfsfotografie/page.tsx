@@ -29,7 +29,7 @@ export default async function BedrijfsfotografiePage() {
   const photos: PhotoItem[] =
     sanityPhotos.length > 0
       ? sanityPhotos.map((p: any) => ({
-          src:   urlFor(p.image).width(1200).quality(80).url(),
+          src:   urlFor(p.image).width(2400).quality(92).url(),
           alt:   p.alt,
           title: p.title,
           meta:  p.meta,

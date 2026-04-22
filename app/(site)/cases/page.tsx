@@ -21,7 +21,7 @@ export default async function CasesPage() {
           year:   c.year,
           type:   c.type,
           title:  c.title,
-          cover:  urlFor(c.cover).width(2000).quality(85).url(),
+          cover:  urlFor(c.cover).width(3600).quality(92).url(),
         }))
       : fallbackCases.map((c) => ({ slug: c.slug, client: c.client, year: c.year, type: c.type, title: c.title, cover: c.cover }));
 
