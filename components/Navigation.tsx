@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
-  { href: "/vrij-werk",          label: "Vrij werk" },
+  { href: "/vrij-werk",          label: "Autonoom werk" },
   { href: "/cases",              label: "Cases" },
   { href: "/over",               label: "Over" },
   { href: "/werkwijze",          label: "Werkwijze" },
