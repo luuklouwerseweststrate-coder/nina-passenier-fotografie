@@ -24,13 +24,12 @@ type Props = {
   igFeedVrijwerk?: string;
 };
 
-// Bedrijfsfotografie eerst
+// Ongelijke kolommen — groot | groot | klein | klein (zoals ACDB)
 const STRIP = [
-  { href: "/bedrijfsfotografie", category: "Commissioned", label: "Bedrijfs-\nfotografie", color: "#ffffff" },
-  { href: "/vrij-werk",          category: "Persoonlijk",  label: "Vrij werk",             color: "#ffffff" },
-  { href: "/cases",              category: "Projecten",    label: "Cases",                 color: "#ffffff" },
-  { href: "/over",               category: "Studio",       label: "Over Nina",             color: "#ffffff" },
-  { href: "/werkwijze",          category: "Aanpak",       label: "Werkwijze",             color: "#ffffff" },
+  { href: "/bedrijfsfotografie", category: "Commissioned", label: "Bedrijfs-\nfotografie", flex: 2.6 },
+  { href: "/vrij-werk",          category: "Persoonlijk",  label: "Vrij werk",             flex: 2.2 },
+  { href: "/over",               category: "Studio",       label: "Over Nina",             flex: 1.2 },
+  { href: "/werkwijze",          category: "Aanpak",       label: "Werkwijze",             flex: 1.0 },
 ];
 
 const NAV_LINKS = [
@@ -47,11 +46,10 @@ export default function HomePageClient({
   businessPhotos,
   ninaPortret,
 }: Props) {
-  // Volgorde matcht STRIP: bedrijf, vrij, cases, over, werkwijze
+  // Volgorde matcht STRIP: bedrijf, vrij, over, werkwijze
   const images = [
     businessPhotos[0]?.src || "",
     artPhotos[0]?.src      || "",
-    artPhotos[1]?.src      || artPhotos[0]?.src || "",
     ninaPortret            || "",
     businessPhotos[1]?.src || businessPhotos[0]?.src || "",
   ];
@@ -83,7 +81,7 @@ export default function HomePageClient({
             key={section.href}
             href={section.href}
             className="group relative overflow-hidden border-r border-border last:border-r-0"
-            style={{ flex: "1 1 0%", minWidth: 0 }}
+            style={{ flex: `${section.flex} 1 0%`, minWidth: 0 }}
           >
             {images[i] && (
               <Image
