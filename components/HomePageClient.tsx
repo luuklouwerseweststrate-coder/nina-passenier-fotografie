@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import ScatteredGallery from "./ScatteredGallery";
 
 type Photo = { src: string; alt: string };
+type GalleryItem = { src: string; alt: string; href: string };
 type FeaturedCase = { cover: string; client: string; intro: string; slug: string };
 
 type Props = {
@@ -24,17 +24,13 @@ type Props = {
   beschikbaarTekst?: string;
   igFeedBedrijf?: string;
   igFeedVrijwerk?: string;
+  galleryCases?: GalleryItem[];
 };
 
-export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
+export default function HomePageClient({ businessPhotos, artPhotos, galleryCases }: Props) {
   const bedrijfImg = businessPhotos[0]?.src || "";
   const vrijImg    = artPhotos[0]?.src || "";
-
-  // Combineer foto's voor de scattered galerij (max 6)
-  const galleryPhotos: Photo[] = [
-    ...businessPhotos.slice(0, 3),
-    ...artPhotos.slice(0, 3),
-  ].slice(0, 6);
+  const galleryItems = galleryCases ?? [];
 
   return (
     <div className="bg-white">
@@ -130,13 +126,34 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
           </Link>
         </div>
 
-        {/* Scattered galerij */}
-        {galleryPhotos.length > 0 && (
-          <ScatteredGallery
-            photos={galleryPhotos}
-            href="/cases"
-            containerMinHeight="480px"
-          />
+        {/* Scattered galerij — elk project individueel klikbaar */}
+        {galleryItems.length > 0 && (
+          <div className="relative" style={{ minHeight: "480px" }}>
+            {galleryItems.map((item, i) => {
+              const slots = [
+                { left: "2%",  top: "5%",  width: "15%", rotate: "-1.8deg" },
+                { left: "20%", top: "2%",  width: "20%", rotate: "1deg"    },
+                { left: "62%", top: "4%",  width: "14%", rotate: "1.8deg"  },
+                { left: "42%", top: "8%",  width: "16%", rotate: "-0.6deg" },
+                { left: "5%",  top: "58%", width: "16%", rotate: "-0.8deg" },
+                { left: "38%", top: "53%", width: "13%", rotate: "1.5deg"  },
+                { left: "58%", top: "48%", width: "18%", rotate: "-1.2deg" },
+              ];
+              const slot = slots[i % slots.length];
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group absolute overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                  style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
+                >
+                  <div className="relative w-full" style={{ paddingTop: i % 3 === 0 ? "133%" : i % 3 === 1 ? "62%" : "100%" }}>
+                    <Image src={item.src} alt={item.alt} fill sizes="20vw" className="object-cover" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         )}
 
       </section>

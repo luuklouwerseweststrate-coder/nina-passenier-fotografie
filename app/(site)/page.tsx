@@ -84,6 +84,13 @@ export default async function HomePage() {
   const featured  = makeFeatured(allCases[0], sanityCases.length > 0);
   const featured2 = makeFeatured(allCases[1] ?? allCases[0], sanityCases.length > 0);
 
+  // Gallery: case covers als losse klikbare items
+  const galleryCases = allCases.slice(0, 6).map((raw: any, i: number) => ({
+    src:  raw.cover?.asset ? urlFor(raw.cover).width(800).quality(80).url() : raw.cover ?? "",
+    alt:  raw.client ?? `Project ${i + 1}`,
+    href: `/cases/${sanityCases.length > 0 ? raw.slug?.current : raw.slug}`,
+  }));
+
   return (
     <HomePageClient
       heroImage={heroImage}
@@ -95,6 +102,7 @@ export default async function HomePage() {
       heroStrip={heroStrip}
       featured={featured}
       featured2={featured2}
+      galleryCases={galleryCases}
       heroTagline={settings?.heroTagline}
       heroSubtitel={settings?.heroSubtitel}
       introTekst={settings?.introTekst}
