@@ -6,12 +6,12 @@ export const metadata = { title: "Werkwijze — Nina Passenier" };
 export const revalidate = 3600;
 
 const fallbackStappen = [
-  { titel: "Kennismaking",         tekst: "We drinken koffie, je vertelt wat je wilt maken en voor wie. Geen shot list, nog geen datum. Ik luister vooral." },
-  { titel: "Voorstel & moodboard", tekst: "Op basis van het gesprek maak ik een voorstel met richting, locatie-ideeën, planning en prijs. Meestal korter dan je verwacht." },
-  { titel: "Voorbereiding",        tekst: "Locatie scouten, styling afstemmen, planning rond. Ik regel wat ik kan, jij houdt tijd over voor wat jij moet doen." },
-  { titel: "De shoot",             tekst: "Op de dag zelf werk ik het liefst rustig en geduldig. Ik laat ruimte voor toeval. De beste frames zijn bijna nooit gepland." },
-  { titel: "Selectie & bewerking", tekst: "Binnen een week ontvang je een eerste selectie. Na jouw feedback bewerk ik de definitieve beelden, in jouw merkstijl." },
-  { titel: "Oplevering",           tekst: "Digitale oplevering in alle benodigde formaten. Web, social, print — waar je het maar voor nodig hebt." },
+  { titel: "Kennismaking",         tekst: "We plannen een kort gesprek — telefonisch of op locatie. Jij vertelt wat je nodig hebt, ik vertel hoe ik werk. Geen verplichtingen." },
+  { titel: "Offerte & planning",   tekst: "Je ontvangt een heldere offerte met prijs, planning en wat je kunt verwachten. Geen verrassingen achteraf." },
+  { titel: "Voorbereiding",        tekst: "Ik scout de locatie, stem de planning af en zorg dat alles klaarstaat op de dag zelf. Jij hoeft nergens aan te denken." },
+  { titel: "De shoot",             tekst: "Op de afgesproken dag fotografeer ik. Ik werk efficiënt en gestructureerd, zodat we binnen de tijd het maximale halen." },
+  { titel: "Selectie & bewerking", tekst: "Binnen een week ontvang je een eerste selectie via een online galerij. Na jouw feedback lever ik de definitieve beelden aan." },
+  { titel: "Oplevering",           tekst: "Alle beelden digitaal aangeleverd in de formaten die jij nodig hebt — web, social of print." },
 ];
 
 export default async function WerkwijzePage() {
@@ -22,13 +22,13 @@ export default async function WerkwijzePage() {
     <div className="bg-white">
 
       {/* ── Header ─────────────────────────────────── */}
-      <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-14 border-b border-border">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-5">Werkwijze</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink max-w-2xl">
-          Rustig, voorbereid, en met ruimte voor wat&nbsp;gebeurt.
+      <section className="px-7 lg:px-12 pt-20 lg:pt-24 pb-10 border-b border-border">
+        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-4">Werkwijze</p>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] text-ink max-w-lg">
+          Zo werkt het samenwerken met mij.
         </h1>
-        <p className="mt-5 text-sm text-ink/50 max-w-md leading-relaxed">
-          Een shoot met mij is geen assemblagelijn. Maar ook geen chaos. Dit is hoe een project meestal loopt.
+        <p className="mt-4 text-sm text-ink/50 max-w-md leading-relaxed">
+          Van eerste gesprek tot oplevering — duidelijk, zonder gedoe.
         </p>
       </section>
 
@@ -37,7 +37,7 @@ export default async function WerkwijzePage() {
         {stappen.map((s: { titel: string; tekst: string }, i: number) => (
           <div
             key={i}
-            className="grid grid-cols-[3rem_1fr] lg:grid-cols-[8rem_1fr] gap-6 lg:gap-12 py-10 lg:py-12 border-t border-border"
+            className="grid grid-cols-[3rem_1fr] lg:grid-cols-[8rem_1fr] gap-6 lg:gap-12 py-8 lg:py-10 border-t border-border"
           >
             <div className="pt-1">
               <p className="text-[9px] uppercase tracking-[0.28em] text-faint">
@@ -45,7 +45,7 @@ export default async function WerkwijzePage() {
               </p>
             </div>
             <div>
-              <h3 className="text-lg lg:text-xl font-medium leading-snug mb-3 text-ink">{s.titel}</h3>
+              <h3 className="text-base lg:text-lg font-medium leading-snug mb-2 text-ink">{s.titel}</h3>
               <p className="text-sm text-ink/55 leading-relaxed max-w-xl">{s.tekst}</p>
             </div>
           </div>
@@ -53,22 +53,15 @@ export default async function WerkwijzePage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────── */}
-      <section className="px-7 lg:px-12 py-16 lg:py-24 border-b border-border">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Klaar om te starten?</p>
-        <h2 className="text-2xl lg:text-3xl font-light leading-tight text-ink max-w-sm">
-          Eerst een gesprek, dan pas cijfers.
-        </h2>
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link
-            href="/contact"
-            className="border border-ink px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-ink hover:bg-ink hover:text-white transition-all duration-300"
-          >
-            Plan een kennismaking
+      <section className="px-7 lg:px-12 py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+        <p className="text-sm text-ink/50">Interesse? Neem gerust contact op voor een vrijblijvend gesprek.</p>
+        <div className="flex gap-3 shrink-0">
+          <Link href="/contact"
+            className="border border-ink bg-ink text-white px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] hover:bg-white hover:text-ink transition-all duration-300">
+            Neem contact op
           </Link>
-          <Link
-            href="/cases"
-            className="border border-border px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-muted hover:border-ink hover:text-ink transition-all duration-300"
-          >
+          <Link href="/cases"
+            className="border border-border px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-muted hover:border-ink hover:text-ink transition-all duration-300">
             Bekijk cases
           </Link>
         </div>
