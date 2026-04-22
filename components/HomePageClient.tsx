@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import ScatteredGallery from "./ScatteredGallery";
 
 type Photo = { src: string; alt: string };
 type FeaturedCase = { cover: string; client: string; intro: string; slug: string };
@@ -29,17 +30,23 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
   const bedrijfImg = businessPhotos[0]?.src || "";
   const vrijImg    = artPhotos[0]?.src || "";
 
+  // Combineer foto's voor de scattered galerij (max 6)
+  const galleryPhotos: Photo[] = [
+    ...businessPhotos.slice(0, 3),
+    ...artPhotos.slice(0, 3),
+  ].slice(0, 6);
+
   return (
     <div className="bg-white">
 
-      <div className="relative" style={{ paddingTop: "4vh", paddingBottom: "4vh" }}>
+      {/* ══ HERO — vult ~90vh zodat galerij net piekt ══════════════ */}
+      <div style={{ minHeight: "88vh", paddingTop: "4vh", paddingBottom: "0" }}>
 
-        {/* ══ 2 KOLOMMEN ══════════════════════════════════════════ */}
+        {/* 2 grote kolommen */}
         <section
           className="flex gap-4 lg:gap-6"
           style={{ height: "58vh", minHeight: "360px" }}
         >
-
           {/* Verticale label */}
           <div className="hidden lg:flex flex-col items-center justify-center w-7 shrink-0">
             <span
@@ -50,7 +57,7 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
             </span>
           </div>
 
-          {/* ── Kolom 1: Bedrijfsfotografie ── */}
+          {/* Kolom 1: Bedrijfsfotografie */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/bedrijfsfotografie" className="group block absolute inset-0">
               {bedrijfImg && (
@@ -68,7 +75,7 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
             </Link>
           </div>
 
-          {/* ── Kolom 2: Autonoom werk ── */}
+          {/* Kolom 2: Autonoom werk */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/vrij-werk" className="group block absolute inset-0">
               {vrijImg && (
@@ -90,26 +97,49 @@ export default function HomePageClient({ businessPhotos, artPhotos }: Props) {
           <div className="hidden lg:flex flex-col items-center justify-center w-7 shrink-0">
             <span className="text-muted text-lg leading-none">›</span>
           </div>
-
         </section>
+
+        {/* Navigatielinks — zitten in de hero wrapper */}
+        <div className="px-8 lg:px-12 py-5 flex flex-wrap gap-x-8 gap-y-2">
+          {[
+            { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
+            { href: "/vrij-werk",          label: "Autonoom werk"      },
+            { href: "/cases",              label: "Cases"              },
+            { href: "/over",               label: "Over"               },
+            { href: "/werkwijze",          label: "Werkwijze"          },
+            { href: "/contact",            label: "Contact"            },
+          ].map((l) => (
+            <Link key={l.href} href={l.href}
+              className="text-[9px] uppercase tracking-[0.28em] text-muted hover:text-ink transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
       </div>
 
-      {/* ══ NAVIGATIELINKS ════════════════════════════════════════ */}
-      <div className="px-8 lg:px-12 py-6 border-t border-border flex flex-wrap gap-x-8 gap-y-2">
-        {[
-          { href: "/bedrijfsfotografie", label: "Bedrijfsfotografie" },
-          { href: "/vrij-werk",          label: "Autonoom werk"      },
-          { href: "/cases",              label: "Cases"              },
-          { href: "/over",               label: "Over"               },
-          { href: "/werkwijze",          label: "Werkwijze"          },
-          { href: "/contact",            label: "Contact"            },
-        ].map((l) => (
-          <Link key={l.href} href={l.href}
-            className="text-[9px] uppercase tracking-[0.28em] text-muted hover:text-ink transition-colors">
-            {l.label}
+      {/* ══ SCATTERED GALERIJ — piekt net onder de vouw ════════════ */}
+      <section className="px-6 lg:px-12 pt-12 pb-20">
+
+        {/* Titel */}
+        <div className="flex items-baseline justify-between mb-2 lg:mb-4">
+          <p className="text-[9px] uppercase tracking-[0.32em] text-muted">Projecten</p>
+          <Link href="/cases"
+            className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
+            Alle cases →
           </Link>
-        ))}
-      </div>
+        </div>
+
+        {/* Scattered galerij */}
+        {galleryPhotos.length > 0 && (
+          <ScatteredGallery
+            photos={galleryPhotos}
+            href="/cases"
+            containerMinHeight="700px"
+          />
+        )}
+
+      </section>
 
     </div>
   );
