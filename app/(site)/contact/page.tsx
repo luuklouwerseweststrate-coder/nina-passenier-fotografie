@@ -1,115 +1,154 @@
-import { client } from "@/sanity/lib/client";
-import { settingsQuery } from "@/sanity/lib/queries";
+"use client";
 
-export const metadata = { title: "Contact — Nina Passenier" };
-export const revalidate = 3600;
+import { useState } from "react";
+import Link from "next/link";
 
-export default async function ContactPage() {
-  const settings = await client.fetch(settingsQuery).catch(() => null);
+export default function ContactPage() {
+  const email    = "hallo@ninapassenier.nl";
+  const instagram = "ninapassenier";
+  const location = "Rotterdam — werkt door heel NL";
 
-  const email    = settings?.email    || "hallo@ninapassenier.nl";
-  const instagram = settings?.instagram || "ninapassenier";
-  const location = settings?.location  || "Rotterdam, werkt door heel NL";
+  const [sent, setSent] = useState(false);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const naam    = data.get("naam");
+    const mail    = data.get("email");
+    const type    = data.get("type");
+    const bericht = data.get("bericht");
+
+    const subject = encodeURIComponent(`Nieuwe aanvraag — ${naam}`);
+    const body    = encodeURIComponent(
+      `Van: ${naam}\nE-mail: ${mail}\nProject: ${type}\n\n${bericht}`
+    );
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    setSent(true);
+  }
+
+  if (sent) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-7">
+        <div className="text-center">
+          <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-5">Verstuurd</p>
+          <h2 className="text-3xl font-light text-ink mb-4">Je mailprogramma staat klaar.</h2>
+          <p className="text-sm text-ink/45 mb-8">Druk op verzenden in je mail — dan ben ik er snel bij.</p>
+          <Link href="/" className="text-[9px] uppercase tracking-[0.28em] text-faint hover:text-ink transition-colors">
+            ← Terug naar home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-0">
+    <div className="bg-white min-h-screen">
 
       {/* ── Header ─────────────────────────────────── */}
-      <div className="border-b border-border pb-14 max-w-2xl">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-6">Contact</p>
-        <h1 className="text-4xl md:text-6xl font-light leading-[1.05] text-ink">
+      <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-10 border-b border-border">
+        <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-4">Contact</p>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink">
           Laten we praten.
         </h1>
-        <p className="mt-6 text-base text-ink/55 leading-relaxed max-w-md">
-          Plan een shoot, bespreek een campagne, of stel een vraag over vrij werk.
-          Ik reageer meestal binnen een werkdag.
-        </p>
-      </div>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 py-14 lg:py-20 border-b border-border">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
 
-        {/* ── Gegevens ─────────────────────────────── */}
-        <div className="space-y-10">
-          {[
-            { label: "E-mail",    value: email,        href: `mailto:${email}` },
-            { label: "Instagram", value: `@${instagram}`, href: `https://instagram.com/${instagram}` },
-            { label: "Locatie",   value: location,     href: null },
-          ].map(({ label, value, href }) => (
-            <div key={label} className="border-t border-border pt-6">
-              <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">{label}</p>
-              {href ? (
-                <a
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="text-xl lg:text-2xl font-light text-ink hover:text-muted transition-colors"
-                >
-                  {value}
-                </a>
-              ) : (
-                <p className="text-xl lg:text-2xl font-light text-ink">{value}</p>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* ── Formulier ────────────────────────────── */}
-        <form
-          action={`mailto:${email}`}
-          method="post"
-          encType="text/plain"
-          className="space-y-7"
-        >
-          {[
-            { id: "naam",   label: "Naam",    type: "text",  required: true },
-            { id: "email",  label: "E-mail",  type: "email", required: true },
-          ].map(({ id, label, type, required }) => (
-            <div key={id} className="border-t border-border pt-5">
-              <label htmlFor={id} className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
-                {label}
-              </label>
-              <input
-                id={id} name={id} type={type} required={required}
-                className="w-full bg-transparent text-ink placeholder:text-faint focus:outline-none text-sm py-1"
-              />
-            </div>
-          ))}
-
-          <div className="border-t border-border pt-5">
-            <label htmlFor="type" className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
-              Soort project
-            </label>
-            <select id="type" name="type"
-              className="w-full bg-transparent text-ink text-sm py-1 focus:outline-none appearance-none cursor-pointer">
-              <option>Bedrijfsfotografie</option>
-              <option>Campagne / branding</option>
-              <option>Portret</option>
-              <option>Kunst / publicatie</option>
-              <option>Anders</option>
-            </select>
+        {/* ── Gegevens ───────────────────────────────── */}
+        <aside className="px-7 lg:px-12 py-12 lg:py-16 border-b lg:border-b-0 lg:border-r border-border space-y-8">
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">E-mail</p>
+            <a href={`mailto:${email}`}
+              className="text-sm text-ink hover:text-muted transition-colors break-all">
+              {email}
+            </a>
           </div>
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">Instagram</p>
+            <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer"
+              className="text-sm text-ink hover:text-muted transition-colors">
+              @{instagram}
+            </a>
+          </div>
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.28em] text-faint mb-2">Locatie</p>
+            <p className="text-sm text-ink">{location}</p>
+          </div>
+          <div className="pt-4 border-t border-border">
+            <p className="text-xs text-ink/35 leading-relaxed">
+              Ik reageer meestal binnen één werkdag.
+            </p>
+          </div>
+        </aside>
 
-          <div className="border-t border-border pt-5">
-            <label htmlFor="bericht" className="block text-[9px] uppercase tracking-[0.28em] text-muted mb-3">
-              Bericht
-            </label>
-            <textarea
-              id="bericht" name="bericht" rows={5} required
-              className="w-full bg-transparent text-ink text-sm py-1 focus:outline-none resize-none"
+        {/* ── Formulier — interview stijl ─────────────── */}
+        <form onSubmit={handleSubmit} className="px-7 lg:px-12 py-12 lg:py-16 space-y-0">
+
+          <Question nr="01" vraag="Wie ben je?">
+            <input
+              id="naam" name="naam" type="text" required
+              placeholder="Naam of bedrijf"
+              className="w-full bg-transparent text-ink text-lg lg:text-xl font-light placeholder:text-ink/20 focus:outline-none py-3 border-b border-ink/20 focus:border-ink transition-colors duration-200"
             />
-          </div>
+          </Question>
 
-          <div className="border-t border-border pt-6">
+          <Question nr="02" vraag="Hoe bereik ik je?">
+            <input
+              id="email" name="email" type="email" required
+              placeholder="jouw@emailadres.nl"
+              className="w-full bg-transparent text-ink text-lg lg:text-xl font-light placeholder:text-ink/20 focus:outline-none py-3 border-b border-ink/20 focus:border-ink transition-colors duration-200"
+            />
+          </Question>
+
+          <Question nr="03" vraag="Wat wil je maken?">
+            <div className="relative border-b border-ink/20 focus-within:border-ink transition-colors duration-200">
+              <select
+                id="type" name="type"
+                className="w-full bg-transparent text-ink text-lg lg:text-xl font-light focus:outline-none py-3 appearance-none cursor-pointer pr-6"
+              >
+                <option value="">Kies een categorie</option>
+                <option>Bedrijfsfotografie</option>
+                <option>Campagne / branding</option>
+                <option>Portret</option>
+                <option>Evenement</option>
+                <option>Autonoom werk / print</option>
+                <option>Anders</option>
+              </select>
+              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-ink/30 pointer-events-none">↓</span>
+            </div>
+          </Question>
+
+          <Question nr="04" vraag="Vertel meer.">
+            <textarea
+              id="bericht" name="bericht" rows={4} required
+              placeholder="Context, datum, locatie, budget — wat je wilt delen."
+              className="w-full bg-transparent text-ink text-base font-light placeholder:text-ink/20 focus:outline-none py-3 border-b border-ink/20 focus:border-ink transition-colors duration-200 resize-none leading-relaxed"
+            />
+          </Question>
+
+          <div className="pt-10">
             <button
               type="submit"
-              className="w-full border border-ink py-3.5 text-[11px] uppercase tracking-[0.22em] hover:bg-ink hover:text-bg transition-all duration-300"
+              className="border border-ink px-8 py-3 text-[11px] uppercase tracking-[0.22em] text-ink hover:bg-ink hover:text-white transition-all duration-300"
             >
-              Verstuur bericht
+              Verstuur →
             </button>
           </div>
-        </form>
 
+        </form>
       </div>
-    </section>
+    </div>
+  );
+}
+
+function Question({ nr, vraag, children }: { nr: string; vraag: string; children: React.ReactNode }) {
+  return (
+    <div className="py-8 border-b border-border">
+      <div className="flex items-baseline gap-4 mb-4">
+        <span className="text-[9px] uppercase tracking-[0.28em] text-faint shrink-0">{nr}</span>
+        <p className="text-[9px] uppercase tracking-[0.28em] text-muted">{vraag}</p>
+      </div>
+      {children}
+    </div>
   );
 }
