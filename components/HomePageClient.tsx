@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 type Photo = { src: string; alt: string };
 type GalleryItem = { src: string; alt: string; href: string };
@@ -114,8 +115,23 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
 
       </div>
 
+      {/* ══ SCROLL HINT ════════════════════════════════════════════ */}
+      <div className="flex flex-col items-center py-8 gap-2">
+        <span className="text-[8px] uppercase tracking-[0.35em] text-faint">Projecten</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1"
+        >
+          <div className="w-px h-6 bg-border" />
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className="text-faint">
+            <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </motion.div>
+      </div>
+
       {/* ══ SCATTERED GALERIJ — piekt net onder de vouw ════════════ */}
-      <section className="px-6 lg:px-12 pt-12 pb-20">
+      <section className="px-6 lg:px-12 pt-2 pb-20">
 
         {/* Titel */}
         <div className="flex items-baseline justify-between mb-2 lg:mb-4">

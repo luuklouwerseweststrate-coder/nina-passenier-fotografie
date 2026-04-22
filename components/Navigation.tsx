@@ -27,7 +27,7 @@ export default function Navigation() {
   return (
     <>
       {/* Topbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-bg/95 backdrop-blur-sm border-b border-border grid grid-cols-3 items-center px-5 lg:px-8">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-border grid grid-cols-3 items-center px-5 lg:px-8">
 
         {/* Links: hamburger */}
         <button
