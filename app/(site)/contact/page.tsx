@@ -47,9 +47,12 @@ export default function ContactPage() {
       {/* ── Header ─────────────────────────────────── */}
       <section className="px-7 lg:px-12 pt-20 lg:pt-28 pb-10 border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-4">Contact</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink">
-          Laten we praten.
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.15] text-ink max-w-xl">
+          Leuk dat je contact opneemt!
         </h1>
+        <p className="mt-4 text-sm text-ink/50 max-w-md leading-relaxed">
+          Vul het formulier in en ik laat binnen 2 werkdagen van me horen.
+        </p>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
