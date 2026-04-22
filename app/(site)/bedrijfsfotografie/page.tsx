@@ -29,7 +29,7 @@ export default async function BedrijfsfotografiePage() {
   const photos: PhotoItem[] =
     sanityPhotos.length > 0
       ? sanityPhotos.map((p: any) => ({
-          src:   urlFor(p.image).width(1600).quality(80).url(),
+          src:   urlFor(p.image).width(1200).quality(80).url(),
           alt:   p.alt,
           title: p.title,
           meta:  p.meta,
@@ -46,50 +46,51 @@ export default async function BedrijfsfotografiePage() {
       {/* ── Header ─────────────────────────────────── */}
       <section className="px-7 lg:px-12 pt-20 lg:pt-24 pb-10 border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-4">Bedrijfsfotografie</p>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] text-ink max-w-xl">
-          {settings?.bedrijfTagline || "Beeld dat werkt voor je bedrijf."}
-        </h1>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] text-ink max-w-lg">
+            {settings?.bedrijfTagline || "Beeld dat werkt voor je bedrijf."}
+          </h1>
+          <Link href="/contact"
+            className="shrink-0 border border-ink px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-ink hover:bg-ink hover:text-white transition-all duration-300 self-start sm:self-auto">
+            Plan een shoot
+          </Link>
+        </div>
       </section>
 
-      {/* ── Portfolio — foto's eerst ────────────────── */}
+      {/* ── Foto grid — overzichtelijk 3-koloms ─────── */}
       {photos.length > 0 && (
-        <section className="border-b border-border">
-          {/* Grote hero-foto */}
-          <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9", maxHeight: "70vh" }}>
-            <Image
-              src={photos[0].src}
-              alt={photos[0].alt}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
+        <section className="px-7 lg:px-12 py-12 border-b border-border">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+            {photos.map((p, i) => (
+              <div
+                key={i}
+                className="relative overflow-hidden bg-surface"
+                style={{ aspectRatio: "4/5" }}
+              >
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 33vw"
+                  className="object-cover hover:scale-[1.03] transition-transform duration-500"
+                />
+                {(p.title || p.meta) && (
+                  <div className="absolute bottom-0 left-0 right-0 px-3 py-3 opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4), transparent)" }}>
+                    {p.title && <p className="text-[10px] text-white font-medium">{p.title}</p>}
+                    {p.meta  && <p className="text-[9px] text-white/60">{p.meta}</p>}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-
-          {/* Grid: rest van de foto's */}
-          {photos.length > 1 && (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-              {photos.slice(1).map((p, i) => (
-                <div key={i} className="relative bg-white overflow-hidden"
-                  style={{ aspectRatio: i % 4 === 0 ? "4/5" : "1/1" }}>
-                  <Image
-                    src={p.src}
-                    alt={p.alt}
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
         </section>
       )}
 
-      {/* ── Diensten — compact lijst ────────────────── */}
+      {/* ── Diensten ───────────────────────────────── */}
       <section className="px-7 lg:px-12 py-12 lg:py-16 border-b border-border">
         <p className="text-[9px] uppercase tracking-[0.28em] text-muted mb-8">Wat ik doe</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
           {diensten.map((d: { title: string; desc: string }, i: number) => (
             <div key={d.title} className="py-5 border-t border-border flex gap-5 items-start">
               <span className="text-[9px] uppercase tracking-[0.2em] text-faint shrink-0 pt-0.5">
@@ -106,15 +107,13 @@ export default async function BedrijfsfotografiePage() {
 
       {/* ── CTA ────────────────────────────────────── */}
       <section className="px-7 lg:px-12 py-10 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-        <div>
-          <p className="text-sm text-ink/60 max-w-sm leading-relaxed">
-            {settings?.bedrijfIntro || "Voor bedrijven, merken en organisaties die echt willen laten zien wie ze zijn."}
-          </p>
-        </div>
+        <p className="text-sm text-ink/50 max-w-sm leading-relaxed">
+          {settings?.bedrijfIntro || "Voor bedrijven, merken en organisaties die echt willen laten zien wie ze zijn."}
+        </p>
         <div className="flex gap-3 shrink-0">
           <Link href="/contact"
             className="border border-ink px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-ink hover:bg-ink hover:text-white transition-all duration-300">
-            Plan een shoot
+            Contact
           </Link>
           <Link href="/cases"
             className="border border-border px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-muted hover:border-ink hover:text-ink transition-all duration-300">
