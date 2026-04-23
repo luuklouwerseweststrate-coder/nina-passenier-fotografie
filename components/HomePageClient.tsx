@@ -149,14 +149,15 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
       {/* ══ GALERIJ ════════════════════════════════════════════════ */}
       <section className="px-6 lg:px-12 pt-2 pb-20">
 
-        {/* Desktop header — "Selectie" verborgen op mobiel */}
-        <div className="flex items-baseline justify-between mb-2 lg:mb-6">
-          <p className="hidden lg:block text-[9px] uppercase tracking-[0.32em] text-muted">Selectie</p>
-          <div className="flex gap-5 ml-auto">
+        {/* Header: labels boven de juiste helft */}
+        <div className="flex mb-2 lg:mb-6">
+          <div className="w-1/2">
             <Link href="/bedrijfsfotografie"
               className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
               Bedrijfsfotografie →
             </Link>
+          </div>
+          <div className="w-1/2">
             <Link href="/autonoom-werk"
               className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
               Autonoom werk →
