@@ -22,9 +22,10 @@ export default async function Footer() {
 
         <div className="flex items-center gap-5 text-[9px] uppercase tracking-[0.22em] text-muted">
           <span>{location}</span>
+          {/* Email verborgen op mobiel — te lang voor kleine schermen */}
           <a
             href={`mailto:${email}`}
-            className="hover:text-ink transition-colors"
+            className="hidden sm:block hover:text-ink transition-colors"
           >
             {email}
           </a>
