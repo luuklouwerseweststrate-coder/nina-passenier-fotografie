@@ -84,12 +84,35 @@ export default async function HomePage() {
   const featured  = makeFeatured(allCases[0], sanityCases.length > 0);
   const featured2 = makeFeatured(allCases[1] ?? allCases[0], sanityCases.length > 0);
 
-  // Gallery: case covers als losse klikbare items
-  const galleryCases = allCases.slice(0, 6).map((raw: any, i: number) => ({
-    src:  raw.cover?.asset ? urlFor(raw.cover).width(1600).quality(92).url() : raw.cover ?? "",
-    alt:  raw.client ?? `Project ${i + 1}`,
-    href: `/cases/${sanityCases.length > 0 ? raw.slug?.current : raw.slug}`,
-  }));
+  // Gallery: gemixte foto's van bedrijfsfotografie en autonoom werk
+  // Afwisselend bedrijf/autonoom zodat de mix zichtbaar is
+  const maxPerType = 4;
+  const bedrijfBron = sanityBusinessPhotos.length > 0 ? sanityBusinessPhotos : fallbackBusinessPhotos;
+  const autonomBron = sanityArtPhotos.length > 0 ? sanityArtPhotos : fallbackArtPhotos;
+  const fromSanityBedrijf = sanityBusinessPhotos.length > 0;
+  const fromSanityAutonoom = sanityArtPhotos.length > 0;
+
+  const galleryPhotos: { src: string; alt: string; href: string }[] = [];
+  for (let i = 0; i < maxPerType; i++) {
+    if (bedrijfBron[i]) {
+      galleryPhotos.push({
+        src: fromSanityBedrijf
+          ? urlFor((bedrijfBron[i] as any).image).width(1600).quality(92).url()
+          : (bedrijfBron[i] as any).src,
+        alt: (bedrijfBron[i] as any).alt || "Bedrijfsfotografie Nina Passenier",
+        href: "/bedrijfsfotografie",
+      });
+    }
+    if (autonomBron[i]) {
+      galleryPhotos.push({
+        src: fromSanityAutonoom
+          ? urlFor((autonomBron[i] as any).image).width(1600).quality(92).url()
+          : (autonomBron[i] as any).src,
+        alt: (autonomBron[i] as any).alt || "Autonoom werk Nina Passenier",
+        href: "/autonoom-werk",
+      });
+    }
+  }
 
   return (
     <HomePageClient
@@ -102,7 +125,7 @@ export default async function HomePage() {
       heroStrip={heroStrip}
       featured={featured}
       featured2={featured2}
-      galleryCases={galleryCases}
+      galleryPhotos={galleryPhotos}
       heroTagline={settings?.heroTagline}
       heroSubtitel={settings?.heroSubtitel}
       introTekst={settings?.introTekst}

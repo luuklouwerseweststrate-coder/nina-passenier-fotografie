@@ -25,13 +25,13 @@ type Props = {
   beschikbaarTekst?: string;
   igFeedBedrijf?: string;
   igFeedVrijwerk?: string;
-  galleryCases?: GalleryItem[];
+  galleryPhotos?: GalleryItem[];
 };
 
-export default function HomePageClient({ businessPhotos, artPhotos, galleryCases }: Props) {
+export default function HomePageClient({ businessPhotos, artPhotos, galleryPhotos }: Props) {
   const bedrijfImg = businessPhotos[0]?.src || "";
   const vrijImg    = artPhotos[0]?.src || "";
-  const galleryItems = galleryCases ?? [];
+  const galleryItems = galleryPhotos ?? [];
 
   return (
     <div className="bg-white">
@@ -104,7 +104,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
 
       {/* ══ SCROLL HINT ════════════════════════════════════════════ */}
       <div className="flex flex-col items-center py-8 gap-2">
-        <span className="text-[8px] uppercase tracking-[0.35em] text-faint">Projecten</span>
+        <span className="text-[8px] uppercase tracking-[0.35em] text-faint">Werk</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
@@ -122,11 +122,17 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
 
         {/* Titel */}
         <div className="flex items-baseline justify-between mb-2 lg:mb-4">
-          <p className="text-[9px] uppercase tracking-[0.32em] text-muted">Projecten</p>
-          <Link href="/cases"
-            className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
-            Alle cases →
-          </Link>
+          <p className="text-[9px] uppercase tracking-[0.32em] text-muted">Selectie</p>
+          <div className="flex gap-5">
+            <Link href="/bedrijfsfotografie"
+              className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
+              Bedrijfsfotografie →
+            </Link>
+            <Link href="/autonoom-werk"
+              className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
+              Autonoom werk →
+            </Link>
+          </div>
         </div>
 
         {/* Desktop: scattered — elk project individueel klikbaar */}
@@ -146,7 +152,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
                 const slot = slots[i % slots.length];
                 return (
                   <Link
-                    key={item.href}
+                    key={i}
                     href={item.href}
                     className="group absolute overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
                     style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
@@ -173,7 +179,7 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryCases
                 const slot = mobileSlots[i % mobileSlots.length];
                 return (
                   <Link
-                    key={item.href}
+                    key={i}
                     href={item.href}
                     className="group absolute overflow-hidden shadow-sm"
                     style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
