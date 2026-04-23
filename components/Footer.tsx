@@ -5,8 +5,8 @@ import { settingsQuery } from "@/sanity/lib/queries";
 export default async function Footer() {
   const settings = await client.fetch(settingsQuery).catch(() => null);
 
-  const email     = settings?.email     || "hallo@ninapassenier.nl";
-  const instagram = settings?.instagram || "ninapassenierfotografie";
+  const email     = settings?.email     || "ninapassenierfotografie@gmail.com";
+  const instagram = settings?.instagram || "ninapassenier.fotografie";
   const location  = settings?.location  || "Rotterdam";
 
   return (
