@@ -28,16 +28,19 @@ type Props = {
   galleryPhotos?: GalleryItem[];
 };
 
-// 8 unieke slots zodat er nooit overlap is bij 8 foto's
-const DESKTOP_SLOTS = [
-  { left: "1%",  top: "2%",  width: "16%", rotate: "-1.8deg", aspect: "133%" },
-  { left: "19%", top: "0%",  width: "22%", rotate: "1.2deg",  aspect: "65%"  },
-  { left: "44%", top: "3%",  width: "15%", rotate: "-0.5deg", aspect: "133%" },
-  { left: "62%", top: "0%",  width: "21%", rotate: "2deg",    aspect: "65%"  },
-  { left: "3%",  top: "50%", width: "20%", rotate: "0.8deg",  aspect: "65%"  },
-  { left: "26%", top: "48%", width: "14%", rotate: "-1.5deg", aspect: "133%" },
-  { left: "43%", top: "51%", width: "22%", rotate: "1.8deg",  aspect: "65%"  },
-  { left: "67%", top: "49%", width: "14%", rotate: "-2deg",   aspect: "133%" },
+// Desktop: links=bedrijf (max right edge ~46%), rechts=autonoom (min left ~54%)
+// Het witte streepje in het midden spiegelt de gap in de hero
+const DESKTOP_BEDRIJF_SLOTS = [
+  { left: "1%",  top: "3%",  width: "22%", rotate: "-1.8deg", aspect: "133%" },
+  { left: "25%", top: "0%",  width: "21%", rotate: "1deg",    aspect: "65%"  },
+  { left: "2%",  top: "51%", width: "21%", rotate: "0.8deg",  aspect: "65%"  },
+  { left: "24%", top: "49%", width: "18%", rotate: "-1.5deg", aspect: "130%" },
+];
+const DESKTOP_AUTONOOM_SLOTS = [
+  { left: "54%", top: "0%",  width: "22%", rotate: "1.5deg",  aspect: "65%"  },
+  { left: "78%", top: "3%",  width: "18%", rotate: "-0.8deg", aspect: "130%" },
+  { left: "56%", top: "49%", width: "18%", rotate: "-1.2deg", aspect: "130%" },
+  { left: "77%", top: "51%", width: "20%", rotate: "2deg",    aspect: "65%"  },
 ];
 
 export default function HomePageClient({ businessPhotos, artPhotos, galleryPhotos }: Props) {
@@ -163,30 +166,47 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
 
         {galleryItems.length > 0 && (
           <>
-            {/* ── DESKTOP: scattered, 8 vaste slots ─────────────── */}
-            <div className="relative hidden lg:block" style={{ minHeight: "780px" }}>
-              {galleryItems.slice(0, DESKTOP_SLOTS.length).map((item, i) => {
-                const slot = DESKTOP_SLOTS[i];
+            {/* ── DESKTOP: scattered, links=bedrijf rechts=autonoom ── */}
+            <div className="relative hidden lg:block" style={{ minHeight: "760px" }}>
+
+              {/* Verticale middenlijn — spiegelt de gap van de hero */}
+              <div className="absolute top-0 bottom-0 w-px bg-white"
+                style={{ left: "50%", zIndex: 20 }} />
+
+              {/* Linker helft — bedrijfsfotografie */}
+              {DESKTOP_BEDRIJF_SLOTS.map((slot, i) => {
+                const item = bedrijfItems[i];
+                if (!item) return null;
                 return (
-                  <Link
-                    key={i}
-                    href={item.href}
+                  <Link key={`db${i}`} href={item.href}
                     className="group absolute overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
-                  >
+                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}>
                     <div className="relative w-full" style={{ paddingTop: slot.aspect }}>
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        fill
-                        sizes="22vw"
+                      <Image src={item.src} alt={item.alt} fill sizes="25vw"
                         className="object-cover"
-                        style={{ objectPosition: item.objectPosition || "center center" }}
-                      />
+                        style={{ objectPosition: item.objectPosition || "center center" }} />
                     </div>
                   </Link>
                 );
               })}
+
+              {/* Rechter helft — autonoom werk */}
+              {DESKTOP_AUTONOOM_SLOTS.map((slot, i) => {
+                const item = autonomItems[i];
+                if (!item) return null;
+                return (
+                  <Link key={`da${i}`} href={item.href}
+                    className="group absolute overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}>
+                    <div className="relative w-full" style={{ paddingTop: slot.aspect }}>
+                      <Image src={item.src} alt={item.alt} fill sizes="25vw"
+                        className="object-cover"
+                        style={{ objectPosition: item.objectPosition || "center center" }} />
+                    </div>
+                  </Link>
+                );
+              })}
+
             </div>
 
             {/* ── MOBIEL: scattered, links=bedrijf rechts=autonoom ── */}
