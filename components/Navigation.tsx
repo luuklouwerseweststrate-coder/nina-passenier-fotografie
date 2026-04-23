@@ -86,28 +86,25 @@ export default function Navigation() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] flex flex-col"
-            style={{ backgroundColor: "rgba(248, 247, 244, 0.88)", backdropFilter: "blur(8px)" }}
+            style={{ backgroundColor: "rgba(20, 20, 20, 0.65)", backdropFilter: "blur(3px)" }}
           >
-            {/* Topbar in overlay: naam links, naam + X rechts */}
+            {/* Topbar: X links, naam rechts — zoals ACDB */}
             <div className="flex items-center justify-between h-16 px-5 lg:px-8 shrink-0">
-              {/* Links: lege ruimte (hamburger zit onder het overlay) */}
-              <div className="w-8" />
+              {/* Links: X sluitknop */}
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Sluiten"
+                className="text-white/60 hover:text-white transition-colors"
+              >
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </button>
 
-              {/* Rechts: naam + X */}
-              <div className="flex items-center gap-5">
-                <span className="text-[9px] uppercase tracking-[0.22em] text-ink/40">
-                  Nina Passenier Fotografie
-                </span>
-                <button
-                  onClick={() => setOpen(false)}
-                  aria-label="Sluiten"
-                  className="text-ink/50 hover:text-ink transition-colors"
-                >
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
+              {/* Rechts: naam */}
+              <span className="text-[9px] uppercase tracking-[0.22em] text-white/50">
+                Nina Passenier Fotografie
+              </span>
             </div>
 
             {/* Links */}
@@ -122,7 +119,7 @@ export default function Navigation() {
                   <Link
                     href={l.href}
                     className={`block py-3 text-center text-3xl lg:text-5xl uppercase tracking-[0.12em] font-normal transition-colors duration-150 ${
-                      pathname === l.href ? "text-ink" : "text-ink/30 hover:text-ink"
+                      pathname === l.href ? "text-white" : "text-white/35 hover:text-white"
                     }`}
                   >
                     {l.label}
@@ -136,7 +133,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="pb-6 text-center text-[9px] uppercase tracking-[0.3em] text-ink/20"
+              className="pb-6 text-center text-[9px] uppercase tracking-[0.3em] text-white/20"
             >
               Rotterdam &mdash; Fotografie
             </motion.div>
