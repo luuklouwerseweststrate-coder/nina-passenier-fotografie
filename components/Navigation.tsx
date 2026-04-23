@@ -63,7 +63,7 @@ export default function Navigation() {
           <Link
             href="/"
             aria-label="Home"
-            className={`text-base sm:text-lg tracking-[0.12em] uppercase font-medium whitespace-nowrap transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
+            className="text-base sm:text-lg tracking-[0.12em] uppercase font-medium whitespace-nowrap"
           >
             Nina Passenier
           </Link>
@@ -88,21 +88,30 @@ export default function Navigation() {
             className="fixed inset-0 z-[60] flex flex-col"
             style={{ backgroundColor: "rgba(20, 20, 20, 0.65)", backdropFilter: "blur(3px)" }}
           >
-            {/* Topbar: X links, naam rechts — zoals ACDB */}
-            <div className="flex items-center justify-between h-16 px-5 lg:px-8 shrink-0">
+            {/* Topbar: spiegelt de header — X links, logo midden wit, naam rechts */}
+            <div className="grid grid-cols-3 items-center h-16 px-5 lg:px-8 shrink-0">
               {/* Links: X sluitknop */}
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Sluiten"
-                className="text-white hover:text-white/70 transition-colors"
+                className="text-white hover:text-white/70 transition-colors justify-self-start"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </button>
 
-              {/* Rechts: naam */}
-              <span className="text-[9px] uppercase tracking-[0.22em] text-white">
+              {/* Midden: logo in wit */}
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="text-base sm:text-lg tracking-[0.12em] uppercase font-medium whitespace-nowrap text-white justify-self-center"
+              >
+                Nina Passenier
+              </Link>
+
+              {/* Rechts: naam label */}
+              <span className="text-[9px] uppercase tracking-[0.22em] text-white justify-self-end">
                 Nina Passenier Fotografie
               </span>
             </div>
