@@ -119,7 +119,7 @@ export default function Navigation() {
                   <Link
                     href={l.href}
                     className={`block py-3 text-center text-3xl lg:text-5xl uppercase tracking-[0.12em] font-normal transition-colors duration-150 ${
-                      pathname === l.href ? "text-white" : "text-white/70 hover:text-white"
+                      "text-white"
                     }`}
                   >
                     {l.label}
