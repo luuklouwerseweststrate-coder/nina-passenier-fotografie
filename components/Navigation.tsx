@@ -94,7 +94,7 @@ export default function Navigation() {
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Sluiten"
-                className="text-white/60 hover:text-white transition-colors"
+                className="text-white hover:text-white/70 transition-colors"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -102,7 +102,7 @@ export default function Navigation() {
               </button>
 
               {/* Rechts: naam */}
-              <span className="text-[9px] uppercase tracking-[0.22em] text-white/50">
+              <span className="text-[9px] uppercase tracking-[0.22em] text-white">
                 Nina Passenier Fotografie
               </span>
             </div>
@@ -119,7 +119,7 @@ export default function Navigation() {
                   <Link
                     href={l.href}
                     className={`block py-3 text-center text-3xl lg:text-5xl uppercase tracking-[0.12em] font-normal transition-colors duration-150 ${
-                      pathname === l.href ? "text-white" : "text-white/35 hover:text-white"
+                      pathname === l.href ? "text-white" : "text-white/70 hover:text-white"
                     }`}
                   >
                     {l.label}
@@ -133,7 +133,7 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="pb-6 text-center text-[9px] uppercase tracking-[0.3em] text-white/20"
+              className="pb-6 text-center text-[9px] uppercase tracking-[0.3em] text-white/50"
             >
               Rotterdam &mdash; Fotografie
             </motion.div>
