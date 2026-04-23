@@ -12,6 +12,10 @@ type Props = {
   heroImage: string;
   businessPhoto: string;
   artPhoto: string;
+  bedrijfHeroDesktop?: string;
+  bedrijfHeroMobile?: string;
+  autonomHeroDesktop?: string;
+  autonomHeroMobile?: string;
   businessPhotos: Photo[];
   artPhotos: Photo[];
   ninaPortret: string;
@@ -43,9 +47,16 @@ const DESKTOP_AUTONOOM_SLOTS = [
   { left: "77%", top: "51%", width: "20%", rotate: "2deg",    aspect: "65%"  },
 ];
 
-export default function HomePageClient({ businessPhotos, artPhotos, galleryPhotos }: Props) {
-  const bedrijfImg = businessPhotos[0]?.src || "";
-  const vrijImg    = artPhotos[0]?.src || "";
+export default function HomePageClient({
+  businessPhotos, artPhotos, galleryPhotos,
+  bedrijfHeroDesktop, bedrijfHeroMobile,
+  autonomHeroDesktop, autonomHeroMobile,
+}: Props) {
+  // Fallback op de eerste foto als de aparte hero-props ontbreken
+  const bedrijfDesktop = bedrijfHeroDesktop || businessPhotos[0]?.src || "";
+  const bedrijfMobiel  = bedrijfHeroMobile  || businessPhotos[0]?.src || "";
+  const vrijDesktop    = autonomHeroDesktop  || artPhotos[0]?.src || "";
+  const vrijMobiel     = autonomHeroMobile   || artPhotos[0]?.src || "";
   const galleryItems = galleryPhotos ?? [];
 
   // Splitsen voor mobiel — filter op href
@@ -68,15 +79,15 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
           {/* Kolom 1: Bedrijfsfotografie */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/bedrijfsfotografie" className="group block absolute inset-0">
-              {bedrijfImg && (
-                <Image
-                  src={bedrijfImg}
-                  alt="Bedrijfsfotografie"
-                  fill
-                  sizes="50vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]"
-                  style={{ objectPosition: businessPhotos[0]?.objectPosition || "center center" }}
-                />
+              {/* Desktop: breed crop via Sanity (hotspot gecentreerd op 1600×900) */}
+              {bedrijfDesktop && (
+                <Image src={bedrijfDesktop} alt="Bedrijfsfotografie" fill sizes="50vw"
+                  className="hidden lg:block object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
+              )}
+              {/* Mobiel: portret crop via Sanity (hotspot gecentreerd op 420×820) */}
+              {bedrijfMobiel && (
+                <Image src={bedrijfMobiel} alt="Bedrijfsfotografie" fill sizes="50vw"
+                  className="lg:hidden object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
               )}
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
@@ -91,15 +102,15 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
           {/* Kolom 2: Autonoom werk */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/autonoom-werk" className="group block absolute inset-0">
-              {vrijImg && (
-                <Image
-                  src={vrijImg}
-                  alt="Autonoom werk"
-                  fill
-                  sizes="50vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]"
-                  style={{ objectPosition: artPhotos[0]?.objectPosition || "center center" }}
-                />
+              {/* Desktop: breed crop */}
+              {vrijDesktop && (
+                <Image src={vrijDesktop} alt="Autonoom werk" fill sizes="50vw"
+                  className="hidden lg:block object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
+              )}
+              {/* Mobiel: portret crop */}
+              {vrijMobiel && (
+                <Image src={vrijMobiel} alt="Autonoom werk" fill sizes="50vw"
+                  className="lg:hidden object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
               )}
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />

@@ -51,11 +51,26 @@ export default async function HomePage() {
     return `${Math.round(h.x * 100)}% ${Math.round(h.y * 100)}%`;
   };
 
-  // Bedrijfsfoto's (eerste voor split-screen hero, meerdere voor kolom)
-  const businessPhoto =
-    sanityBusinessPhotos.length > 0
-      ? urlFor(sanityBusinessPhotos[0].image).width(3200).quality(92).url()
-      : fallbackBusinessPhotos[0].src;
+  // Hero foto's: aparte server-side crops voor desktop (breed) en mobiel (smal/portret)
+  // Sanity past de hotspot automatisch toe bij fit('crop') met expliciete width+height
+  const makeHeroUrls = (img: any, fallbackSrc: string) => {
+    if (!img) return { src: fallbackSrc, srcMobile: fallbackSrc };
+    return {
+      src:       urlFor(img).width(1600).height(900).fit("crop").quality(92).url(),
+      srcMobile: urlFor(img).width(420).height(820).fit("crop").quality(92).url(),
+    };
+  };
+
+  const bedrijfHero = sanityBusinessPhotos.length > 0
+    ? makeHeroUrls(sanityBusinessPhotos[0].image, fallbackBusinessPhotos[0].src)
+    : { src: fallbackBusinessPhotos[0].src, srcMobile: fallbackBusinessPhotos[0].src };
+
+  const autonomHero = sanityArtPhotos.length > 0
+    ? makeHeroUrls(sanityArtPhotos[0].image, fallbackArtPhotos[0].src)
+    : { src: fallbackArtPhotos[0].src, srcMobile: fallbackArtPhotos[0].src };
+
+  // Bedrijfsfoto's voor galerij (thumbnail-formaat, objectPosition voor kleine bijstelling)
+  const businessPhoto = bedrijfHero.src;
 
   const businessPhotos: { src: string; alt: string; objectPosition?: string }[] =
     sanityBusinessPhotos.length > 0
@@ -66,11 +81,8 @@ export default async function HomePage() {
         }))
       : fallbackBusinessPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
 
-  // Kunstfoto's (eerste voor split-screen hero, meerdere voor kolom)
-  const artPhoto =
-    sanityArtPhotos.length > 0
-      ? urlFor(sanityArtPhotos[0].image).width(3200).quality(92).url()
-      : fallbackArtPhotos[0].src;
+  // Autonome foto's voor galerij
+  const artPhoto = autonomHero.src;
 
   const artPhotos: { src: string; alt: string; objectPosition?: string }[] =
     sanityArtPhotos.length > 0
@@ -128,6 +140,10 @@ export default async function HomePage() {
       heroImage={heroImage}
       businessPhoto={businessPhoto}
       artPhoto={artPhoto}
+      bedrijfHeroDesktop={bedrijfHero.src}
+      bedrijfHeroMobile={bedrijfHero.srcMobile}
+      autonomHeroDesktop={autonomHero.src}
+      autonomHeroMobile={autonomHero.srcMobile}
       businessPhotos={businessPhotos}
       artPhotos={artPhotos}
       ninaPortret={ninaPortret}
