@@ -149,15 +149,16 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
       {/* ══ GALERIJ ════════════════════════════════════════════════ */}
       <section className="px-6 lg:px-12 pt-2 pb-20">
 
-        {/* Header: labels boven de juiste helft */}
+        {/* Header: labels uitgelijnd met eerste foto per kolom */}
+        {/* Bedrijf start op 1%, autonoom op 54% — zelfde als de slot-posities */}
         <div className="flex mb-2 lg:mb-6">
-          <div className="w-1/2">
+          <div style={{ width: "54%" }}>
             <Link href="/bedrijfsfotografie"
               className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
               Bedrijfsfotografie →
             </Link>
           </div>
-          <div className="w-1/2">
+          <div style={{ width: "46%" }}>
             <Link href="/autonoom-werk"
               className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
               Autonoom werk →
