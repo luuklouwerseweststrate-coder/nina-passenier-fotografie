@@ -110,10 +110,12 @@ export default function Navigation() {
                 Nina Passenier
               </Link>
 
-              {/* Rechts: naam label */}
-              <span className="text-[9px] uppercase tracking-[0.22em] text-white justify-self-end">
+              {/* Rechts: naam label — verborgen op mobiel, overlapt anders het logo */}
+              <span className="hidden lg:block text-[9px] uppercase tracking-[0.22em] text-white justify-self-end">
                 Nina Passenier Fotografie
               </span>
+              {/* Mobiel: lege ruimte zodat grid klopt */}
+              <span className="lg:hidden" />
             </div>
 
             {/* Links */}
@@ -142,9 +144,16 @@ export default function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="pb-6 text-center text-[9px] uppercase tracking-[0.3em] text-white/50"
+              className="pb-6 text-center"
             >
-              Rotterdam &mdash; Fotografie
+              <a
+                href="https://www.instagram.com/ninapassenier.fotografie/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[9px] uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
+              >
+                @ninapassenier.fotografie
+              </a>
             </motion.div>
           </motion.div>
         )}
