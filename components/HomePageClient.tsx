@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-type Photo = { src: string; alt: string };
-type GalleryItem = { src: string; alt: string; href: string };
+type Photo = { src: string; alt: string; objectPosition?: string };
+type GalleryItem = { src: string; alt: string; href: string; objectPosition?: string };
 type FeaturedCase = { cover: string; client: string; intro: string; slug: string };
 
 type Props = {
@@ -28,10 +28,26 @@ type Props = {
   galleryPhotos?: GalleryItem[];
 };
 
+// 8 unieke slots zodat er nooit overlap is bij 8 foto's
+const DESKTOP_SLOTS = [
+  { left: "1%",  top: "2%",  width: "16%", rotate: "-1.8deg", aspect: "133%" },
+  { left: "19%", top: "0%",  width: "22%", rotate: "1.2deg",  aspect: "65%"  },
+  { left: "44%", top: "3%",  width: "15%", rotate: "-0.5deg", aspect: "133%" },
+  { left: "62%", top: "0%",  width: "21%", rotate: "2deg",    aspect: "65%"  },
+  { left: "3%",  top: "50%", width: "20%", rotate: "0.8deg",  aspect: "65%"  },
+  { left: "26%", top: "48%", width: "14%", rotate: "-1.5deg", aspect: "133%" },
+  { left: "43%", top: "51%", width: "22%", rotate: "1.8deg",  aspect: "65%"  },
+  { left: "67%", top: "49%", width: "14%", rotate: "-2deg",   aspect: "133%" },
+];
+
 export default function HomePageClient({ businessPhotos, artPhotos, galleryPhotos }: Props) {
   const bedrijfImg = businessPhotos[0]?.src || "";
   const vrijImg    = artPhotos[0]?.src || "";
   const galleryItems = galleryPhotos ?? [];
+
+  // Splitsen voor mobiel — filter op href
+  const bedrijfItems = galleryItems.filter((g) => g.href === "/bedrijfsfotografie");
+  const autonomItems = galleryItems.filter((g) => g.href === "/autonoom-werk");
 
   return (
     <div className="bg-white">
@@ -44,15 +60,20 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
           className="flex gap-4 lg:gap-6"
           style={{ height: "58vh", minHeight: "360px" }}
         >
-          {/* Witruimte links */}
           <div className="hidden lg:block w-7 shrink-0" />
 
           {/* Kolom 1: Bedrijfsfotografie */}
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/bedrijfsfotografie" className="group block absolute inset-0">
               {bedrijfImg && (
-                <Image src={bedrijfImg} alt="Bedrijfsfotografie" fill sizes="50vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
+                <Image
+                  src={bedrijfImg}
+                  alt="Bedrijfsfotografie"
+                  fill
+                  sizes="50vw"
+                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]"
+                  style={{ objectPosition: businessPhotos[0]?.objectPosition || "center center" }}
+                />
               )}
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
@@ -68,8 +89,14 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
           <div className="relative overflow-hidden" style={{ flex: "1 1 0%" }}>
             <Link href="/autonoom-werk" className="group block absolute inset-0">
               {vrijImg && (
-                <Image src={vrijImg} alt="Autonoom werk" fill sizes="50vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]" />
+                <Image
+                  src={vrijImg}
+                  alt="Autonoom werk"
+                  fill
+                  sizes="50vw"
+                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035]"
+                  style={{ objectPosition: artPhotos[0]?.objectPosition || "center center" }}
+                />
               )}
               <div className="absolute inset-0"
                 style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%)" }} />
@@ -81,17 +108,16 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
             </Link>
           </div>
 
-          {/* Witruimte rechts */}
           <div className="hidden lg:block w-7 shrink-0" />
         </section>
 
-        {/* Navigatielinks — zitten in de hero wrapper */}
+        {/* Navigatielinks */}
         <div className="px-8 lg:px-12 py-5 flex gap-x-5 sm:gap-x-8 gap-y-2 flex-nowrap overflow-x-auto no-scrollbar">
           {[
-            { href: "/cases",    label: "Cases"    },
-            { href: "/over",     label: "Over"     },
-            { href: "/werkwijze",label: "Werkwijze"},
-            { href: "/contact",  label: "Contact"  },
+            { href: "/cases",     label: "Cases"     },
+            { href: "/over",      label: "Over"      },
+            { href: "/werkwijze", label: "Werkwijze" },
+            { href: "/contact",   label: "Contact"   },
           ].map((l) => (
             <Link key={l.href} href={l.href}
               className="text-[10px] sm:text-[13px] uppercase tracking-[0.18em] sm:tracking-[0.22em] font-medium text-ink hover:text-muted transition-colors whitespace-nowrap shrink-0">
@@ -117,13 +143,13 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
         </motion.div>
       </div>
 
-      {/* ══ SCATTERED GALERIJ — piekt net onder de vouw ════════════ */}
+      {/* ══ GALERIJ ════════════════════════════════════════════════ */}
       <section className="px-6 lg:px-12 pt-2 pb-20">
 
-        {/* Titel */}
-        <div className="flex items-baseline justify-between mb-2 lg:mb-4">
-          <p className="text-[9px] uppercase tracking-[0.32em] text-muted">Selectie</p>
-          <div className="flex gap-5">
+        {/* Desktop header — "Selectie" verborgen op mobiel */}
+        <div className="flex items-baseline justify-between mb-2 lg:mb-6">
+          <p className="hidden lg:block text-[9px] uppercase tracking-[0.32em] text-muted">Selectie</p>
+          <div className="flex gap-5 ml-auto">
             <Link href="/bedrijfsfotografie"
               className="text-[9px] uppercase tracking-[0.22em] text-faint hover:text-ink transition-colors">
               Bedrijfsfotografie →
@@ -135,21 +161,12 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
           </div>
         </div>
 
-        {/* Desktop: scattered — elk project individueel klikbaar */}
         {galleryItems.length > 0 && (
           <>
-            <div className="relative hidden lg:block" style={{ minHeight: "480px" }}>
-              {galleryItems.map((item, i) => {
-                const slots = [
-                  { left: "2%",  top: "5%",  width: "15%", rotate: "-1.8deg" },
-                  { left: "20%", top: "2%",  width: "20%", rotate: "1deg"    },
-                  { left: "62%", top: "4%",  width: "14%", rotate: "1.8deg"  },
-                  { left: "42%", top: "8%",  width: "16%", rotate: "-0.6deg" },
-                  { left: "5%",  top: "58%", width: "16%", rotate: "-0.8deg" },
-                  { left: "38%", top: "53%", width: "13%", rotate: "1.5deg"  },
-                  { left: "58%", top: "48%", width: "18%", rotate: "-1.2deg" },
-                ];
-                const slot = slots[i % slots.length];
+            {/* ── DESKTOP: scattered, 8 vaste slots ─────────────── */}
+            <div className="relative hidden lg:block" style={{ minHeight: "780px" }}>
+              {galleryItems.slice(0, DESKTOP_SLOTS.length).map((item, i) => {
+                const slot = DESKTOP_SLOTS[i];
                 return (
                   <Link
                     key={i}
@@ -157,39 +174,70 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
                     className="group absolute overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
                     style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
                   >
-                    <div className="relative w-full" style={{ paddingTop: i % 3 === 0 ? "133%" : i % 3 === 1 ? "62%" : "100%" }}>
-                      <Image src={item.src} alt={item.alt} fill sizes="20vw" className="object-cover" />
+                    <div className="relative w-full" style={{ paddingTop: slot.aspect }}>
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        fill
+                        sizes="22vw"
+                        className="object-cover"
+                        style={{ objectPosition: item.objectPosition || "center center" }}
+                      />
                     </div>
                   </Link>
                 );
               })}
             </div>
 
-            {/* Mobiel: scattered met grotere percentages */}
-            <div className="lg:hidden relative" style={{ minHeight: "520px" }}>
-              {galleryItems.map((item, i) => {
-                const mobileSlots = [
-                  { left: "4%",  top: "2%",  width: "44%", rotate: "-2deg"   },
-                  { left: "50%", top: "5%",  width: "42%", rotate: "1.5deg"  },
-                  { left: "12%", top: "36%", width: "38%", rotate: "-1deg"   },
-                  { left: "52%", top: "40%", width: "40%", rotate: "2deg"    },
-                  { left: "6%",  top: "68%", width: "42%", rotate: "-1.5deg" },
-                  { left: "46%", top: "70%", width: "38%", rotate: "1deg"    },
-                ];
-                const slot = mobileSlots[i % mobileSlots.length];
-                return (
-                  <Link
-                    key={i}
-                    href={item.href}
-                    className="group absolute overflow-hidden shadow-sm"
-                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}
-                  >
-                    <div className="relative w-full" style={{ paddingTop: i % 3 === 0 ? "133%" : i % 3 === 1 ? "65%" : "100%" }}>
-                      <Image src={item.src} alt={item.alt} fill sizes="45vw" className="object-cover" />
-                    </div>
-                  </Link>
-                );
-              })}
+            {/* ── MOBIEL: per categorie met label ────────────────── */}
+            <div className="lg:hidden space-y-10">
+
+              {bedrijfItems.length > 0 && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-[0.32em] text-muted mb-3">
+                    Bedrijfsfotografie
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {bedrijfItems.map((item, i) => (
+                      <Link key={i} href={item.href} className="relative block overflow-hidden"
+                        style={{ paddingBottom: i % 2 === 0 ? "130%" : "75%" }}>
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          fill
+                          sizes="45vw"
+                          className="object-cover absolute inset-0"
+                          style={{ objectPosition: item.objectPosition || "center center" }}
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {autonomItems.length > 0 && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-[0.32em] text-muted mb-3">
+                    Autonoom werk
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {autonomItems.map((item, i) => (
+                      <Link key={i} href={item.href} className="relative block overflow-hidden"
+                        style={{ paddingBottom: i % 2 === 0 ? "130%" : "75%" }}>
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          fill
+                          sizes="45vw"
+                          className="object-cover absolute inset-0"
+                          style={{ objectPosition: item.objectPosition || "center center" }}
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
           </>
         )}

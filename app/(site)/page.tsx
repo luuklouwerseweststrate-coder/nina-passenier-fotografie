@@ -44,17 +44,25 @@ export default async function HomePage() {
         }))
       : fallbackHeroStrip.map((p) => ({ src: p.src, alt: p.alt }));
 
+  // Hotspot → CSS object-position helper
+  const hotspotPos = (img: any): string | undefined => {
+    const h = img?.hotspot;
+    if (!h) return undefined;
+    return `${Math.round(h.x * 100)}% ${Math.round(h.y * 100)}%`;
+  };
+
   // Bedrijfsfoto's (eerste voor split-screen hero, meerdere voor kolom)
   const businessPhoto =
     sanityBusinessPhotos.length > 0
       ? urlFor(sanityBusinessPhotos[0].image).width(3200).quality(92).url()
       : fallbackBusinessPhotos[0].src;
 
-  const businessPhotos: { src: string; alt: string }[] =
+  const businessPhotos: { src: string; alt: string; objectPosition?: string }[] =
     sanityBusinessPhotos.length > 0
       ? sanityBusinessPhotos.slice(0, 5).map((p: any) => ({
           src: urlFor(p.image).width(1800).quality(92).url(),
           alt: p.alt || "Bedrijfsfotografie Nina Passenier",
+          objectPosition: hotspotPos(p.image),
         }))
       : fallbackBusinessPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
 
@@ -64,11 +72,12 @@ export default async function HomePage() {
       ? urlFor(sanityArtPhotos[0].image).width(3200).quality(92).url()
       : fallbackArtPhotos[0].src;
 
-  const artPhotos: { src: string; alt: string }[] =
+  const artPhotos: { src: string; alt: string; objectPosition?: string }[] =
     sanityArtPhotos.length > 0
       ? sanityArtPhotos.slice(0, 5).map((p: any) => ({
           src: urlFor(p.image).width(1800).quality(92).url(),
           alt: p.alt || "Vrij werk Nina Passenier",
+          objectPosition: hotspotPos(p.image),
         }))
       : fallbackArtPhotos.slice(0, 5).map((p) => ({ src: p.src, alt: p.alt }));
 
@@ -92,24 +101,24 @@ export default async function HomePage() {
   const fromSanityBedrijf = sanityBusinessPhotos.length > 0;
   const fromSanityAutonoom = sanityArtPhotos.length > 0;
 
-  const galleryPhotos: { src: string; alt: string; href: string }[] = [];
+  const galleryPhotos: { src: string; alt: string; href: string; objectPosition?: string }[] = [];
   for (let i = 0; i < maxPerType; i++) {
     if (bedrijfBron[i]) {
+      const p = bedrijfBron[i] as any;
       galleryPhotos.push({
-        src: fromSanityBedrijf
-          ? urlFor((bedrijfBron[i] as any).image).width(1600).quality(92).url()
-          : (bedrijfBron[i] as any).src,
-        alt: (bedrijfBron[i] as any).alt || "Bedrijfsfotografie Nina Passenier",
+        src: fromSanityBedrijf ? urlFor(p.image).width(1600).quality(92).url() : p.src,
+        alt: p.alt || "Bedrijfsfotografie Nina Passenier",
         href: "/bedrijfsfotografie",
+        objectPosition: fromSanityBedrijf ? hotspotPos(p.image) : undefined,
       });
     }
     if (autonomBron[i]) {
+      const p = autonomBron[i] as any;
       galleryPhotos.push({
-        src: fromSanityAutonoom
-          ? urlFor((autonomBron[i] as any).image).width(1600).quality(92).url()
-          : (autonomBron[i] as any).src,
-        alt: (autonomBron[i] as any).alt || "Autonoom werk Nina Passenier",
+        src: fromSanityAutonoom ? urlFor(p.image).width(1600).quality(92).url() : p.src,
+        alt: p.alt || "Autonoom werk Nina Passenier",
         href: "/autonoom-werk",
+        objectPosition: fromSanityAutonoom ? hotspotPos(p.image) : undefined,
       });
     }
   }
