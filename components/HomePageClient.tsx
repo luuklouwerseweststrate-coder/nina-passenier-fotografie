@@ -189,54 +189,53 @@ export default function HomePageClient({ businessPhotos, artPhotos, galleryPhoto
               })}
             </div>
 
-            {/* ── MOBIEL: per categorie met label ────────────────── */}
-            <div className="lg:hidden space-y-10">
+            {/* ── MOBIEL: scattered, links=bedrijf rechts=autonoom ── */}
+            {/* De split van de hero loopt door: linker kolom = bedrijf, rechter kolom = autonoom */}
+            <div className="lg:hidden relative" style={{ minHeight: "920px" }}>
 
-              {bedrijfItems.length > 0 && (
-                <div>
-                  <p className="text-[9px] uppercase tracking-[0.32em] text-muted mb-3">
-                    Bedrijfsfotografie
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {bedrijfItems.map((item, i) => (
-                      <Link key={i} href={item.href} className="relative block overflow-hidden"
-                        style={{ paddingBottom: i % 2 === 0 ? "130%" : "75%" }}>
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          fill
-                          sizes="45vw"
-                          className="object-cover absolute inset-0"
-                          style={{ objectPosition: item.objectPosition || "center center" }}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Linker kolom — bedrijfsfotografie */}
+              {[
+                { left: "2%",  top: "0%",  width: "43%", rotate: "-1.5deg", aspect: "130%" },
+                { left: "4%",  top: "28%", width: "40%", rotate: "1deg",    aspect: "70%"  },
+                { left: "1%",  top: "52%", width: "44%", rotate: "-0.8deg", aspect: "125%" },
+                { left: "3%",  top: "77%", width: "41%", rotate: "1.5deg",  aspect: "70%"  },
+              ].map((slot, i) => {
+                const item = bedrijfItems[i];
+                if (!item) return null;
+                return (
+                  <Link key={`b${i}`} href={item.href}
+                    className="absolute overflow-hidden shadow-sm"
+                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}>
+                    <div className="relative w-full" style={{ paddingTop: slot.aspect }}>
+                      <Image src={item.src} alt={item.alt} fill sizes="45vw"
+                        className="object-cover"
+                        style={{ objectPosition: item.objectPosition || "center center" }} />
+                    </div>
+                  </Link>
+                );
+              })}
 
-              {autonomItems.length > 0 && (
-                <div>
-                  <p className="text-[9px] uppercase tracking-[0.32em] text-muted mb-3">
-                    Autonoom werk
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {autonomItems.map((item, i) => (
-                      <Link key={i} href={item.href} className="relative block overflow-hidden"
-                        style={{ paddingBottom: i % 2 === 0 ? "130%" : "75%" }}>
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          fill
-                          sizes="45vw"
-                          className="object-cover absolute inset-0"
-                          style={{ objectPosition: item.objectPosition || "center center" }}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Rechter kolom — autonoom werk */}
+              {[
+                { left: "53%", top: "5%",  width: "42%", rotate: "1.8deg",  aspect: "70%"  },
+                { left: "51%", top: "25%", width: "43%", rotate: "-1.2deg", aspect: "130%" },
+                { left: "54%", top: "53%", width: "40%", rotate: "1deg",    aspect: "70%"  },
+                { left: "52%", top: "74%", width: "44%", rotate: "-2deg",   aspect: "125%" },
+              ].map((slot, i) => {
+                const item = autonomItems[i];
+                if (!item) return null;
+                return (
+                  <Link key={`a${i}`} href={item.href}
+                    className="absolute overflow-hidden shadow-sm"
+                    style={{ left: slot.left, top: slot.top, width: slot.width, rotate: slot.rotate, zIndex: i + 1 }}>
+                    <div className="relative w-full" style={{ paddingTop: slot.aspect }}>
+                      <Image src={item.src} alt={item.alt} fill sizes="45vw"
+                        className="object-cover"
+                        style={{ objectPosition: item.objectPosition || "center center" }} />
+                    </div>
+                  </Link>
+                );
+              })}
 
             </div>
           </>
